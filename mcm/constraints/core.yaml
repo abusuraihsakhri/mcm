@@ -1,0 +1,90 @@
+# Example constraints for examples/app (spec sections 13 and 14).
+#
+# The first four are decidable against the relation graph. The last two are
+# claims about runtime values, taken from spec section 13, and are kept here
+# deliberately: they return UNEVALUATABLE naming what they would need, rather
+# than being omitted so the report looks clean.
+
+constraints:
+  - name: production_must_not_depend_on_tests
+    type: ARCHITECTURAL_CONSTRAINT
+    description: >
+      Application code must not reach into the test package. Checked
+      transitively, so a route through an intermediate module is caught.
+    predicate: forbid_dependency
+    parameters:
+      from:
+        id_glob: "repo://app/auth.py#*"
+      to:
+        id_glob: "repo://app/tests/*"
+
+  - name: auth_must_not_import_jwt_directly
+    type: ARCHITECTURAL_CONSTRAINT
+    description: >
+      The JWT library is reached only through jwt_provider, so that swapping it
+      touches one module. This is the constraint that makes the section 65
+      impact answer small.
+    predicate: forbid_relation
+    parameters:
+      relation: IMPORTS
+      from:
+        id_glob: "repo://app/auth.py#file"
+      to:
+        id_glob: "lib://jwt"
+
+  - name: entry_points_are_tested
+    type: TEST_CONSTRAINT
+    description: >
+      Every public function in auth.py must be exercised by a test, directly or
+      through a function a test calls.
+    scope:
+      type: Function
+      id_glob: "repo://app/auth.py#function:*"
+    predicate: require_test
+    parameters:
+      transitive: true
+      max_depth: 4
+
+  - name: token_creation_goes_through_provider
+    type: DEPENDENCY_CONSTRAINT
+    description: >
+      create_token must obtain its encoding from jwt_provider rather than
+      implementing one.
+    predicate: require_dependency
+    parameters:
+      from:
+        id_glob: "repo://app/auth.py#function:create_token"
+      to:
+        id_glob: "repo://app/jwt_provider.py#*"
+
+  - name: token_expiry_is_in_the_future
+    type: POSTCONDITION
+    description: >
+      Spec section 14's worked example. A claim about a value at runtime, not
+      about the relation graph.
+    scope:
+      id_glob: "repo://app/auth.py#function:authenticate"
+    expression: "token.expiry > now"
+
+  - name: authenticated_user_is_valid
+    type: PRECONDITION
+    description: >
+      Spec section 13's worked example.
+    scope:
+      id_glob: "repo://app/auth.py#function:authenticate"
+    expression: "user.valid == True"
+
+  - name: methods_are_tested
+    type: TEST_CONSTRAINT
+    description: >
+      Every method must be reachable from a test. This one fails on the current
+      fixture, and the failure is informative rather than incidental: no test
+      reaches User.is_active because the only call to it is
+      ``user.is_active()``, which ingestion refuses to resolve without type
+      inference. The constraint is reporting a real gap in what MCM knows.
+    scope:
+      type: Method
+    predicate: require_test
+    parameters:
+      transitive: true
+      max_depth: 4

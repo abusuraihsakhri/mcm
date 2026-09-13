@@ -1,0 +1,55 @@
+# Declarative inference rules (spec section 36).
+#
+# A premise is [type-or-types, arg, arg]. Names beginning with "?" are variables
+# and are unified across premises; anything else is a literal object ID.
+#
+# A premise naming an abstract type matches every type subsumed by it, so
+# DEPENDS_ON matches the CALLS and USES edges ingestion actually wrote. Rules are
+# therefore written against the algebra rather than against whichever concrete
+# edge types the current extractor happens to emit.
+#
+# Every conclusion is a derived relation. Nothing here can produce a fact
+# (spec Rule 2), which is enforced by requiring conclusion types to be
+# derived_only or to differ from every premise type.
+
+rules:
+  - name: transitive_dependency
+    description: >
+      Spec section 35. If A depends on B and B depends on C, then A MAY depend
+      on C. The conclusion is POSSIBLY_DEPENDS_ON, never DEPENDS_ON: extracted
+      dependency graphs are incomplete, so transitivity of real dependency does
+      not license certainty about extracted dependency.
+    premises:
+      - [[DEPENDS_ON, POSSIBLY_DEPENDS_ON], "?a", "?b"]
+      - [[DEPENDS_ON, POSSIBLY_DEPENDS_ON], "?b", "?c"]
+    conclusion: [POSSIBLY_DEPENDS_ON, "?a", "?c"]
+    distinct: [["?a", "?c"]]
+
+  - name: container_inherits_member_dependency
+    description: >
+      A class depends on what its methods depend on, and a file on what its
+      functions depend on. The dependency closure cannot reach this: CONTAINS is
+      deliberately not a dependency edge, because a container does not depend on
+      its members. The implication runs the other way, and only a rule that
+      crosses both families can express it.
+    premises:
+      - [CONTAINS, "?container", "?member"]
+      - [DEPENDS_ON, "?member", "?target"]
+    conclusion: [POSSIBLY_DEPENDS_ON, "?container", "?target"]
+    distinct: [["?container", "?target"]]
+
+  - name: tested_by_from_tests
+    description: >
+      Materialise the inverse of TESTS so that "what covers this function?" is a
+      forward lookup. Derived rather than asserted because the inverse restates
+      an existing observation instead of adding one.
+    premises:
+      - [TESTS, "?test", "?subject"]
+    conclusion: [TESTED_BY, "?subject", "?test"]
+
+  - name: part_of_from_contains
+    description: >
+      Inverse of CONTAINS, for the same reason.
+    premises:
+      - [CONTAINS, "?container", "?member"]
+    conclusion: [PART_OF, "?member", "?container"]

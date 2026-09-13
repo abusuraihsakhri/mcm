@@ -1,0 +1,2388 @@
+[
+  {
+    "task_id": "click:7a0a3447",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [
+      "src/click/_compat.py::__getattr__",
+      "src/click/_winconsole.py::__getattr__",
+      "src/click/core.py::__getattr__",
+      "src/click/parser.py::__getattr__",
+      "src/click/shell_completion.py::__getattr__",
+      "src/click/testing.py::__getattr__",
+      "src/click/utils.py::__getattr__"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "click:dbfb10ab",
+    "condition": "control",
+    "trial": 2,
+    "edited": [
+      "src/click/decorators.py::Argument.__init__"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:15a2e0d9",
+    "condition": "control",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:43af2c57",
+    "condition": "control",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:b8fa1111",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [
+      "dotenv/__init__.py::",
+      "tests/test_utils.py::"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file",
+      "search"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:b8fa1111",
+    "condition": "control",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "list_files",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:135eb234",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [
+      "src/itsdangerous/__init__.py::from .timed import TimedSerializer as TimedSerializer",
+      "src/itsdangerous/__init__.py::from .timed import TimestampSigner as TimestampSigner",
+      "src/itsdangerous/url_safe.py::from .timed import TimedSerializer as TimedSerializer"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "list_files",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "click:333c28d7",
+    "condition": "control",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:62df65a6",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [
+      "src/dotenv/main.py::StringIO, PY2, WIN, text_type",
+      "tests/test_core.py::StringIO"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:43af2c57",
+    "condition": "control",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:62df65a6",
+    "condition": "control",
+    "trial": 0,
+    "edited": [
+      "src/dotenv/main.py::StringIO, PY2, WIN, text_type",
+      "tests/test_core.py::StringIO"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:981ade6e",
+    "condition": "control",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:385c0eb7",
+    "condition": "control",
+    "trial": 0,
+    "edited": [
+      "src/itsdangerous/__init__.py::from .timed import TimedSerializer as TimedSerializer",
+      "src/itsdangerous/__init__.py::from .timed import TimestampSigner as TimestampSigner",
+      "src/itsdangerous/url_safe.py::from .timed import TimedSerializer",
+      "tests/test_itsdangerous/test_timed.py::from itsdangerous.timed import TimedSerializer",
+      "tests/test_itsdangerous/test_timed.py::from itsdangerous.timed import TimestampSigner",
+      "tests/test_itsdangerous/test_url_safe.py::from itsdangerous.timed import TimedSerializer"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "click:dbfb10ab",
+    "condition": "control",
+    "trial": 0,
+    "edited": [
+      "src/click/decorators.py::Argument.__init__"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:d2250ed8",
+    "condition": "control",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:506ca21d",
+    "condition": "control",
+    "trial": 1,
+    "edited": [
+      "src/itsdangerous/__init__.py::json",
+      "src/itsdangerous/jws.py::_CompactJSON",
+      "src/itsdangerous/url_safe.py::_CompactJSON"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:135eb234",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 0,
+    "used_mcm": false,
+    "error": "KeyError: 'choices'",
+    "model": "openai/gpt-oss-20b",
+    "tools_used": []
+  },
+  {
+    "task_id": "python-dotenv:17dba652",
+    "condition": "control",
+    "trial": 1,
+    "edited": [
+      "src/dotenv/cli.py::DotEnv.dict"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:9b7b635a",
+    "condition": "control",
+    "trial": 0,
+    "edited": [
+      "tests/test_itsdangerous/test_jws.py::JSONWebSignatureSerializer.__init__",
+      "tests/test_itsdangerous/test_jws.py::JSONWebSignatureSerializer.make_signer"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:385c0eb7",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [
+      "src/itsdangerous/__init__.py::__all__",
+      "src/itsdangerous/__init__.py::from .timed import TimestampSigner"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "list_files",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:233527d3",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [
+      "src/itsdangerous/__init__.py::from ._json import json",
+      "src/itsdangerous/jws.py::from ._json import _CompactJSON",
+      "src/itsdangerous/url_safe.py::from ._json import _CompactJSON"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:0681a878",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [
+      "src/dotenv/__init__.py::from .main import load_dotenv, find_dotenv, set_key, get_key, unset_key, dotenv_values",
+      "src/dotenv/cli.py::from .main import load_dotenv, set_key, get_key, unset_key",
+      "tests/test_find_dotenv.py::from dotenv.main import find_dotenv",
+      "tests/test_get_key.py::from dotenv.main import get_key",
+      "tests/test_load_dotenv.py::from dotenv.main import load_dotenv",
+      "tests/test_main.py::from dotenv.main import load_dotenv, find_dotenv, set_key, get_key, unset_key",
+      "tests/test_set_key.py::from dotenv.main import set_key",
+      "tests/test_unset_key.py::from dotenv.main import unset_key"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "jinja:29035652",
+    "condition": "control",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:506ca21d",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [
+      "src/itsdangerous/jws.py::<definition>",
+      "src/itsdangerous/url_safe.py::<definition>"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:d2250ed8",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "click:333c28d7",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [
+      "src/click/_compat.py::def __getattr__(self, name: str) -> t.Any:",
+      "src/click/_winconsole.py::def __getattr__(self, name: str) -> t.Any:",
+      "src/click/core.py::def __getattr__(name: str) -> object:",
+      "src/click/parser.py::def __getattr__(name: str) -> object:",
+      "src/click/shell_completion.py::def __getattr__(self, name: str) -> t.Any:",
+      "src/click/testing.py::def __getattr__(self, x: str) -> t.Any:",
+      "src/click/utils.py::def __getattr__(self, attr: str) -> t.Any:",
+      "src/click/utils.py::def __getattr__(self, name: str) -> t.Any:"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:2881d93e",
+    "condition": "control",
+    "trial": 1,
+    "edited": [
+      "src/itsdangerous/jws.py::__init__",
+      "src/itsdangerous/jws.py::iter_unsigners",
+      "src/itsdangerous/jws.py::make_signer",
+      "src/itsdangerous/jws.py::secret_key",
+      "src/itsdangerous/timed.py::iter_unsigners",
+      "tests/test_itsdangerous/test_jws.py::iter_unsigners",
+      "tests/test_itsdangerous/test_jws.py::make_signer",
+      "tests/test_itsdangerous/test_serializer.py::iter_unsigners",
+      "tests/test_itsdangerous/test_serializer.py::make_signer"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:d93324ae",
+    "condition": "control",
+    "trial": 2,
+    "edited": [
+      "src/dotenv/cli.py::imports",
+      "src/dotenv/ipython.py::imports",
+      "tests/test_cli.py::imports",
+      "tests/test_core.py::imports",
+      "tests/test_utils.py::imports"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:9b7b635a",
+    "condition": "control",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:0681a878",
+    "condition": "control",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "click:7a0a3447",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:2881d93e",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [
+      "src/itsdangerous/jws.py::__init__",
+      "src/itsdangerous/jws.py::iter_unsigners",
+      "src/itsdangerous/jws.py::make_signer",
+      "src/itsdangerous/jws.py::secret_key",
+      "src/itsdangerous/timed.py::__init__",
+      "src/itsdangerous/timed.py::iter_unsigners",
+      "src/itsdangerous/timed.py::make_signer",
+      "src/itsdangerous/timed.py::secret_key",
+      "src/itsdangerous/url_safe.py::__init__",
+      "src/itsdangerous/url_safe.py::iter_unsigners",
+      "src/itsdangerous/url_safe.py::make_signer",
+      "src/itsdangerous/url_safe.py::secret_key"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:385c0eb7",
+    "condition": "control",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "list_files",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:d93324ae",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:981ade6e",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [
+      "tests/test_itsdangerous/test_serializer.py::from itsdangerous.signer import Signer",
+      "tests/test_itsdangerous/test_timed.py::from itsdangerous.signer import Signer",
+      "tests/test_itsdangerous/test_url_safe.py::from itsdangerous.url_safe import URLSafeSerializer, URLSafeTimedSerializer"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:2881d93e",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [
+      "src/itsdangerous/jws.py::Serializer.__init__",
+      "src/itsdangerous/jws.py::Serializer.iter_unsigners",
+      "src/itsdangerous/jws.py::Serializer.make_signer",
+      "src/itsdangerous/jws.py::Serializer.secret_key",
+      "src/itsdangerous/timed.py::Serializer.__init__",
+      "src/itsdangerous/timed.py::Serializer.iter_unsigners",
+      "src/itsdangerous/timed.py::Serializer.make_signer",
+      "src/itsdangerous/timed.py::Serializer.secret_key",
+      "src/itsdangerous/url_safe.py::Serializer.__init__",
+      "src/itsdangerous/url_safe.py::Serializer.iter_unsigners",
+      "src/itsdangerous/url_safe.py::Serializer.make_signer",
+      "src/itsdangerous/url_safe.py::Serializer.secret_key"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:b8fa1111",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [
+      "setup.py::imports",
+      "tests/test_cli.py::imports"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:999ce7af",
+    "condition": "control",
+    "trial": 1,
+    "edited": [
+      "src/itsdangerous/__init__.py::TimedJSONWebSignatureSerializer, TimedSerializer, TimedURLSafeSerializer"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:981ade6e",
+    "condition": "control",
+    "trial": 2,
+    "edited": [
+      "tests/test_itsdangerous/test_serializer.py::from itsdangerous import Serializer",
+      "tests/test_itsdangerous/test_signer.py::from itsdangerous import Signer"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:b8fa1111",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [
+      "dotenv/__init__.py::<definition>",
+      "tests/test_utils.py::<definition>"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file",
+      "search"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:d2250ed8",
+    "condition": "control",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 6,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "click:7a0a3447",
+    "condition": "control",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:b8fa1111",
+    "condition": "control",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 0,
+    "used_mcm": false,
+    "error": "KeyError: 'choices'",
+    "model": "openai/gpt-oss-20b",
+    "tools_used": []
+  },
+  {
+    "task_id": "itsdangerous:d2250ed8",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [
+      "src/itsdangerous/serializer.py::json.dumps",
+      "src/itsdangerous/serializer.py::json.loads"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:17dba652",
+    "condition": "control",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:9b7b635a",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [
+      "src/itsdangerous/__init__.py",
+      "tests/test_itsdangerous/test_jws.py",
+      "tests/test_itsdangerous/test_serializer.py"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:999ce7af",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "jinja:29035652",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [
+      "src/jinja2/meta.py::def write_commons(self) -> None:",
+      "src/jinja2/nativetypes.py::def write_commons(self) -> None"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:981ade6e",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:d93324ae",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [
+      "tests/test_cli.py::update imports to use .main or adjust __all__ usage",
+      "tests/test_core.py::update imports to use .main or adjust __all__ usage"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:62df65a6",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [
+      "src/dotenv/main.py::PY2",
+      "src/dotenv/main.py::StringIO",
+      "src/dotenv/main.py::WIN",
+      "src/dotenv/main.py::text_type",
+      "tests/test_core.py::StringIO"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:01001c63",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [
+      "src/itsdangerous/__init__.py::__all__"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:2881d93e",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [
+      "src/itsdangerous/jws.py"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:43af2c57",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:385c0eb7",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [
+      "src/itsdangerous/__init__.py::from .timed import TimedSerializer as TimedSerializer",
+      "src/itsdangerous/__init__.py::from .timed import TimestampSigner as TimestampSigner",
+      "src/itsdangerous/url_safe.py::from .timed import TimedSerializer",
+      "tests/test_itsdangerous/test_timed.py::from itsdangerous.timed import TimedSerializer",
+      "tests/test_itsdangerous/test_timed.py::from itsdangerous.timed import TimestampSigner"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:9b7b635a",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [
+      "tests/test_itsdangerous/test_jws.py::serializer_factory"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:01001c63",
+    "condition": "control",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:b46ebef5",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:233527d3",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [
+      "src/itsdangerous/jws.py::default_serializer",
+      "src/itsdangerous/jws.py::load_payload",
+      "src/itsdangerous/url_safe.py::default_serializer",
+      "tests/test_itsdangerous/test_jws.py::TestJWSSerializer",
+      "tests/test_itsdangerous/test_url_safe.py::TestURLSafeSerializer"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "click:333c28d7",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:385c0eb7",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [
+      "src/itsdangerous/__init__.py::__all__",
+      "src/itsdangerous/url_safe.py::__all__"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:b46ebef5",
+    "condition": "control",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "grep<|channel|>commentary",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:15a2e0d9",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [
+      "src/itsdangerous/jws.py::from ._json import _CompactJSON",
+      "src/itsdangerous/serializer.py::from ._json import _CompactJSON",
+      "src/itsdangerous/url_safe.py::from ._json import _CompactJSON"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:9b7b635a",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [
+      "tests/test_itsdangerous/test_jws.py",
+      "tests/test_itsdangerous/test_timed.py"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:43af2c57",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:62df65a6",
+    "condition": "control",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 5,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:506ca21d",
+    "condition": "control",
+    "trial": 2,
+    "edited": [
+      "src/itsdangerous/jws.py::from ._json import _CompactJSON",
+      "src/itsdangerous/url_safe.py::from ._json import _CompactJSON"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:b8fa1111",
+    "condition": "control",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "list_files",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:135eb234",
+    "condition": "control",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:01001c63",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [
+      "src/itsdangerous/__init__.py::from .timed import TimedSerializer",
+      "src/itsdangerous/__init__.py::from .timed import TimestampSigner",
+      "src/itsdangerous/url_safe.py::from .timed import TimedSerializer",
+      "tests/test_itsdangerous/test_timed.py::from itsdangerous.timed import TimedSerializer",
+      "tests/test_itsdangerous/test_timed.py::from itsdangerous.timed import TimestampSigner"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:01001c63",
+    "condition": "control",
+    "trial": 2,
+    "edited": [
+      "src/itsdangerous/__init__.py::from .timed import TimestampSigner as TimestampSigner",
+      "tests/test_itsdangerous/test_serializer.py::from itsdangerous.timed import TimedSerializer",
+      "tests/test_itsdangerous/test_timed.py::from itsdangerous.timed import TimedSerializer"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "click:dbfb10ab",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:2881d93e",
+    "condition": "control",
+    "trial": 0,
+    "edited": [
+      "src/itsdangerous/jws.py::__init__",
+      "src/itsdangerous/jws.py::iter_unsigners",
+      "src/itsdangerous/jws.py::make_signer",
+      "src/itsdangerous/jws.py::secret_key",
+      "src/itsdangerous/timed.py::iter_unsigners"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "click:333c28d7",
+    "condition": "control",
+    "trial": 0,
+    "edited": [
+      "src/click/_compat.py::__getattr__",
+      "src/click/_winconsole.py::__getattr__",
+      "src/click/core.py::__getattr__",
+      "src/click/parser.py::__getattr__",
+      "src/click/shell_completion.py::__getattr__",
+      "src/click/testing.py::__getattr__",
+      "src/click/utils.py::__getattr__"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:17dba652",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [
+      "src/dotenv/__init__.py::DotEnv.dict",
+      "src/dotenv/cli.py::DotEnv.dict",
+      "src/dotenv/ipython.py::DotEnv.dict"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "jinja:7d72eb7f",
+    "condition": "control",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:999ce7af",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [
+      "src/itsdangerous/__init__.py::from .timed import TimestampSigner as TimestampSigner",
+      "tests/test_itsdangerous/test_timed.py::from itsdangerous.timed import TimestampSigner"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "click:7a0a3447",
+    "condition": "control",
+    "trial": 0,
+    "edited": [
+      "tests/test_defaults.py::from click import UNPROCESSED",
+      "tests/test_options.py::from click import UNPROCESSED",
+      "tests/test_types.py::from click import FileError",
+      "tests/typing/typing_progressbar.py::from click import progressbar"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:233527d3",
+    "condition": "control",
+    "trial": 1,
+    "edited": [
+      "src/itsdangerous/jws.py::default_serializer = _CompactJSON",
+      "src/itsdangerous/jws.py::from ._json import _CompactJSON",
+      "src/itsdangerous/jws.py::header = super().load_payload(json_header, serializer=_CompactJSON)",
+      "src/itsdangerous/url_safe.py::default_serializer = _CompactJSON",
+      "src/itsdangerous/url_safe.py::from ._json import _CompactJSON"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file",
+      "search"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:0681a878",
+    "condition": "control",
+    "trial": 1,
+    "edited": [
+      "src/dotenv/__init__.py::dotenv_expand",
+      "src/dotenv/__init__.py::dotenv_path",
+      "src/dotenv/__init__.py::dotenv_values",
+      "src/dotenv/__init__.py::find_dotenv",
+      "src/dotenv/__init__.py::get_key",
+      "src/dotenv/__init__.py::load_dotenv",
+      "src/dotenv/__init__.py::set_key",
+      "src/dotenv/__init__.py::unset_key",
+      "src/dotenv/cli.py::dotenv_expand",
+      "src/dotenv/cli.py::dotenv_path",
+      "src/dotenv/cli.py::dotenv_values",
+      "src/dotenv/cli.py::find_dotenv",
+      "src/dotenv/cli.py::get_key",
+      "src/dotenv/cli.py::load_dotenv",
+      "src/dotenv/cli.py::set_key",
+      "src/dotenv/cli.py::unset_key",
+      "src/dotenv/compat.py::dotenv_expand",
+      "src/dotenv/compat.py::dotenv_path",
+      "src/dotenv/compat.py::dotenv_values",
+      "src/dotenv/compat.py::find_dotenv",
+      "src/dotenv/compat.py::get_key",
+      "src/dotenv/compat.py::load_dotenv",
+      "src/dotenv/compat.py::set_key",
+      "src/dotenv/compat.py::unset_key",
+      "src/dotenv/ipython.py::dotenv_expand",
+      "src/dotenv/ipython.py::dotenv_path",
+      "src/dotenv/ipython.py::dotenv_values",
+      "src/dotenv/ipython.py::find_dotenv",
+      "src/dotenv/ipython.py::get_key",
+      "src/dotenv/ipython.py::load_dotenv",
+      "src/dotenv/ipython.py::set_key",
+      "src/dotenv/ipython.py::unset_key",
+      "src/dotenv/parser.py::dotenv_expand",
+      "src/dotenv/parser.py::dotenv_path",
+      "src/dotenv/parser.py::dotenv_values",
+      "src/dotenv/parser.py::find_dotenv",
+      "src/dotenv/parser.py::get_key",
+      "src/dotenv/parser.py::load_dotenv",
+      "src/dotenv/parser.py::set_key",
+      "src/dotenv/parser.py::unset_key"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:0681a878",
+    "condition": "control",
+    "trial": 2,
+    "edited": [
+      "src/dotenv/__init__.py::find_dotenv",
+      "src/dotenv/__init__.py::get_key",
+      "src/dotenv/__init__.py::load_dotenv",
+      "src/dotenv/__init__.py::set_key",
+      "src/dotenv/__init__.py::unset_key",
+      "src/dotenv/cli.py::load_dotenv",
+      "src/dotenv/ipython.py::load_dotenv"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:b46ebef5",
+    "condition": "control",
+    "trial": 2,
+    "edited": [
+      "src/itsdangerous/jws.py"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep"
+    ]
+  },
+  {
+    "task_id": "click:333c28d7",
+    "condition": "control",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 7,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "grep<|channel|>commentary",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:d93324ae",
+    "condition": "control",
+    "trial": 1,
+    "edited": [
+      "tests/test_cli.py::imports",
+      "tests/test_core.py::imports",
+      "tests/test_utils.py::imports"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:135eb234",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [
+      "src/itsdangerous/__init__.py::TimedJSONWebSignatureSerializer",
+      "src/itsdangerous/__init__.py::TimedSerializer"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "jinja:29035652",
+    "condition": "control",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "jinja:7d72eb7f",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:233527d3",
+    "condition": "control",
+    "trial": 0,
+    "edited": [
+      "src/itsdangerous/jws.py::default_serializer"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:d93324ae",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [
+      "tests/test_core.py::set_key import"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:15a2e0d9",
+    "condition": "control",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 0,
+    "used_mcm": false,
+    "error": "KeyError: 'choices'",
+    "model": "openai/gpt-oss-20b",
+    "tools_used": []
+  },
+  {
+    "task_id": "jinja:29035652",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:233527d3",
+    "condition": "control",
+    "trial": 2,
+    "edited": [
+      "src/itsdangerous/jws.py::default_serializer",
+      "src/itsdangerous/url_safe.py::default_serializer"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:01001c63",
+    "condition": "control",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:d93324ae",
+    "condition": "control",
+    "trial": 0,
+    "edited": [
+      "tests/test_cli.py::import dotenv",
+      "tests/test_core.py::from dotenv import dotenv_values, find_dotenv, load_dotenv, set_key"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "click:333c28d7",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 2,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "mcm_impact"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:2881d93e",
+    "condition": "control",
+    "trial": 2,
+    "edited": [
+      "src/itsdangerous/jws.py::make_signer",
+      "src/itsdangerous/jws.py::secret_key",
+      "src/itsdangerous/timed.py::iter_unsigners",
+      "tests/test_itsdangerous/test_jws.py::make_signer",
+      "tests/test_itsdangerous/test_serializer.py::iter_unsigners",
+      "tests/test_itsdangerous/test_serializer.py::make_signer"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:15a2e0d9",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [
+      "src/itsdangerous/jws.py::default_serializer",
+      "src/itsdangerous/url_safe.py::default_serializer"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:17dba652",
+    "condition": "control",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:9b7b635a",
+    "condition": "control",
+    "trial": 1,
+    "edited": [
+      "docs/source/api.rst::<update references to JSONWebSignatureSerializer.__init__ and make_signer>",
+      "examples/jws.py::<update references to JSONWebSignatureSerializer.__init__ and make_signer>",
+      "tests/test_jws.py::<update references to JSONWebSignatureSerializer.__init__ and make_signer>"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:999ce7af",
+    "condition": "control",
+    "trial": 2,
+    "edited": [
+      "src/itsdangerous/__init__.py::from .timed import TimedJSONWebSignatureSerializer",
+      "src/itsdangerous/serializer.py::from .timed import TimedJSONWebSignatureSerializer"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:b46ebef5",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:999ce7af",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [
+      "src/itsdangerous/__init__.py::from .timed import TimedSerializer as TimedSerializer, from .timed import TimestampSigner as TimestampSigner",
+      "tests/test_itsdangerous/test_timed.py::from itsdangerous.timed import TimestampSigner"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:d2250ed8",
+    "condition": "control",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:233527d3",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [
+      "src/itsdangerous/__init__.py::from ._json import json",
+      "src/itsdangerous/jws.py::from ._json import _CompactJSON",
+      "src/itsdangerous/url_safe.py::from ._json import _CompactJSON"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:01001c63",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [
+      "src/itsdangerous/__init__.py::update imports",
+      "tests/test_timed.py::update imports"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "list_files",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:43af2c57",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [
+      "dotenv/cli.py::DotEnv.set_as_environment_variables",
+      "dotenv/core.py::DotEnv.set_as_environment_variables",
+      "dotenv/utils.py::DotEnv.set_as_environment_variables",
+      "tests/test_cli.py::DotEnv.set_as_environment_variables",
+      "tests/test_core.py::DotEnv.set_as_environment_variables",
+      "tests/test_utils.py::DotEnv.set_as_environment_variables"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "click:7a0a3447",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "list_files",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:17dba652",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "jinja:7d72eb7f",
+    "condition": "control",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:385c0eb7",
+    "condition": "control",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "jinja:7d72eb7f",
+    "condition": "control",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "click:dbfb10ab",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 0,
+    "used_mcm": false,
+    "error": "KeyError: 'choices'",
+    "model": "openai/gpt-oss-20b",
+    "tools_used": []
+  },
+  {
+    "task_id": "itsdangerous:b46ebef5",
+    "condition": "control",
+    "trial": 0,
+    "edited": [
+      "src/itsdangerous/jws.py::default_serializer = _CompactJSON",
+      "src/itsdangerous/url_safe.py::default_serializer = _CompactJSON"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:15a2e0d9",
+    "condition": "control",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 0,
+    "used_mcm": false,
+    "error": "KeyError: 'choices'",
+    "model": "openai/gpt-oss-20b",
+    "tools_used": []
+  },
+  {
+    "task_id": "itsdangerous:506ca21d",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [
+      "src/itsdangerous/__init__.py::<definition>",
+      "src/itsdangerous/jws.py::<definition>",
+      "src/itsdangerous/url_safe.py::<definition>"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:135eb234",
+    "condition": "control",
+    "trial": 0,
+    "edited": [
+      "src/itsdangerous/__init__.py::<definition>",
+      "src/itsdangerous/url_safe.py::<definition>"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:43af2c57",
+    "condition": "control",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:15a2e0d9",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 0,
+    "used_mcm": false,
+    "error": "KeyError: 'choices'",
+    "model": "openai/gpt-oss-20b",
+    "tools_used": []
+  },
+  {
+    "task_id": "click:7a0a3447",
+    "condition": "control",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 5,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:62df65a6",
+    "condition": "control",
+    "trial": 2,
+    "edited": [
+      "src/dotenv/main.py::PY2",
+      "src/dotenv/main.py::StringIO",
+      "src/dotenv/main.py::WIN",
+      "src/dotenv/main.py::text_type",
+      "tests/test_core.py::StringIO"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:135eb234",
+    "condition": "control",
+    "trial": 2,
+    "edited": [
+      "src/itsdangerous/__init__.py::from .timed import TimestampSigner as TimestampSigner",
+      "tests/test_itsdangerous/test_serializer.py::from itsdangerous.timed import TimedSerializer",
+      "tests/test_itsdangerous/test_timed.py::from itsdangerous.timed import TimestampSigner"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:0681a878",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [
+      "src/dotenv/__init__.py::__all__ = ['load_dotenv', 'get_key', 'set_key', 'unset_key', 'find_dotenv', 'dotenv_values']",
+      "src/dotenv/__init__.py::from .main import load_dotenv, get_key, set_key, unset_key, find_dotenv, dotenv_values",
+      "src/dotenv/cli.py::from .main import load_dotenv, get_key, set_key, unset_key, find_dotenv, dotenv_values"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:62df65a6",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [
+      "src/dotenv/main.py::StringIO, PY2, WIN, text_type",
+      "tests/test_core.py::StringIO"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "click:dbfb10ab",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [
+      "tests/test_commands.py::Command.format_help"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:981ade6e",
+    "condition": "treatment",
+    "trial": 1,
+    "edited": [
+      "tests/test_itsdangerous/test_serializer.py",
+      "tests/test_itsdangerous/test_timed.py",
+      "tests/test_itsdangerous/test_url_safe.py"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:d2250ed8",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "grep<|channel|>commentary",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:0681a878",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [
+      "src/dotenv/__init__.py::from .main import load_dotenv, get_key, set_key, unset_key, find_dotenv, dotenv_values",
+      "src/dotenv/cli.py::from .main import dotenv_values, get_key, set_key, unset_key, run_command",
+      "src/dotenv/ipython.py::IPythonDotEnv.dotenv"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "mcm_impact"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:506ca21d",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [
+      "src/itsdangerous/__init__.py::from ._json import _CompactJSON as json"
+    ],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "jinja:29035652",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "jinja:7d72eb7f",
+    "condition": "treatment",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file",
+      "search"
+    ]
+  },
+  {
+    "task_id": "click:dbfb10ab",
+    "condition": "control",
+    "trial": 1,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "list_files",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:981ade6e",
+    "condition": "control",
+    "trial": 1,
+    "edited": [
+      "tests/test_itsdangerous/test_serializer.py::update imports from itsdangerous",
+      "tests/test_itsdangerous/test_timed.py::update imports from itsdangerous",
+      "tests/test_itsdangerous/test_url_safe.py::update imports from itsdangerous"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "python-dotenv:17dba652",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file",
+      "read_file<|channel|>commentary"
+    ]
+  },
+  {
+    "task_id": "jinja:29035652",
+    "condition": "control",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "jinja:7d72eb7f",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file",
+      "search"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:b46ebef5",
+    "condition": "treatment",
+    "trial": 2,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": true,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "mcm_impact",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:506ca21d",
+    "condition": "control",
+    "trial": 0,
+    "edited": [
+      "src/itsdangerous/_url_safe.py::update imports of _CompactJSON",
+      "src/itsdangerous/jws.py::update imports of _CompactJSON",
+      "src/itsdangerous/serializer.py::update imports of _CompactJSON"
+    ],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  },
+  {
+    "task_id": "itsdangerous:999ce7af",
+    "condition": "control",
+    "trial": 0,
+    "edited": [],
+    "tool_calls": 8,
+    "used_mcm": false,
+    "error": null,
+    "model": "openai/gpt-oss-20b",
+    "tools_used": [
+      "grep",
+      "read_file"
+    ]
+  }
+]

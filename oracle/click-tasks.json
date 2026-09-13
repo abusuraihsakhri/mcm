@@ -1,0 +1,86 @@
+[
+  {
+    "task_id": "click:333c28d7",
+    "repository": "click",
+    "commit": "333c28d79cd982990ee98eef61ec20ab1a4f38ba",
+    "parent": "333c28d79cd982990ee98eef61ec20ab1a4f38ba~1",
+    "target_file": "src/click/__init__.py",
+    "target": "src/click/__init__.py",
+    "required_files": [
+      "src/click/core.py"
+    ],
+    "incidental_files": [
+      "src/click/_termui_impl.py",
+      "src/click/termui.py",
+      "src/click/types.py",
+      "src/click/utils.py",
+      "tests/test_deprecations.py",
+      "tests/test_testing.py",
+      "tests/test_utils/test_KeepOpenFile.py",
+      "tests/test_utils/test_LazyFile.py",
+      "tests/test_utils/test_make_default_short_help.py"
+    ],
+    "changed_defs": [
+      "__getattr__"
+    ],
+    "baseline_failures": 0,
+    "broken_failures": 3,
+    "import_error": false
+  },
+  {
+    "task_id": "click:7a0a3447",
+    "repository": "click",
+    "commit": "7a0a3447f6ddd2c15438c5d098e289323f9f9556",
+    "parent": "7a0a3447f6ddd2c15438c5d098e289323f9f9556~1",
+    "target_file": "src/click/__init__.py",
+    "target": "src/click/__init__.py",
+    "required_files": [
+      "src/click/core.py"
+    ],
+    "incidental_files": [
+      "src/click/_termui_impl.py",
+      "src/click/termui.py",
+      "src/click/types.py",
+      "src/click/utils.py",
+      "tests/test_testing.py",
+      "tests/test_utils/test_KeepOpenFile.py",
+      "tests/test_utils/test_LazyFile.py",
+      "tests/test_utils/test_make_default_short_help.py"
+    ],
+    "changed_defs": [
+      "__getattr__"
+    ],
+    "baseline_failures": 0,
+    "broken_failures": 3,
+    "import_error": false
+  },
+  {
+    "task_id": "click:dbfb10ab",
+    "repository": "click",
+    "commit": "dbfb10aba610605dc646bf9374e888905366c545",
+    "parent": "dbfb10aba610605dc646bf9374e888905366c545~1",
+    "target_file": "src/click/core.py",
+    "target": "src/click/core.py",
+    "required_files": [
+      "src/click/_compat.py"
+    ],
+    "incidental_files": [
+      "src/click/shell_completion.py",
+      "src/click/termui.py",
+      "src/click/utils.py",
+      "tests/test_arguments.py",
+      "tests/test_info_dict.py",
+      "tests/test_utils.py"
+    ],
+    "changed_defs": [
+      "Command.format_help",
+      "Command.format_options",
+      "Command.format_arguments",
+      "Argument.__init__",
+      "Argument.to_info_dict"
+    ],
+    "baseline_failures": 1,
+    "broken_failures": 3,
+    "import_error": true
+  }
+]

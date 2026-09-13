@@ -1,0 +1,181 @@
+{
+  "tuned_on": "httpx",
+  "horizon": "f7a024ce",
+  "objective": "efficiency",
+  "tasks": 237,
+  "configuration": {
+    "mcm_weights": {
+      "vector": 0.4127,
+      "lexical": 0.0719,
+      "graph": 0.2751,
+      "symbolic": 0.041,
+      "provenance": 0.1993,
+      "graph_decay": 0.7,
+      "graph_depth": 3
+    },
+    "vector_rag": {
+      "chunk_lines": 80,
+      "stride": 60
+    },
+    "graph": {
+      "decay": 0.3,
+      "depth": 1
+    },
+    "hybrid": {
+      "rrf_k": 10
+    }
+  },
+  "weight_spec": "v=0.4127,l=0.0719,g=0.2751,s=0.0410,p=0.1993,graph_decay=0.7,graph_depth=3",
+  "tuning_set_gains": {
+    "vector-rag": {
+      "default": 0.058537,
+      "tuned": 0.077579,
+      "gain": 0.019041
+    },
+    "graph": {
+      "default": 0.085029,
+      "tuned": 0.099441,
+      "gain": 0.014412
+    },
+    "hybrid": {
+      "default": 0.074858,
+      "tuned": 0.092556,
+      "gain": 0.017697
+    },
+    "mcm": {
+      "default": 0.099398,
+      "tuned": 0.14572,
+      "gain": 0.046322
+    }
+  },
+  "top_trials": {
+    "vector-rag": [
+      {
+        "label": "chunk=80 stride=60",
+        "score": 0.077579
+      },
+      {
+        "label": "chunk=60 stride=45",
+        "score": 0.072064
+      },
+      {
+        "label": "chunk=40 stride=30",
+        "score": 0.058537
+      },
+      {
+        "label": "chunk=40 stride=40",
+        "score": 0.057636
+      },
+      {
+        "label": "chunk=30 stride=20",
+        "score": 0.048659
+      },
+      {
+        "label": "chunk=20 stride=15",
+        "score": 0.039263
+      }
+    ],
+    "graph": [
+      {
+        "label": "decay=0.3 depth=1",
+        "score": 0.099441
+      },
+      {
+        "label": "decay=0.5 depth=1",
+        "score": 0.099441
+      },
+      {
+        "label": "decay=0.7 depth=1",
+        "score": 0.099441
+      },
+      {
+        "label": "decay=0.3 depth=2",
+        "score": 0.085029
+      },
+      {
+        "label": "decay=0.5 depth=2",
+        "score": 0.085029
+      },
+      {
+        "label": "decay=0.7 depth=2",
+        "score": 0.085029
+      },
+      {
+        "label": "decay=0.3 depth=3",
+        "score": 0.085008
+      },
+      {
+        "label": "decay=0.5 depth=3",
+        "score": 0.085008
+      },
+      {
+        "label": "decay=0.7 depth=3",
+        "score": 0.085008
+      }
+    ],
+    "hybrid": [
+      {
+        "label": "rrf_k=10",
+        "score": 0.092556
+      },
+      {
+        "label": "rrf_k=40",
+        "score": 0.083539
+      },
+      {
+        "label": "rrf_k=20",
+        "score": 0.08305
+      },
+      {
+        "label": "rrf_k=100",
+        "score": 0.074952
+      },
+      {
+        "label": "rrf_k=60",
+        "score": 0.074858
+      }
+    ],
+    "mcm": [
+      {
+        "label": "v=0.41 l=0.07 g=0.28 s=0.04 p=0.20 d=0.7 h=3",
+        "score": 0.14572
+      },
+      {
+        "label": "v=0.41 l=0.07 g=0.28 s=0.04 p=0.20 d=0.7 h=2",
+        "score": 0.143734
+      },
+      {
+        "label": "v=0.33 l=0.16 g=0.30 s=0.02 p=0.18 d=0.7 h=2",
+        "score": 0.138974
+      },
+      {
+        "label": "v=0.37 l=0.11 g=0.37 s=0.00 p=0.15 d=0.5 h=1",
+        "score": 0.138039
+      },
+      {
+        "label": "v=0.33 l=0.16 g=0.30 s=0.02 p=0.18 d=0.7 h=1",
+        "score": 0.137739
+      },
+      {
+        "label": "v=0.41 l=0.07 g=0.28 s=0.04 p=0.20 d=0.7 h=1",
+        "score": 0.137606
+      },
+      {
+        "label": "v=0.36 l=0.05 g=0.38 s=0.07 p=0.14 d=0.5 h=1",
+        "score": 0.137139
+      },
+      {
+        "label": "v=0.34 l=0.07 g=0.35 s=0.03 p=0.21 d=0.5 h=3",
+        "score": 0.136195
+      },
+      {
+        "label": "v=0.37 l=0.11 g=0.37 s=0.00 p=0.15 d=0.5 h=3",
+        "score": 0.136127
+      },
+      {
+        "label": "v=0.34 l=0.07 g=0.35 s=0.03 p=0.21 d=0.5 h=1",
+        "score": 0.135251
+      }
+    ]
+  }
+}

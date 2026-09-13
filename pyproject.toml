@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcm"
+version = "0.1.0"
+description = "Mathematical Context Model - research prototype"
+requires-python = ">=3.12"
+dependencies = [
+    "tree-sitter>=0.24",
+    "tree-sitter-python>=0.23",
+    "pyyaml>=6",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+# Opt-in embedding model for the vector projection. The default provider is
+# offline feature hashing and needs nothing installed (see docs/retrieval.md).
+embeddings = ["sentence-transformers>=3"]
+api = ["fastapi>=0.115", "uvicorn>=0.30"]
+gpu = ["torch>=2.2", "sentence-transformers>=3"]
+
+[project.scripts]
+mcm = "mcm.cli:main"
+# The MCP server an agent spawns. Needs no dependency beyond the package itself:
+# MCP stdio framing is line-delimited JSON-RPC, implemented in mcm/mcp_server.py.
+mcm-mcp = "mcm.mcp_server:main"
+
+[tool.setuptools.packages.find]
+include = ["mcm*"]
+
+[tool.setuptools.package-data]
+mcm = ["storage/*.sql", "rules/*.yaml", "constraints/*.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

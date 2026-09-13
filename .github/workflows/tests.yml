@@ -1,0 +1,68 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      # The API extra is needed because tests/test_api.py exercises the FastAPI
+      # routes. The GPU and embeddings extras are deliberately not installed:
+      # the runner has no CUDA, and tests/test_gpu.py skips itself when torch is
+      # absent rather than failing.
+      - name: Install
+        run: pip install -e ".[dev,api]"
+
+      - name: Run tests
+        run: pytest -q
+
+      # The portal is a single static file with no build step, so the guard
+      # against a broken simulation is the DOM-ID audit rather than a bundler.
+      - name: Audit portal HTML
+        run: python scripts/audit_html.py
+
+  mcp-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: pip install -e .
+
+      # An agent spawns this over stdio and gets no useful error if the framing
+      # breaks, so the handshake is checked end to end against a real index
+      # rather than only through the unit tests.
+      - name: MCP handshake against a real index
+        run: |
+          mcm ingest examples/app --db /tmp/smoke.db --name demo
+          printf '%s\n' \
+            '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"ci","version":"1"}}}' \
+            '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' \
+          | mcm-mcp --db /tmp/smoke.db \
+          | python -c '
+import json, sys
+seen = {}
+for line in sys.stdin:
+    message = json.loads(line)
+    seen[message["id"]] = message
+assert "protocolVersion" in seen[1]["result"], seen[1]
+names = {t["name"] for t in seen[2]["result"]["tools"]}
+assert {"mcm_search", "mcm_impact", "mcm_context"} <= names, names
+print("MCP handshake OK, tools:", sorted(names))
+'

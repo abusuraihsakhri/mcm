@@ -1,0 +1,466 @@
+[
+  {
+    "task_id": "click:333c28d7",
+    "repository": "click",
+    "commit": "333c28d79cd982990ee98eef61ec20ab1a4f38ba",
+    "parent": "333c28d79cd982990ee98eef61ec20ab1a4f38ba~1",
+    "target_file": "src/click/__init__.py",
+    "changed_defs": [
+      "__getattr__"
+    ],
+    "truth": [
+      "src/click/core.py"
+    ],
+    "mcm_files": [],
+    "mcm_informative": false,
+    "direction": "upstream",
+    "worktree": "oracle-experiment/worktrees/click-333c28d7",
+    "index": "oracle-experiment/index/click-333c28d7.db"
+  },
+  {
+    "task_id": "click:7a0a3447",
+    "repository": "click",
+    "commit": "7a0a3447f6ddd2c15438c5d098e289323f9f9556",
+    "parent": "7a0a3447f6ddd2c15438c5d098e289323f9f9556~1",
+    "target_file": "src/click/__init__.py",
+    "changed_defs": [
+      "__getattr__"
+    ],
+    "truth": [
+      "src/click/core.py"
+    ],
+    "mcm_files": [],
+    "mcm_informative": false,
+    "direction": "upstream",
+    "worktree": "oracle-experiment/worktrees/click-7a0a3447",
+    "index": "oracle-experiment/index/click-7a0a3447.db"
+  },
+  {
+    "task_id": "click:dbfb10ab",
+    "repository": "click",
+    "commit": "dbfb10aba610605dc646bf9374e888905366c545",
+    "parent": "dbfb10aba610605dc646bf9374e888905366c545~1",
+    "target_file": "src/click/core.py",
+    "changed_defs": [
+      "Command.format_help",
+      "Command.format_options",
+      "Command.format_arguments",
+      "Argument.__init__",
+      "Argument.to_info_dict"
+    ],
+    "truth": [
+      "src/click/_compat.py"
+    ],
+    "mcm_files": [],
+    "mcm_informative": false,
+    "direction": "none",
+    "worktree": "oracle-experiment/worktrees/click-dbfb10ab",
+    "index": "oracle-experiment/index/click-dbfb10ab.db"
+  },
+  {
+    "task_id": "itsdangerous:135eb234",
+    "repository": "itsdangerous",
+    "commit": "135eb234ed4a07520779ffb679407b7d27c8ffe6",
+    "parent": "135eb234ed4a07520779ffb679407b7d27c8ffe6~1",
+    "target_file": "src/itsdangerous/timed.py",
+    "changed_defs": [],
+    "truth": [
+      "src/itsdangerous/serializer.py"
+    ],
+    "mcm_files": [
+      "src/itsdangerous/__init__.py",
+      "src/itsdangerous/url_safe.py",
+      "tests/test_itsdangerous/test_timed.py",
+      "tests/test_itsdangerous/test_url_safe.py"
+    ],
+    "mcm_informative": false,
+    "direction": "upstream",
+    "worktree": "oracle-experiment/worktrees/itsdangerous-135eb234",
+    "index": "oracle-experiment/index/itsdangerous-135eb234.db"
+  },
+  {
+    "task_id": "itsdangerous:999ce7af",
+    "repository": "itsdangerous",
+    "commit": "999ce7af1f0502a224d33338e6ded8bc1e81cb2f",
+    "parent": "999ce7af1f0502a224d33338e6ded8bc1e81cb2f~1",
+    "target_file": "src/itsdangerous/timed.py",
+    "changed_defs": [],
+    "truth": [
+      "src/itsdangerous/serializer.py"
+    ],
+    "mcm_files": [
+      "src/itsdangerous/__init__.py",
+      "src/itsdangerous/url_safe.py",
+      "tests/test_itsdangerous/test_timed.py",
+      "tests/test_itsdangerous/test_url_safe.py"
+    ],
+    "mcm_informative": false,
+    "direction": "upstream",
+    "worktree": "oracle-experiment/worktrees/itsdangerous-999ce7af",
+    "index": "oracle-experiment/index/itsdangerous-999ce7af.db"
+  },
+  {
+    "task_id": "itsdangerous:385c0eb7",
+    "repository": "itsdangerous",
+    "commit": "385c0eb7501b121b1fddafe19c547073f5a458a0",
+    "parent": "385c0eb7501b121b1fddafe19c547073f5a458a0~1",
+    "target_file": "src/itsdangerous/timed.py",
+    "changed_defs": [],
+    "truth": [
+      "src/itsdangerous/serializer.py"
+    ],
+    "mcm_files": [
+      "src/itsdangerous/__init__.py",
+      "src/itsdangerous/url_safe.py",
+      "tests/test_itsdangerous/test_timed.py",
+      "tests/test_itsdangerous/test_url_safe.py"
+    ],
+    "mcm_informative": false,
+    "direction": "upstream",
+    "worktree": "oracle-experiment/worktrees/itsdangerous-385c0eb7",
+    "index": "oracle-experiment/index/itsdangerous-385c0eb7.db"
+  },
+  {
+    "task_id": "itsdangerous:01001c63",
+    "repository": "itsdangerous",
+    "commit": "01001c63af4a1c58b65328b2aad3df75a6edc843",
+    "parent": "01001c63af4a1c58b65328b2aad3df75a6edc843~1",
+    "target_file": "src/itsdangerous/timed.py",
+    "changed_defs": [],
+    "truth": [
+      "src/itsdangerous/serializer.py"
+    ],
+    "mcm_files": [
+      "src/itsdangerous/__init__.py",
+      "src/itsdangerous/url_safe.py",
+      "tests/test_itsdangerous/test_timed.py",
+      "tests/test_itsdangerous/test_url_safe.py"
+    ],
+    "mcm_informative": false,
+    "direction": "upstream",
+    "worktree": "oracle-experiment/worktrees/itsdangerous-01001c63",
+    "index": "oracle-experiment/index/itsdangerous-01001c63.db"
+  },
+  {
+    "task_id": "itsdangerous:233527d3",
+    "repository": "itsdangerous",
+    "commit": "233527d38bfe35b5c28a11a580555b6e8dda34c3",
+    "parent": "233527d38bfe35b5c28a11a580555b6e8dda34c3~1",
+    "target_file": "src/itsdangerous/_json.py",
+    "changed_defs": [],
+    "truth": [
+      "src/itsdangerous/__init__.py"
+    ],
+    "mcm_files": [
+      "src/itsdangerous/__init__.py",
+      "src/itsdangerous/jws.py",
+      "src/itsdangerous/url_safe.py",
+      "tests/test_itsdangerous/test_jws.py",
+      "tests/test_itsdangerous/test_url_safe.py"
+    ],
+    "mcm_informative": true,
+    "direction": "downstream",
+    "worktree": "oracle-experiment/worktrees/itsdangerous-233527d3",
+    "index": "oracle-experiment/index/itsdangerous-233527d3.db"
+  },
+  {
+    "task_id": "itsdangerous:506ca21d",
+    "repository": "itsdangerous",
+    "commit": "506ca21d8cc1d16313270c37b6990c9e7762f68e",
+    "parent": "506ca21d8cc1d16313270c37b6990c9e7762f68e~1",
+    "target_file": "src/itsdangerous/_json.py",
+    "changed_defs": [],
+    "truth": [
+      "src/itsdangerous/__init__.py"
+    ],
+    "mcm_files": [
+      "src/itsdangerous/__init__.py",
+      "src/itsdangerous/jws.py",
+      "src/itsdangerous/url_safe.py",
+      "tests/test_itsdangerous/test_jws.py",
+      "tests/test_itsdangerous/test_url_safe.py"
+    ],
+    "mcm_informative": true,
+    "direction": "downstream",
+    "worktree": "oracle-experiment/worktrees/itsdangerous-506ca21d",
+    "index": "oracle-experiment/index/itsdangerous-506ca21d.db"
+  },
+  {
+    "task_id": "itsdangerous:b46ebef5",
+    "repository": "itsdangerous",
+    "commit": "b46ebef579ef0a86517453e8106c9d7d5cf7dd29",
+    "parent": "b46ebef579ef0a86517453e8106c9d7d5cf7dd29~1",
+    "target_file": "src/itsdangerous/_json.py",
+    "changed_defs": [
+      "_CompactJSON.loads",
+      "_CompactJSON.dumps",
+      "DeprecatedJSON.__getattribute__"
+    ],
+    "truth": [
+      "src/itsdangerous/__init__.py"
+    ],
+    "mcm_files": [],
+    "mcm_informative": false,
+    "direction": "downstream",
+    "worktree": "oracle-experiment/worktrees/itsdangerous-b46ebef5",
+    "index": "oracle-experiment/index/itsdangerous-b46ebef5.db"
+  },
+  {
+    "task_id": "itsdangerous:15a2e0d9",
+    "repository": "itsdangerous",
+    "commit": "15a2e0d9b4bdaa38144c947a9aa04ffd49826700",
+    "parent": "15a2e0d9b4bdaa38144c947a9aa04ffd49826700~1",
+    "target_file": "src/itsdangerous/_json.py",
+    "changed_defs": [
+      "_CompactJSON.loads",
+      "_CompactJSON.dumps",
+      "DeprecatedJSON.__getattribute__"
+    ],
+    "truth": [
+      "src/itsdangerous/__init__.py"
+    ],
+    "mcm_files": [],
+    "mcm_informative": false,
+    "direction": "downstream",
+    "worktree": "oracle-experiment/worktrees/itsdangerous-15a2e0d9",
+    "index": "oracle-experiment/index/itsdangerous-15a2e0d9.db"
+  },
+  {
+    "task_id": "itsdangerous:d2250ed8",
+    "repository": "itsdangerous",
+    "commit": "d2250ed8b2185af1ffaea4166b8d114286a95462",
+    "parent": "d2250ed8b2185af1ffaea4166b8d114286a95462~1",
+    "target_file": "src/itsdangerous/_json.py",
+    "changed_defs": [
+      "_CompactJSON.loads",
+      "_CompactJSON.dumps",
+      "DeprecatedJSON.__getattribute__"
+    ],
+    "truth": [
+      "src/itsdangerous/__init__.py"
+    ],
+    "mcm_files": [],
+    "mcm_informative": false,
+    "direction": "downstream",
+    "worktree": "oracle-experiment/worktrees/itsdangerous-d2250ed8",
+    "index": "oracle-experiment/index/itsdangerous-d2250ed8.db"
+  },
+  {
+    "task_id": "itsdangerous:2881d93e",
+    "repository": "itsdangerous",
+    "commit": "2881d93e31c3e80641e28b858cbff71d3899afa0",
+    "parent": "2881d93e31c3e80641e28b858cbff71d3899afa0~1",
+    "target_file": "src/itsdangerous/serializer.py",
+    "changed_defs": [
+      "Serializer.__init__",
+      "Serializer.secret_key",
+      "Serializer.make_signer",
+      "Serializer.iter_unsigners"
+    ],
+    "truth": [
+      "src/itsdangerous/signer.py"
+    ],
+    "mcm_files": [],
+    "mcm_informative": false,
+    "direction": "upstream",
+    "worktree": "oracle-experiment/worktrees/itsdangerous-2881d93e",
+    "index": "oracle-experiment/index/itsdangerous-2881d93e.db"
+  },
+  {
+    "task_id": "itsdangerous:9b7b635a",
+    "repository": "itsdangerous",
+    "commit": "9b7b635a46d83288fd91a455c7b5cb402166edb1",
+    "parent": "9b7b635a46d83288fd91a455c7b5cb402166edb1~1",
+    "target_file": "src/itsdangerous/jws.py",
+    "changed_defs": [
+      "JSONWebSignatureSerializer.__init__",
+      "JSONWebSignatureSerializer.make_signer"
+    ],
+    "truth": [
+      "src/itsdangerous/serializer.py"
+    ],
+    "mcm_files": [],
+    "mcm_informative": false,
+    "direction": "upstream",
+    "worktree": "oracle-experiment/worktrees/itsdangerous-9b7b635a",
+    "index": "oracle-experiment/index/itsdangerous-9b7b635a.db"
+  },
+  {
+    "task_id": "itsdangerous:981ade6e",
+    "repository": "itsdangerous",
+    "commit": "981ade6e73ff9ce420aa29143039de0aaccb9770",
+    "parent": "981ade6e73ff9ce420aa29143039de0aaccb9770~1",
+    "target_file": "src/itsdangerous/__init__.py",
+    "changed_defs": [],
+    "truth": [
+      "src/itsdangerous/_json.py"
+    ],
+    "mcm_files": [
+      "tests/test_itsdangerous/test_jws.py",
+      "tests/test_itsdangerous/test_serializer.py",
+      "tests/test_itsdangerous/test_timed.py",
+      "tests/test_itsdangerous/test_url_safe.py"
+    ],
+    "mcm_informative": false,
+    "direction": "upstream",
+    "worktree": "oracle-experiment/worktrees/itsdangerous-981ade6e",
+    "index": "oracle-experiment/index/itsdangerous-981ade6e.db"
+  },
+  {
+    "task_id": "jinja:7d72eb7f",
+    "repository": "jinja",
+    "commit": "7d72eb7fefb7dce065193967f31f805180508448",
+    "parent": "7d72eb7fefb7dce065193967f31f805180508448~1",
+    "target_file": "src/jinja2/compiler.py",
+    "changed_defs": [
+      "CodeGenerator.write_commons"
+    ],
+    "truth": [
+      "src/jinja2/environment.py"
+    ],
+    "mcm_files": [],
+    "mcm_informative": false,
+    "direction": "downstream",
+    "worktree": "oracle-experiment/worktrees/jinja-7d72eb7f",
+    "index": "oracle-experiment/index/jinja-7d72eb7f.db"
+  },
+  {
+    "task_id": "jinja:29035652",
+    "repository": "jinja",
+    "commit": "2903565262e6c8971e612a2717feb430e284e4ac",
+    "parent": "2903565262e6c8971e612a2717feb430e284e4ac~1",
+    "target_file": "src/jinja2/compiler.py",
+    "changed_defs": [
+      "CodeGenerator.write_commons"
+    ],
+    "truth": [
+      "src/jinja2/environment.py"
+    ],
+    "mcm_files": [],
+    "mcm_informative": false,
+    "direction": "downstream",
+    "worktree": "oracle-experiment/worktrees/jinja-29035652",
+    "index": "oracle-experiment/index/jinja-29035652.db"
+  },
+  {
+    "task_id": "python-dotenv:17dba652",
+    "repository": "python-dotenv",
+    "commit": "17dba65244c1d4d10f591fe37c924bd2c6fd1cfc",
+    "parent": "17dba65244c1d4d10f591fe37c924bd2c6fd1cfc~1",
+    "target_file": "src/dotenv/main.py",
+    "changed_defs": [
+      "DotEnv.dict",
+      "resolve_variables"
+    ],
+    "truth": [
+      "src/dotenv/variables.py"
+    ],
+    "mcm_files": [],
+    "mcm_informative": false,
+    "direction": "none",
+    "worktree": "oracle-experiment/worktrees/python-dotenv-17dba652",
+    "index": "oracle-experiment/index/python-dotenv-17dba652.db"
+  },
+  {
+    "task_id": "python-dotenv:d93324ae",
+    "repository": "python-dotenv",
+    "commit": "d93324ae9e4ec27ed3d62e2dd896699f17320b28",
+    "parent": "d93324ae9e4ec27ed3d62e2dd896699f17320b28~1",
+    "target_file": "src/dotenv/__init__.py",
+    "changed_defs": [],
+    "truth": [
+      "src/dotenv/compat.py"
+    ],
+    "mcm_files": [
+      "tests/test_cli.py",
+      "tests/test_core.py",
+      "tests/test_utils.py"
+    ],
+    "mcm_informative": false,
+    "direction": "upstream",
+    "worktree": "oracle-experiment/worktrees/python-dotenv-d93324ae",
+    "index": "oracle-experiment/index/python-dotenv-d93324ae.db"
+  },
+  {
+    "task_id": "python-dotenv:0681a878",
+    "repository": "python-dotenv",
+    "commit": "0681a878a2530908ef1ef64dff17ed19cfe20465",
+    "parent": "0681a878a2530908ef1ef64dff17ed19cfe20465~1",
+    "target_file": "src/dotenv/main.py",
+    "changed_defs": [],
+    "truth": [
+      "src/dotenv/compat.py"
+    ],
+    "mcm_files": [
+      "src/dotenv/__init__.py",
+      "src/dotenv/cli.py",
+      "src/dotenv/ipython.py",
+      "tests/test_cli.py"
+    ],
+    "mcm_informative": false,
+    "direction": "upstream",
+    "worktree": "oracle-experiment/worktrees/python-dotenv-0681a878",
+    "index": "oracle-experiment/index/python-dotenv-0681a878.db"
+  },
+  {
+    "task_id": "python-dotenv:62df65a6",
+    "repository": "python-dotenv",
+    "commit": "62df65a63e5d683d0d9dd6305bd75a977f407633",
+    "parent": "62df65a63e5d683d0d9dd6305bd75a977f407633~1",
+    "target_file": "src/dotenv/compat.py",
+    "changed_defs": [],
+    "truth": [
+      "src/dotenv/main.py"
+    ],
+    "mcm_files": [
+      "src/dotenv/__init__.py",
+      "src/dotenv/cli.py",
+      "src/dotenv/ipython.py",
+      "src/dotenv/main.py",
+      "tests/test_cli.py",
+      "tests/test_core.py"
+    ],
+    "mcm_informative": true,
+    "direction": "downstream",
+    "worktree": "oracle-experiment/worktrees/python-dotenv-62df65a6",
+    "index": "oracle-experiment/index/python-dotenv-62df65a6.db"
+  },
+  {
+    "task_id": "python-dotenv:43af2c57",
+    "repository": "python-dotenv",
+    "commit": "43af2c57a3622822fc9f8c09031d2019ef331dd3",
+    "parent": "43af2c57a3622822fc9f8c09031d2019ef331dd3~1",
+    "target_file": "dotenv/main.py",
+    "changed_defs": [
+      "DotEnv.set_as_environment_variables"
+    ],
+    "truth": [
+      "dotenv/compat.py"
+    ],
+    "mcm_files": [],
+    "mcm_informative": false,
+    "direction": "upstream",
+    "worktree": "oracle-experiment/worktrees/python-dotenv-43af2c57",
+    "index": "oracle-experiment/index/python-dotenv-43af2c57.db"
+  },
+  {
+    "task_id": "python-dotenv:b8fa1111",
+    "repository": "python-dotenv",
+    "commit": "b8fa11110314d5dfe9963155e88289fe649016a0",
+    "parent": "b8fa11110314d5dfe9963155e88289fe649016a0~1",
+    "target_file": "dotenv/cli.py",
+    "changed_defs": [],
+    "truth": [
+      "dotenv/__init__.py"
+    ],
+    "mcm_files": [
+      "dotenv/__init__.py",
+      "tests/test_cli.py",
+      "tests/test_core.py"
+    ],
+    "mcm_informative": true,
+    "direction": "downstream",
+    "worktree": "oracle-experiment/worktrees/python-dotenv-b8fa1111",
+    "index": "oracle-experiment/index/python-dotenv-b8fa1111.db"
+  }
+]

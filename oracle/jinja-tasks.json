@@ -1,0 +1,46 @@
+[
+  {
+    "task_id": "jinja:7d72eb7f",
+    "repository": "jinja",
+    "commit": "7d72eb7fefb7dce065193967f31f805180508448",
+    "parent": "7d72eb7fefb7dce065193967f31f805180508448~1",
+    "target_file": "src/jinja2/compiler.py",
+    "target": "src/jinja2/compiler.py",
+    "required_files": [
+      "src/jinja2/environment.py"
+    ],
+    "incidental_files": [
+      "src/jinja2/nativetypes.py",
+      "src/jinja2/runtime.py",
+      "tests/test_nativetypes.py"
+    ],
+    "changed_defs": [
+      "CodeGenerator.write_commons"
+    ],
+    "baseline_failures": 0,
+    "broken_failures": 705,
+    "import_error": false
+  },
+  {
+    "task_id": "jinja:29035652",
+    "repository": "jinja",
+    "commit": "2903565262e6c8971e612a2717feb430e284e4ac",
+    "parent": "2903565262e6c8971e612a2717feb430e284e4ac~1",
+    "target_file": "src/jinja2/compiler.py",
+    "target": "src/jinja2/compiler.py",
+    "required_files": [
+      "src/jinja2/environment.py"
+    ],
+    "incidental_files": [
+      "src/jinja2/nativetypes.py",
+      "src/jinja2/runtime.py",
+      "tests/test_nativetypes.py"
+    ],
+    "changed_defs": [
+      "CodeGenerator.write_commons"
+    ],
+    "baseline_failures": 0,
+    "broken_failures": 705,
+    "import_error": false
+  }
+]

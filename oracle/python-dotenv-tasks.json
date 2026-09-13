@@ -1,0 +1,114 @@
+[
+  {
+    "task_id": "python-dotenv:17dba652",
+    "repository": "python-dotenv",
+    "commit": "17dba65244c1d4d10f591fe37c924bd2c6fd1cfc",
+    "parent": "17dba65244c1d4d10f591fe37c924bd2c6fd1cfc~1",
+    "target_file": "src/dotenv/main.py",
+    "target": "src/dotenv/main.py",
+    "required_files": [
+      "src/dotenv/variables.py"
+    ],
+    "incidental_files": [
+      "tests/test_variables.py"
+    ],
+    "changed_defs": [
+      "DotEnv.dict",
+      "resolve_variables"
+    ],
+    "baseline_failures": 3,
+    "broken_failures": 5,
+    "import_error": true
+  },
+  {
+    "task_id": "python-dotenv:d93324ae",
+    "repository": "python-dotenv",
+    "commit": "d93324ae9e4ec27ed3d62e2dd896699f17320b28",
+    "parent": "d93324ae9e4ec27ed3d62e2dd896699f17320b28~1",
+    "target_file": "src/dotenv/__init__.py",
+    "target": "src/dotenv/__init__.py",
+    "required_files": [
+      "src/dotenv/compat.py"
+    ],
+    "incidental_files": [
+      "src/dotenv/cli.py",
+      "src/dotenv/main.py",
+      "src/dotenv/parser.py"
+    ],
+    "changed_defs": [],
+    "baseline_failures": 2,
+    "broken_failures": 4,
+    "import_error": true
+  },
+  {
+    "task_id": "python-dotenv:0681a878",
+    "repository": "python-dotenv",
+    "commit": "0681a878a2530908ef1ef64dff17ed19cfe20465",
+    "parent": "0681a878a2530908ef1ef64dff17ed19cfe20465~1",
+    "target_file": "src/dotenv/main.py",
+    "target": "src/dotenv/main.py",
+    "required_files": [
+      "src/dotenv/compat.py"
+    ],
+    "incidental_files": [],
+    "changed_defs": [],
+    "baseline_failures": 2,
+    "broken_failures": 4,
+    "import_error": true
+  },
+  {
+    "task_id": "python-dotenv:62df65a6",
+    "repository": "python-dotenv",
+    "commit": "62df65a63e5d683d0d9dd6305bd75a977f407633",
+    "parent": "62df65a63e5d683d0d9dd6305bd75a977f407633~1",
+    "target_file": "src/dotenv/compat.py",
+    "target": "src/dotenv/compat.py",
+    "required_files": [
+      "src/dotenv/main.py"
+    ],
+    "incidental_files": [
+      "tests/test_core.py"
+    ],
+    "changed_defs": [],
+    "baseline_failures": 2,
+    "broken_failures": 3,
+    "import_error": true
+  },
+  {
+    "task_id": "python-dotenv:43af2c57",
+    "repository": "python-dotenv",
+    "commit": "43af2c57a3622822fc9f8c09031d2019ef331dd3",
+    "parent": "43af2c57a3622822fc9f8c09031d2019ef331dd3~1",
+    "target_file": "dotenv/main.py",
+    "target": "dotenv/main.py",
+    "required_files": [
+      "dotenv/compat.py"
+    ],
+    "incidental_files": [],
+    "changed_defs": [
+      "DotEnv.set_as_environment_variables"
+    ],
+    "baseline_failures": 2,
+    "broken_failures": 3,
+    "import_error": true
+  },
+  {
+    "task_id": "python-dotenv:b8fa1111",
+    "repository": "python-dotenv",
+    "commit": "b8fa11110314d5dfe9963155e88289fe649016a0",
+    "parent": "b8fa11110314d5dfe9963155e88289fe649016a0~1",
+    "target_file": "dotenv/cli.py",
+    "target": "dotenv/cli.py",
+    "required_files": [
+      "dotenv/__init__.py"
+    ],
+    "incidental_files": [
+      "setup.py",
+      "tests/test_cli.py"
+    ],
+    "changed_defs": [],
+    "baseline_failures": 2,
+    "broken_failures": 3,
+    "import_error": true
+  }
+]

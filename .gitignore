@@ -1,0 +1,79 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+.venv/
+env/
+venv/
+ENV/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Research Manuscript (kept private locally for publication), and the script
+# that builds it. Local reading tools, not part of what the repository ships.
+paper/
+scripts/generate_docx.py
+
+# Project-execution artefacts: the design specification the build worked from
+# and the running log of that build. The repository publishes the research --
+# the code, the tests, the method and the results -- not the scaffolding that
+# produced it.
+Mathematical Context Model — Full Implementation Guide.md
+WORKLOG.md
+
+# Agent Session Handoff (local only)
+SESSION_HANDOFF.md
+
+# Local credentials. Never commit an API key.
+.env
+.env.*
+!.env.example
+
+# Benchmark clones, run logs, and the worktrees and indexes the agent
+# experiment materialises. The tasks and trials themselves are committed;
+# what can be rebuilt from them is not.
+repos/
+logs/
+oracle-experiment/worktrees/
+oracle-experiment/index/
+oracle-experiment/key_state.json
+
+# Local history archive. The published repository is a single commit; the full
+# build history is kept here and never pushed.
+backups/
+AGENT_RUN.md
+START_HERE.md

@@ -1,0 +1,236 @@
+[
+  {
+    "task_id": "itsdangerous:135eb234",
+    "repository": "itsdangerous",
+    "commit": "135eb234ed4a07520779ffb679407b7d27c8ffe6",
+    "parent": "135eb234ed4a07520779ffb679407b7d27c8ffe6~1",
+    "target_file": "src/itsdangerous/timed.py",
+    "target": "src/itsdangerous/timed.py",
+    "required_files": [
+      "src/itsdangerous/serializer.py"
+    ],
+    "incidental_files": [],
+    "changed_defs": [],
+    "baseline_failures": 0,
+    "broken_failures": 3,
+    "import_error": true
+  },
+  {
+    "task_id": "itsdangerous:999ce7af",
+    "repository": "itsdangerous",
+    "commit": "999ce7af1f0502a224d33338e6ded8bc1e81cb2f",
+    "parent": "999ce7af1f0502a224d33338e6ded8bc1e81cb2f~1",
+    "target_file": "src/itsdangerous/timed.py",
+    "target": "src/itsdangerous/timed.py",
+    "required_files": [
+      "src/itsdangerous/serializer.py"
+    ],
+    "incidental_files": [
+      "src/itsdangerous/_json.py"
+    ],
+    "changed_defs": [],
+    "baseline_failures": 0,
+    "broken_failures": 3,
+    "import_error": true
+  },
+  {
+    "task_id": "itsdangerous:385c0eb7",
+    "repository": "itsdangerous",
+    "commit": "385c0eb7501b121b1fddafe19c547073f5a458a0",
+    "parent": "385c0eb7501b121b1fddafe19c547073f5a458a0~1",
+    "target_file": "src/itsdangerous/timed.py",
+    "target": "src/itsdangerous/timed.py",
+    "required_files": [
+      "src/itsdangerous/serializer.py"
+    ],
+    "incidental_files": [
+      "src/itsdangerous/url_safe.py"
+    ],
+    "changed_defs": [],
+    "baseline_failures": 0,
+    "broken_failures": 3,
+    "import_error": true
+  },
+  {
+    "task_id": "itsdangerous:01001c63",
+    "repository": "itsdangerous",
+    "commit": "01001c63af4a1c58b65328b2aad3df75a6edc843",
+    "parent": "01001c63af4a1c58b65328b2aad3df75a6edc843~1",
+    "target_file": "src/itsdangerous/timed.py",
+    "target": "src/itsdangerous/timed.py",
+    "required_files": [
+      "src/itsdangerous/serializer.py"
+    ],
+    "incidental_files": [
+      "src/itsdangerous/url_safe.py"
+    ],
+    "changed_defs": [],
+    "baseline_failures": 0,
+    "broken_failures": 3,
+    "import_error": true
+  },
+  {
+    "task_id": "itsdangerous:233527d3",
+    "repository": "itsdangerous",
+    "commit": "233527d38bfe35b5c28a11a580555b6e8dda34c3",
+    "parent": "233527d38bfe35b5c28a11a580555b6e8dda34c3~1",
+    "target_file": "src/itsdangerous/_json.py",
+    "target": "src/itsdangerous/_json.py",
+    "required_files": [
+      "src/itsdangerous/__init__.py"
+    ],
+    "incidental_files": [
+      "src/itsdangerous/jws.py",
+      "tests/test_itsdangerous/test_jws.py"
+    ],
+    "changed_defs": [],
+    "baseline_failures": 0,
+    "broken_failures": 6,
+    "import_error": true
+  },
+  {
+    "task_id": "itsdangerous:506ca21d",
+    "repository": "itsdangerous",
+    "commit": "506ca21d8cc1d16313270c37b6990c9e7762f68e",
+    "parent": "506ca21d8cc1d16313270c37b6990c9e7762f68e~1",
+    "target_file": "src/itsdangerous/_json.py",
+    "target": "src/itsdangerous/_json.py",
+    "required_files": [
+      "src/itsdangerous/__init__.py"
+    ],
+    "incidental_files": [
+      "src/itsdangerous/jws.py",
+      "tests/test_itsdangerous/test_jws.py"
+    ],
+    "changed_defs": [],
+    "baseline_failures": 0,
+    "broken_failures": 6,
+    "import_error": true
+  },
+  {
+    "task_id": "itsdangerous:b46ebef5",
+    "repository": "itsdangerous",
+    "commit": "b46ebef579ef0a86517453e8106c9d7d5cf7dd29",
+    "parent": "b46ebef579ef0a86517453e8106c9d7d5cf7dd29~1",
+    "target_file": "src/itsdangerous/_json.py",
+    "target": "src/itsdangerous/_json.py",
+    "required_files": [
+      "src/itsdangerous/__init__.py"
+    ],
+    "incidental_files": [
+      "src/itsdangerous/serializer.py",
+      "src/itsdangerous/signer.py"
+    ],
+    "changed_defs": [
+      "_CompactJSON.loads",
+      "_CompactJSON.dumps",
+      "DeprecatedJSON.__getattribute__"
+    ],
+    "baseline_failures": 0,
+    "broken_failures": 6,
+    "import_error": true
+  },
+  {
+    "task_id": "itsdangerous:15a2e0d9",
+    "repository": "itsdangerous",
+    "commit": "15a2e0d9b4bdaa38144c947a9aa04ffd49826700",
+    "parent": "15a2e0d9b4bdaa38144c947a9aa04ffd49826700~1",
+    "target_file": "src/itsdangerous/_json.py",
+    "target": "src/itsdangerous/_json.py",
+    "required_files": [
+      "src/itsdangerous/__init__.py"
+    ],
+    "incidental_files": [],
+    "changed_defs": [
+      "_CompactJSON.loads",
+      "_CompactJSON.dumps",
+      "DeprecatedJSON.__getattribute__"
+    ],
+    "baseline_failures": 0,
+    "broken_failures": 6,
+    "import_error": true
+  },
+  {
+    "task_id": "itsdangerous:d2250ed8",
+    "repository": "itsdangerous",
+    "commit": "d2250ed8b2185af1ffaea4166b8d114286a95462",
+    "parent": "d2250ed8b2185af1ffaea4166b8d114286a95462~1",
+    "target_file": "src/itsdangerous/_json.py",
+    "target": "src/itsdangerous/_json.py",
+    "required_files": [
+      "src/itsdangerous/__init__.py"
+    ],
+    "incidental_files": [],
+    "changed_defs": [
+      "_CompactJSON.loads",
+      "_CompactJSON.dumps",
+      "DeprecatedJSON.__getattribute__"
+    ],
+    "baseline_failures": 0,
+    "broken_failures": 6,
+    "import_error": true
+  },
+  {
+    "task_id": "itsdangerous:2881d93e",
+    "repository": "itsdangerous",
+    "commit": "2881d93e31c3e80641e28b858cbff71d3899afa0",
+    "parent": "2881d93e31c3e80641e28b858cbff71d3899afa0~1",
+    "target_file": "src/itsdangerous/serializer.py",
+    "target": "src/itsdangerous/serializer.py",
+    "required_files": [
+      "src/itsdangerous/signer.py"
+    ],
+    "incidental_files": [
+      "src/itsdangerous/jws.py",
+      "tests/test_itsdangerous/test_jws.py",
+      "tests/test_itsdangerous/test_signer.py"
+    ],
+    "changed_defs": [
+      "Serializer.__init__",
+      "Serializer.secret_key",
+      "Serializer.make_signer",
+      "Serializer.iter_unsigners"
+    ],
+    "baseline_failures": 0,
+    "broken_failures": 278,
+    "import_error": false
+  },
+  {
+    "task_id": "itsdangerous:9b7b635a",
+    "repository": "itsdangerous",
+    "commit": "9b7b635a46d83288fd91a455c7b5cb402166edb1",
+    "parent": "9b7b635a46d83288fd91a455c7b5cb402166edb1~1",
+    "target_file": "src/itsdangerous/jws.py",
+    "target": "src/itsdangerous/jws.py",
+    "required_files": [
+      "src/itsdangerous/serializer.py"
+    ],
+    "incidental_files": [],
+    "changed_defs": [
+      "JSONWebSignatureSerializer.__init__",
+      "JSONWebSignatureSerializer.make_signer"
+    ],
+    "baseline_failures": 0,
+    "broken_failures": 57,
+    "import_error": false
+  },
+  {
+    "task_id": "itsdangerous:981ade6e",
+    "repository": "itsdangerous",
+    "commit": "981ade6e73ff9ce420aa29143039de0aaccb9770",
+    "parent": "981ade6e73ff9ce420aa29143039de0aaccb9770~1",
+    "target_file": "src/itsdangerous/__init__.py",
+    "target": "src/itsdangerous/__init__.py",
+    "required_files": [
+      "src/itsdangerous/_json.py"
+    ],
+    "incidental_files": [
+      "src/itsdangerous/jws.py",
+      "src/itsdangerous/serializer.py"
+    ],
+    "changed_defs": [],
+    "baseline_failures": 0,
+    "broken_failures": 6,
+    "import_error": true
+  }
+]
