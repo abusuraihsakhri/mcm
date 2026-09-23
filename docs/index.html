@@ -451,6 +451,20 @@
       max-width: 100%;
     }
 
+    .sim-panel > *,
+    .card > *,
+    .comparison-column > *,
+    .sim-controls > * {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .sim-panel,
+    .card,
+    .comparison-column {
+      overflow-wrap: anywhere;
+    }
+
     img, video {
       max-width: 100%;
       height: auto;
@@ -993,7 +1007,7 @@
         align-items: stretch;
       }
       .control-group {
-        flex-basis: 100%;
+        flex: 1 1 100% !important;
         width: 100%;
       }
       .sim-controls .btn {
