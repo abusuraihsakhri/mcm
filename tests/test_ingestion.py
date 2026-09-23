@@ -1,5 +1,7 @@
 """Repository ingestion integration tests (spec sections 19, 71)."""
 
+import pytest
+
 from mcm.core.objects import ObjectType
 from mcm.core.provenance import ExtractionMethod
 from mcm.core.relations import RelationType as RT
