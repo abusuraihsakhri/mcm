@@ -28,6 +28,11 @@ jobs:
       - name: Install
         run: pip install -e ".[dev,api]"
 
+      - name: Validate environment and syntax
+        run: |
+          python -m pip check
+          python -m compileall -q mcm scripts tests
+
       - name: Build wheel
         run: python -m pip wheel . --no-deps -w /tmp/mcm-dist
 
