@@ -93,7 +93,10 @@ class WorkingTreeProvider:
                     # visited set to notice one.
                     if entry.name not in SKIP_DIRS and not entry.is_symlink():
                         stack.append(entry)
-                elif entry.suffix == ".py":
+                elif entry.suffix == ".py" and not entry.is_symlink():
+                    # Do not follow file symlinks either: a repository-controlled
+                    # link can otherwise make ingestion read arbitrary files
+                    # outside the repository root.
                     yield entry.relative_to(self.root).as_posix()
 
 

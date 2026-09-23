@@ -55,6 +55,10 @@ class TestAPIEndpoints:
         assert "outgoing" in data
         assert len(data["incoming"]) + len(data["outgoing"]) > 0
 
+        object_id = data["object_id"]
+        assert all(object_id in rel["arguments"][1:] for rel in data["incoming"])
+        assert all(rel["arguments"][0] == object_id for rel in data["outgoing"])
+
     def test_post_impact_section_42_format(self, client):
         payload = {"target": "validate_token", "depth": 6}
         res = client.post("/impact", json=payload)
@@ -154,7 +158,8 @@ class TestAPIEndpoints:
         assert res.status_code == 400
         assert "not a directory" in res.json()["detail"].lower()
 
-        # Prohibited system root directory
-        res2 = client.post("/repositories/ingest", json={"path": "C:\\Windows"})
+        # Prohibited system root directory. Path("/") resolves to the host
+        # filesystem root on POSIX and to the current drive root on Windows.
+        res2 = client.post("/repositories/ingest", json={"path": str(Path("/"))})
         assert res2.status_code == 403
         assert "prohibited" in res2.json()["detail"].lower()

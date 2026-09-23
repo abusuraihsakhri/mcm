@@ -193,8 +193,8 @@ def create_app(store: Store | None = None, allowed_ingest_roots: list[Path] | No
                 obj = resolve_one(current_store, object_id)
             except (KeyError, ValueError):
                 raise HTTPException(status_code=404, detail=f"Object not found: {object_id}")
-        incoming = current_store.relations_for(obj.id, direction="incoming")
-        outgoing = current_store.relations_for(obj.id, direction="outgoing")
+        incoming = current_store.relations_for(obj.id, direction="in")
+        outgoing = current_store.relations_for(obj.id, direction="out")
         return {
             "object_id": obj.id,
             "incoming": [

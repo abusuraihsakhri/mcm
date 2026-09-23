@@ -150,3 +150,7 @@ class TestStorageRoundTrip:
         empty_store.put_relation(relation)
         assert len(list(empty_store.all_relations())) == 1
         assert len(empty_store.relations_for("a", direction="out")) == 1
+
+    def test_invalid_relation_direction_is_rejected(self, empty_store):
+        with pytest.raises(ValueError, match="invalid relation direction"):
+            empty_store.relations_for("a", direction="incoming")

@@ -14,11 +14,16 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8"]
+dev = [
+    "pytest>=8",
+    "pytest-timeout>=2.3,<3",
+    "httpx>=0.28,<1",
+    "httpx2>=2,<3",
+]
 # Opt-in embedding model for the vector projection. The default provider is
 # offline feature hashing and needs nothing installed (see docs/retrieval.md).
 embeddings = ["sentence-transformers>=3"]
-api = ["fastapi>=0.115", "uvicorn>=0.30"]
+api = ["fastapi>=0.115,<1", "uvicorn>=0.30,<1"]
 gpu = ["torch>=2.2", "sentence-transformers>=3"]
 
 [project.scripts]

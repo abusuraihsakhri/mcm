@@ -1,10 +1,13 @@
 """Repository ingestion integration tests (spec sections 19, 71)."""
 
+import pytest
+
 from mcm.core.objects import ObjectType
 from mcm.core.provenance import ExtractionMethod
 from mcm.core.relations import RelationType as RT
 from mcm.ingestion.dependencies import TESTS_HEURISTIC_CONFIDENCE
 from mcm.ingestion.repository import RepositoryIngestor
+from mcm.ingestion.sources import WorkingTreeProvider
 from mcm.storage.sqlite_store import SQLiteStore
 
 from conftest import (AUTH_FILE, AUTHENTICATE, CREATE_TOKEN, DECODE_CLAIMS, DEMO_REPO,
@@ -122,3 +125,20 @@ class TestIdempotence:
         assert len(list(store.all_relations())) == relations_after_first
         assert first.files == 5
         store.close()
+
+
+def test_working_tree_does_not_follow_symlinked_python_files(tmp_path):
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    (repo / "inside.py").write_text("VALUE = 1\n", encoding="utf-8")
+    outside = tmp_path / "outside.py"
+    outside.write_text("SECRET = 'outside'\n", encoding="utf-8")
+    link = repo / "leak.py"
+    try:
+        link.symlink_to(outside)
+    except OSError:
+        pytest.skip("symlinks are not available on this platform")
+
+    paths = {source.relpath for source in WorkingTreeProvider(repo).files()}
+
+    assert paths == {"inside.py"}
