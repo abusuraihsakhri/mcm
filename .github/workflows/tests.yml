@@ -6,9 +6,13 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   pytest:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
@@ -34,6 +38,7 @@ jobs:
 
   mcp-smoke:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
@@ -56,13 +61,13 @@ jobs:
             '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' \
           | mcm-mcp --db /tmp/smoke.db \
           | python -c '
-import json, sys
-seen = {}
-for line in sys.stdin:
-    message = json.loads(line)
-    seen[message["id"]] = message
-assert "protocolVersion" in seen[1]["result"], seen[1]
-names = {t["name"] for t in seen[2]["result"]["tools"]}
-assert {"mcm_search", "mcm_impact", "mcm_context"} <= names, names
-print("MCP handshake OK, tools:", sorted(names))
-'
+          import json, sys
+          seen = {}
+          for line in sys.stdin:
+              message = json.loads(line)
+              seen[message["id"]] = message
+          assert "protocolVersion" in seen[1]["result"], seen[1]
+          names = {t["name"] for t in seen[2]["result"]["tools"]}
+          assert {"mcm_search", "mcm_impact", "mcm_context"} <= names, names
+          print("MCP handshake OK, tools:", sorted(names))
+          '
