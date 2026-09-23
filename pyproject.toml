@@ -6,6 +6,11 @@ build-backend = "setuptools.build_meta"
 name = "mcm"
 version = "0.1.0"
 description = "Mathematical Context Model - research prototype"
+readme = "README.md"
+authors = [
+    { name = "Abu Suraih Sakhri", email = "abusuraihsakhri@gmail.com" },
+]
+license = { file = "LICENSE" }
 requires-python = ">=3.12"
 dependencies = [
     "tree-sitter>=0.24",
@@ -25,6 +30,11 @@ dev = [
 embeddings = ["sentence-transformers>=3"]
 api = ["fastapi>=0.115,<1", "uvicorn>=0.30,<1"]
 gpu = ["torch>=2.2", "sentence-transformers>=3"]
+
+[project.urls]
+Homepage = "https://abusuraihsakhri.github.io/mcm/"
+Repository = "https://github.com/abusuraihsakhri/mcm"
+Documentation = "https://abusuraihsakhri.github.io/mcm/"
 
 [project.scripts]
 mcm = "mcm.cli:main"
