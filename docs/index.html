@@ -31,2769 +31,442 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
   <style>
-    /* ---------------------------------------------------------------------
-       Semantic tokens. Light is the deterministic first-visit default.
-       Dark is available as an explicit persisted choice from the theme toggle.
 
-       Nothing below this block should contain a raw colour. A hex in a rule or
-       an inline style is a value that cannot follow the theme, which is exactly
-       how a page ends up with white-on-white text in one of its two modes.
-       --------------------------------------------------------------------- */
-    :root {
-      color-scheme: light;
-
-      /* surfaces */
-      --bg-dark: #f6f8fc;          /* page */
-      --bg-card: #ffffff;
-      --bg-card-hover: #f0f4fb;
-      --bg-surface: #f8fafc;
-      --bg-inset: #eef2f9;         /* code wells and readouts */
-      --nav-bg: rgba(255, 255, 255, 0.88);
-      --panel-grad-a: #ffffff;
-      --panel-grad-b: #f4f7fd;
-
-      /* lines */
-      --border: #dde4f0;
-      --border-accent: #c2cddf;
-
-      /* type */
-      --text-main: #0f172a;
-      --text-muted: #4a5567;
-      --text-dim: #6b7688;
-      --text-on-accent: #ffffff;
-      --code-text: #1e293b;
-
-      /* accent hues, used for fills, rules and marks */
-      --primary: #4f46e5;
-      --primary-strong: #4338ca;
-      --primary-glow: rgba(79, 70, 229, 0.28);
-      --secondary: #0891b2;
-      --emerald: #059669;
-      --amber: #b45309;
-      --rose: #e11d48;
-      --pink: #db2777;
-
-      /* accent hues at text weight: these must differ per theme, because a
-         tint that reads on near-black is invisible on near-white */
-      --primary-ink: #4338ca;
-      --primary-ink-soft: #4f46e5;
-      --secondary-ink: #0e7490;
-      --emerald-ink: #047857;
-      --rose-ink: #be123c;
-      --amber-ink: #92400e;
-
-      /* translucent washes behind callouts and panels */
-      --tint-primary: rgba(79, 70, 229, 0.07);
-      --tint-primary-strong: rgba(79, 70, 229, 0.14);
-      --tint-emerald: rgba(5, 150, 105, 0.08);
-      --tint-emerald-strong: rgba(5, 150, 105, 0.18);
-      --tint-rose: rgba(225, 29, 72, 0.08);
-      --tint-rose-strong: rgba(225, 29, 72, 0.2);
-      --tint-amber: rgba(180, 83, 9, 0.09);
-      --tint-amber-strong: rgba(180, 83, 9, 0.22);
-      --tint-neutral: rgba(15, 23, 42, 0.04);
-
-      /* links, shadows, hero lettering */
-      --link: #0e7490;
-      --link-hover: #0891b2;
-      --shadow-strong: rgba(15, 23, 42, 0.12);
-      --shadow-soft: rgba(15, 23, 42, 0.07);
-      --hero-grad-a: #0f172a;
-      --hero-grad-b: #4338ca;
-      --hero-grad-c: #0e7490;
-
-      /* canvas, read by the graph simulation so it repaints on theme change */
-      --canvas-bg: #ffffff;
-      --canvas-edge: #94a3b8;
-      --canvas-label: #0f172a;
-
-      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Consolas, monospace;
-
-      /* Type scale, 1.25 ratio off a 16px base, rounded to whole pixels.
-         Named by role rather than by size so a heading can be retuned in one
-         place instead of at every call site. */
-      --text-xs:   0.75rem;   /* 12px - pills, table captions */
-      --text-sm:   0.875rem;  /* 14px - secondary prose, card bodies */
-      --text-base: 1rem;      /* 16px - body. Never smaller on mobile. */
-      --text-lg:   1.125rem;  /* 18px - lead paragraphs */
-      --text-xl:   1.375rem;  /* 22px - section titles on small screens */
-      --text-2xl:  1.75rem;   /* 28px - section titles */
-      --text-3xl:  2.5rem;    /* 40px - hero */
-
-      /* Spacing, 4px rhythm. Every gap and pad below picks from this. */
-      --space-1: 0.25rem;  --space-2: 0.5rem;   --space-3: 0.75rem;
-      --space-4: 1rem;     --space-5: 1.5rem;   --space-6: 2rem;
-      --space-7: 3rem;     --space-8: 4rem;
-
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 14px;
-
-      /* One duration and one easing, so everything moves with the same rhythm. */
-      --ease: cubic-bezier(0.4, 0, 0.2, 1);
-      --dur: 200ms;
-
-      /* Layering, declared once rather than invented per component. */
-      --z-nav: 100;
-      --z-tooltip: 200;
-    }
-
-    /* Dark: the system default, and the design the portal was drawn for. */
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        color-scheme: dark;
-
-        --bg-dark: #070b14;
-        --bg-card: #0d1527;
-        --bg-card-hover: #131f38;
-        --bg-surface: #142038;
-        --bg-inset: #050811;
-        --nav-bg: rgba(7, 11, 20, 0.9);
-        --panel-grad-a: #0f182c;
-        --panel-grad-b: #0c1322;
-
-        --border: #1e293b;
-        --border-accent: #334155;
-
-        --text-main: #f8fafc;
-        --text-muted: #94a3b8;
-        --text-dim: #64748b;
-        --text-on-accent: #ffffff;
-        --code-text: #e2e8f0;
-
-        --primary: #6366f1;
-        --primary-strong: #4f46e5;
-        --primary-glow: rgba(99, 102, 241, 0.35);
-        --secondary: #06b6d4;
-        --emerald: #10b981;
-        --amber: #f59e0b;
-        --rose: #f43f5e;
-        --pink: #ec4899;
-
-        --primary-ink: #c7d2fe;
-        --primary-ink-soft: #a5b4fc;
-        --secondary-ink: #67e8f9;
-        --emerald-ink: #6ee7b7;
-        --rose-ink: #fda4af;
-        --amber-ink: #fcd34d;
-
-        --tint-primary: rgba(99, 102, 241, 0.08);
-        --tint-primary-strong: rgba(99, 102, 241, 0.25);
-        --tint-emerald: rgba(16, 185, 129, 0.1);
-        --tint-emerald-strong: rgba(16, 185, 129, 0.35);
-        --tint-rose: rgba(244, 63, 94, 0.1);
-        --tint-rose-strong: rgba(244, 63, 94, 0.35);
-        --tint-amber: rgba(245, 158, 11, 0.1);
-        --tint-amber-strong: rgba(245, 158, 11, 0.35);
-        --tint-neutral: rgba(255, 255, 255, 0.04);
-
-        --link: #67e8f9;
-        --link-hover: #38bdf8;
-        --shadow-strong: rgba(0, 0, 0, 0.5);
-        --shadow-soft: rgba(0, 0, 0, 0.4);
-        --hero-grad-a: #ffffff;
-        --hero-grad-b: #c7d2fe;
-        --hero-grad-c: #67e8f9;
-
-        --canvas-bg: #070b14;
-        --canvas-edge: #475569;
-        --canvas-label: #f8fafc;
-      }
-    }
-
-    /* An explicit choice of dark, which must also beat a light system setting. */
-    :root[data-theme="dark"] {
-      color-scheme: dark;
-
-      --bg-dark: #070b14;
-      --bg-card: #0d1527;
-      --bg-card-hover: #131f38;
-      --bg-surface: #142038;
-      --bg-inset: #050811;
-      --nav-bg: rgba(7, 11, 20, 0.9);
-      --panel-grad-a: #0f182c;
-      --panel-grad-b: #0c1322;
-
-      --border: #1e293b;
-      --border-accent: #334155;
-
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-dim: #64748b;
-      --text-on-accent: #ffffff;
-      --code-text: #e2e8f0;
-
-      --primary: #6366f1;
-      --primary-strong: #4f46e5;
-      --primary-glow: rgba(99, 102, 241, 0.35);
-      --secondary: #06b6d4;
-      --emerald: #10b981;
-      --amber: #f59e0b;
-      --rose: #f43f5e;
-      --pink: #ec4899;
-
-      --primary-ink: #c7d2fe;
-      --primary-ink-soft: #a5b4fc;
-      --secondary-ink: #67e8f9;
-      --emerald-ink: #6ee7b7;
-      --rose-ink: #fda4af;
-      --amber-ink: #fcd34d;
-
-      --tint-primary: rgba(99, 102, 241, 0.08);
-      --tint-primary-strong: rgba(99, 102, 241, 0.25);
-      --tint-emerald: rgba(16, 185, 129, 0.1);
-      --tint-emerald-strong: rgba(16, 185, 129, 0.35);
-      --tint-rose: rgba(244, 63, 94, 0.1);
-      --tint-rose-strong: rgba(244, 63, 94, 0.35);
-      --tint-amber: rgba(245, 158, 11, 0.1);
-      --tint-amber-strong: rgba(245, 158, 11, 0.35);
-      --tint-neutral: rgba(255, 255, 255, 0.04);
-
-      --link: #67e8f9;
-      --link-hover: #38bdf8;
-      --shadow-strong: rgba(0, 0, 0, 0.5);
-      --shadow-soft: rgba(0, 0, 0, 0.4);
-      --hero-grad-a: #ffffff;
-      --hero-grad-b: #c7d2fe;
-      --hero-grad-c: #67e8f9;
-
-      --canvas-bg: #070b14;
-      --canvas-edge: #475569;
-      --canvas-label: #f8fafc;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      /* Sticky nav would otherwise cover the heading an anchor jumps to. */
-      scroll-padding-top: 5rem;
-      -webkit-text-size-adjust: 100%;
-    }
-
-    body {
-      width: 100%;
-      max-width: 100%;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      font-family: var(--font-sans);
-      font-size: var(--text-base);
-      line-height: 1.65;
-      overflow-x: hidden;
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-
-    /* Motion is a preference, not a decoration. Honour the system setting
-       rather than animating anyone who has asked not to be. */
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-
-    a {
-      color: var(--link);
-      text-decoration: none;
-      transition: color var(--dur) var(--ease);
-    }
-    a:hover {
-      color: var(--link-hover);
-      text-decoration: underline;
-      text-underline-offset: 0.2em;
-    }
-
-    /* One focus treatment for everything keyboard-reachable. :focus-visible so
-       it appears for keyboard users without ringing every mouse click. */
-    :focus-visible {
-      outline: 2px solid var(--primary);
-      outline-offset: 2px;
-      border-radius: 3px;
-    }
-
-    /* Keyboard users land on the nav first; give them a way past it. Visible
-       only while focused, which is the one time it is useful. */
-    .skip-link {
-      position: absolute;
-      left: var(--space-4);
-      top: calc(var(--space-4) * -4);
-      z-index: calc(var(--z-nav) + 1);
-      padding: var(--space-2) var(--space-4);
-      background: var(--primary);
-      color: var(--text-on-accent);
-      border-radius: var(--radius-sm);
-      font-weight: 600;
-      font-size: var(--text-sm);
-      transition: top var(--dur) var(--ease);
-    }
-    .skip-link:focus {
-      top: var(--space-4);
-      text-decoration: none;
-      color: var(--text-on-accent);
-    }
-
-    /* Inline SVG icons inherit the colour and optical size of their text. */
-    .icon {
-      width: 1em;
-      height: 1em;
-      flex: none;
-      vertical-align: -0.125em;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .icon-filled { fill: currentColor; stroke: none; }
-
-    /* Navbar */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: var(--nav-bg);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-      padding: 0.85rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-weight: 700;
-      font-size: 1.15rem;
-      letter-spacing: -0.02em;
-    }
-    .brand-badge {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--text-on-accent);
-    }
-    .nav-links {
-      display: flex;
-      gap: 1.25rem;
-      list-style: none;
-      font-size: 0.85rem;
-      flex-wrap: wrap;
-    }
-    .nav-links a {
-      color: var(--text-muted);
-      transition: color 0.2s, background 0.2s;
-      padding: 0.3rem 0.6rem;
-      border-radius: 6px;
-    }
-    .nav-links a:hover {
-      color: var(--text-main);
-      background: var(--tint-neutral);
-      text-decoration: none;
-    }
-
-    .theme-toggle {
-      flex-shrink: 0;
-      width: 2.2rem;
-      height: 2.2rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      line-height: 1;
-      cursor: pointer;
-      color: var(--text-muted);
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      transition: color 0.2s, border-color 0.2s, background 0.2s;
-    }
-    .theme-toggle:hover {
-      color: var(--text-main);
-      border-color: var(--border-accent);
-      background: var(--bg-card-hover);
-    }
-    .theme-toggle:focus-visible {
-      outline: 2px solid var(--primary);
-      outline-offset: 2px;
-    }
-
-    /* Container */
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2.5rem clamp(0.85rem, 3vw, 1.5rem);
-    }
-
-    section,
-    .sim-panel,
-    .card,
-    .comparison-column,
-    .control-group,
-    .math-card {
-      min-width: 0;
-      max-width: 100%;
-    }
-
-    .sim-panel > *,
-    .card > *,
-    .comparison-column > *,
-    .sim-controls > * {
-      min-width: 0;
-      max-width: 100%;
-    }
-
-    .sim-panel,
-    .card,
-    .comparison-column {
-      overflow-wrap: anywhere;
-    }
-
-    img, video {
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* Hero */
-    .hero {
-      text-align: center;
-      padding: 4.5rem 1rem 3.5rem;
-      position: relative;
-    }
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: 15%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(700px, 92vw);
-      height: min(380px, 52vw);
-      background: radial-gradient(circle, var(--primary-glow) 0%, var(--tint-primary) 50%, transparent 75%);
-      filter: blur(70px);
-      z-index: -1;
-      pointer-events: none;
-    }
-    .hero-tagline {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.35rem 0.95rem;
-      background: var(--tint-primary);
-      border: 1px solid var(--primary-glow);
-      border-radius: 9999px;
-      font-size: 0.82rem;
-      color: var(--primary-ink-soft);
-      margin-bottom: 1.25rem;
-    }
-    .hero h1 {
-      font-size: 2.8rem;
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 0.5rem;
-      /* Gradient *lettering*, so the first stop must be the theme's text colour,
-         not the on-accent white used for text sitting on a coloured fill. Those
-         are the same value in dark and opposite values in light. */
-      background: linear-gradient(135deg, var(--hero-grad-a) 35%,
-                                          var(--hero-grad-b) 72%,
-                                          var(--hero-grad-c) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
-    }
-    /* A browser without background-clip:text shows transparent text, i.e. none. */
-    @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
-      .hero h1 {
-        background: none;
-        -webkit-text-fill-color: currentColor;
-        color: var(--text-main);
-      }
-    }
-    .hero-subtitle {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--secondary-ink);
-      max-width: 850px;
-      margin: 0 auto 0.6rem;
-      line-height: 1.4;
-    }
-    .hero-author {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--primary-ink);
-      margin-bottom: 0.25rem;
-    }
-    .hero-affil {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 1.75rem;
-    }
-    .hero p {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      max-width: 780px;
-      margin: 0 auto 2.2rem;
-    }
-    .hero-actions {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.6rem;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.92rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      border: 1px solid transparent;
-      text-decoration: none;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
-      color: var(--text-on-accent);
-      box-shadow: 0 4px 14px var(--primary-glow);
-    }
-    .btn-primary:hover {
-      background: linear-gradient(135deg, var(--primary-strong), var(--primary-strong));
-      box-shadow: 0 6px 22px var(--primary-glow);
-      text-decoration: none;
-      transform: translateY(-1px);
-    }
-    .btn-outline {
-      background: var(--bg-card);
-      color: var(--text-main);
-      border-color: var(--border-accent);
-    }
-    .btn-outline:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--text-muted);
-      text-decoration: none;
-      transform: translateY(-1px);
-    }
-
-    /* Plain-language orientation */
-    .explain-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
-      gap: 1.25rem;
-      margin-bottom: 1.5rem;
-    }
-    .explain-step {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.5rem 1.35rem 1.35rem;
-      position: relative;
-    }
-    .explain-num {
-      position: absolute;
-      top: -0.85rem;
-      left: 1.35rem;
-      width: 1.7rem;
-      height: 1.7rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
-      color: var(--text-on-accent);
-      font-size: 0.82rem;
-      font-weight: 800;
-      font-family: var(--font-mono);
-    }
-    .explain-step h3 {
-      font-size: 1rem;
-      color: var(--text-main);
-      margin: 0.35rem 0 0.7rem;
-      letter-spacing: -0.01em;
-    }
-    .explain-step p {
-      color: var(--text-muted);
-      font-size: 0.89rem;
-      margin-bottom: 0.7rem;
-    }
-    .explain-step p:last-child { margin-bottom: 0; }
-
-    .analogy-box,
-    .honesty-box {
-      border-radius: 10px;
-      padding: 1.35rem;
-      margin-bottom: 1.25rem;
-      font-size: 0.89rem;
-    }
-    .analogy-box {
-      background: var(--tint-primary);
-      border: 1px solid var(--tint-primary-strong);
-      border-left: 3px solid var(--primary);
-    }
-    .honesty-box {
-      background: var(--tint-amber);
-      border: 1px solid var(--tint-amber-strong);
-      border-left: 3px solid var(--amber);
-    }
-    .analogy-box h4 { color: var(--primary-ink); margin-bottom: 0.5rem; font-size: 0.95rem; }
-    .honesty-box h4 { color: var(--amber-ink);  margin-bottom: 0.5rem; font-size: 0.95rem; }
-    .analogy-box p,
-    .honesty-box p { color: var(--text-muted); margin-bottom: 0.6rem; }
-    .analogy-box p:last-child,
-    .honesty-box p:last-child { margin-bottom: 0; }
-
-    /* Badges Ribbon */
-    .badge-ribbon {
-      display: flex;
-      justify-content: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-    }
-    .pill {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      padding: 0.35rem 0.8rem;
-      border-radius: 9999px;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    .pill-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-    }
-    .dot-green { background-color: var(--emerald); }
-    .dot-blue { background-color: var(--secondary); }
-    .dot-purple { background-color: var(--primary); }
-
-    /* Section Styles */
-    .section-header {
-      margin-bottom: 2rem;
-    }
-    .section-subtitle {
-      color: var(--secondary);
-      text-transform: uppercase;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.35rem;
-    }
-    .section-title {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    .section-desc {
-      color: var(--text-muted);
-      font-size: 0.98rem;
-      margin-top: 0.5rem;
-      max-width: 850px;
-    }
-
-    /* Card Grids */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2.5rem;
-    }
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .card:hover {
-      border-color: var(--border-accent);
-      transform: translateY(-2px);
-    }
-    .card-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 0.6rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .card p {
-      color: var(--text-muted);
-      font-size: 0.92rem;
-      line-height: 1.6;
-    }
-
-    /* Mathematical Callouts */
-    .math-card {
-      background: linear-gradient(180deg, var(--panel-grad-a) 0%, var(--panel-grad-b) 100%);
-      border: 1px solid var(--tint-primary-strong);
-      border-radius: 12px;
-      padding: 1.75rem;
-      margin: 1.5rem 0;
-      position: relative;
-      overflow: hidden;
-    }
-    .math-card::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background: linear-gradient(to bottom, var(--primary), var(--secondary));
-    }
-    .math-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--primary-ink);
-      margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .formula-box {
-      background: var(--shadow-strong);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1rem;
-      margin: 1rem 0;
-      overflow-x: auto;
-      text-align: center;
-      font-size: 1.05rem;
-    }
-
-    /* Simulation Labs */
-    .sim-panel {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.75rem;
-      margin-bottom: 3rem;
-      box-shadow: 0 8px 30px var(--shadow-soft);
-    }
-    .sim-controls {
-      display: flex;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1.25rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .control-group {
-      display: flex;
-      flex: 1 1 240px;
-      flex-direction: column;
-      gap: 0.35rem;
-      min-width: 0;
-      max-width: 100%;
-    }
-    .control-label {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-    }
-    select, input[type="range"], input[type="text"] {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-accent);
-      color: var(--text-main);
-      padding: 0.5rem 0.85rem;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      font-family: inherit;
-      outline: none;
-      transition: border-color 0.2s;
-      min-width: 0;
-      max-width: 100%;
-    }
-
-    .sim-controls select,
-    .sim-controls input[type="text"] {
-      width: 100%;
-    }
-
-    .sim-controls .btn {
-      max-width: 100%;
-      white-space: normal;
-      text-align: center;
-      justify-content: center;
-    }
-    select:focus, input[type="text"]:focus {
-      border-color: var(--primary);
-    }
-    .canvas-container {
-      position: relative;
-      width: 100%;
-      height: clamp(300px, 48vh, 480px);
-      background: var(--bg-inset);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-      touch-action: none;
-    }
-    .canvas-overlay {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      backdrop-filter: blur(8px);
-      max-width: min(290px, calc(100% - 24px));
-      overflow-wrap: anywhere;
-      pointer-events: none;
-      box-shadow: 0 4px 15px var(--shadow-strong);
-    }
-
-    /* Comparison Columns */
-    .comparison-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-      gap: 1.5rem;
-      margin-top: 1.25rem;
-    }
-    .comparison-column {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.25rem;
-      transition: border-color 0.2s;
-    }
-    .metric-badge {
-      font-size: 1.55rem;
-      font-weight: 800;
-      font-family: var(--font-mono);
-      margin: 0.35rem 0;
-    }
-    .text-emerald { color: var(--emerald); }
-    .text-rose { color: var(--rose); }
-    .text-amber { color: var(--amber); }
-
-    /* Code Snippets */
-    pre {
-      background: var(--bg-inset);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.25rem;
-      overflow-x: auto;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      line-height: 1.5;
-      color: var(--code-text);
-      margin: 1rem 0;
-    }
-
-    /* Benchmark Table */
-    .table-scroll {
-      width: 100%;
-      max-width: 100%;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior-inline: contain;
-    }
-
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1.5rem 0;
-      font-size: 0.9rem;
-    }
-
-    .table-scroll > .data-table {
-      min-width: 620px;
-    }
-    .data-table th, .data-table td {
-      padding: 0.85rem 1rem;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-    }
-    .data-table th {
-      background: var(--bg-surface);
-      color: var(--text-muted);
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 0.75rem;
-      letter-spacing: 0.05em;
-    }
-    .data-table tr:hover td {
-      background: var(--tint-neutral);
-    }
-    .data-table .highlight-row td {
-      background: var(--tint-primary);
-      font-weight: 600;
-      color: var(--primary-ink);
-    }
-
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 3rem 1.5rem;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      background: var(--bg-inset);
-    }
-
-    /* Responsive */
-    @media (max-width: 860px) {
-      .navbar {
-        padding: 0.7rem 1rem;
-        gap: 0.75rem;
-      }
-      .nav-links { display: none; }
-      .nav-brand { min-width: 0; font-size: 1rem; }
-      .brand-badge { display: none; }
-
-      .container {
-        padding: 1.5rem clamp(0.75rem, 4vw, 1rem);
-      }
-      .hero {
-        padding: 2.75rem 0.75rem 2.25rem;
-      }
-      .hero h1 {
-        font-size: clamp(2rem, 9vw, 2.5rem);
-        overflow-wrap: anywhere;
-      }
-      .hero-subtitle { font-size: 1.05rem; }
-      .hero p { font-size: 0.98rem; }
-
-      .section-header { margin-bottom: 1.25rem; }
-      .section-title { font-size: clamp(1.45rem, 6vw, 1.8rem); }
-      .card-grid,
-      .comparison-grid,
-      .explain-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 1rem;
-      }
-
-      .sim-panel {
-        padding: 1rem;
-        margin-bottom: 2rem;
-      }
-      .sim-controls {
-        gap: 0.85rem;
-        margin-bottom: 1rem;
-        padding-bottom: 1rem;
-        align-items: stretch;
-      }
-      .control-group {
-        flex: 1 1 100% !important;
-        width: 100%;
-      }
-      .sim-controls .btn {
-        width: 100%;
-        margin-top: 0 !important;
-      }
-
-      .canvas-container {
-        height: clamp(280px, 45vh, 360px);
-      }
-      .canvas-overlay {
-        top: 8px;
-        right: 8px;
-        max-width: calc(100% - 16px);
-        padding: 0.55rem 0.7rem;
-        font-size: 0.72rem;
-      }
-
-      pre {
-        padding: 0.85rem;
-        font-size: 0.78rem;
-      }
-      .data-table {
-        font-size: 0.78rem;
-      }
-      .data-table th,
-      .data-table td {
-        padding: 0.65rem 0.7rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .container { padding-inline: 0.7rem; }
-      .hero { padding-inline: 0.35rem; }
-      .hero-actions { gap: 0.65rem; }
-      .hero-actions .btn { width: 100%; justify-content: center; }
-      .card,
-      .comparison-column,
-      .math-card { padding: 1rem; }
-      .sim-panel { border-radius: 10px; padding: 0.8rem; }
-      .metric-badge { font-size: 1.25rem; overflow-wrap: anywhere; }
-      .pill { max-width: 100%; overflow-wrap: anywhere; }
-      .table-scroll > .data-table { min-width: 560px; }
-    }
-
-    @media (max-height: 800px) and (min-width: 861px) {
-      .container { padding-top: 1.75rem; padding-bottom: 1.75rem; }
-      .hero { padding-top: 2.75rem; padding-bottom: 2.25rem; }
-      .section-header { margin-bottom: 1.4rem; }
-      .sim-panel { padding: 1.35rem; margin-bottom: 2rem; }
-      .canvas-container { height: clamp(300px, 44vh, 400px); }
-    }
-
-    /* ---------------------------------------------------------------------
-       2026 interface refresh
-       A compact, light-first application shell. Existing simulations and
-       semantics remain unchanged; this layer only changes presentation.
-       --------------------------------------------------------------------- */
-    :root {
-      --bg-dark: #f5f7fb;
-      --bg-card: #ffffff;
-      --bg-card-hover: #f8fafc;
-      --bg-surface: #f7f8fb;
-      --bg-inset: #f1f3f7;
-      --nav-bg: rgba(255, 255, 255, 0.92);
-      --panel-grad-a: #ffffff;
-      --panel-grad-b: #fafbfc;
-
-      --border: #e4e7ec;
-      --border-accent: #cfd5df;
-
-      --text-main: #111827;
-      --text-muted: #596273;
-      --text-dim: #7a8494;
-      --code-text: #1f2937;
-
-      --primary: #2563eb;
-      --primary-strong: #1d4ed8;
-      --primary-glow: rgba(37, 99, 235, 0.14);
-      --secondary: #0f766e;
-      --emerald: #047857;
-      --amber: #a16207;
-      --rose: #be123c;
-      --pink: #be185d;
-
-      --primary-ink: #1d4ed8;
-      --primary-ink-soft: #2563eb;
-      --secondary-ink: #0f766e;
-      --emerald-ink: #047857;
-      --rose-ink: #be123c;
-      --amber-ink: #92400e;
-
-      --tint-primary: #eff6ff;
-      --tint-primary-strong: #dbeafe;
-      --tint-emerald: #ecfdf5;
-      --tint-emerald-strong: #d1fae5;
-      --tint-rose: #fff1f2;
-      --tint-rose-strong: #ffe4e6;
-      --tint-amber: #fffbeb;
-      --tint-amber-strong: #fef3c7;
-      --tint-neutral: #f3f4f6;
-
-      --link: #1d4ed8;
-      --link-hover: #1e40af;
-      --shadow-strong: rgba(17, 24, 39, 0.12);
-      --shadow-soft: rgba(17, 24, 39, 0.055);
-      --hero-grad-a: #111827;
-      --hero-grad-b: #111827;
-      --hero-grad-c: #111827;
-
-      --canvas-bg: #ffffff;
-      --canvas-edge: #9ca3af;
-      --canvas-label: #111827;
-
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-    }
-
-    :root[data-theme="dark"] {
-      --bg-dark: #0b0d12;
-      --bg-card: #11151c;
-      --bg-card-hover: #151a23;
-      --bg-surface: #151a22;
-      --bg-inset: #0d1117;
-      --nav-bg: rgba(11, 13, 18, 0.92);
-      --panel-grad-a: #11151c;
-      --panel-grad-b: #0f131a;
-
-      --border: #242a34;
-      --border-accent: #394150;
-
-      --text-main: #f3f4f6;
-      --text-muted: #a4adba;
-      --text-dim: #7f8998;
-      --code-text: #e5e7eb;
-
-      --primary: #60a5fa;
-      --primary-strong: #3b82f6;
-      --primary-glow: rgba(96, 165, 250, 0.16);
-      --secondary: #2dd4bf;
-      --emerald: #34d399;
-      --amber: #fbbf24;
-      --rose: #fb7185;
-      --pink: #f472b6;
-
-      --primary-ink: #93c5fd;
-      --primary-ink-soft: #60a5fa;
-      --secondary-ink: #5eead4;
-      --emerald-ink: #6ee7b7;
-      --rose-ink: #fda4af;
-      --amber-ink: #fcd34d;
-
-      --tint-primary: rgba(59, 130, 246, 0.10);
-      --tint-primary-strong: rgba(59, 130, 246, 0.22);
-      --tint-emerald: rgba(16, 185, 129, 0.09);
-      --tint-emerald-strong: rgba(16, 185, 129, 0.22);
-      --tint-rose: rgba(244, 63, 94, 0.09);
-      --tint-rose-strong: rgba(244, 63, 94, 0.22);
-      --tint-amber: rgba(245, 158, 11, 0.09);
-      --tint-amber-strong: rgba(245, 158, 11, 0.22);
-      --tint-neutral: rgba(255, 255, 255, 0.05);
-
-      --link: #93c5fd;
-      --link-hover: #bfdbfe;
-      --shadow-strong: rgba(0, 0, 0, 0.38);
-      --shadow-soft: rgba(0, 0, 0, 0.22);
-      --hero-grad-a: #f9fafb;
-      --hero-grad-b: #f9fafb;
-      --hero-grad-c: #f9fafb;
-
-      --canvas-bg: #0d1117;
-      --canvas-edge: #566171;
-      --canvas-label: #f3f4f6;
-    }
-
-    body {
-      background:
-        linear-gradient(180deg, var(--bg-card) 0, var(--bg-dark) 22rem, var(--bg-dark) 100%);
-      line-height: 1.55;
-      letter-spacing: -0.006em;
-    }
-
-    .navbar {
-      min-height: 60px;
-      padding: 0.65rem max(1rem, calc((100vw - 1160px) / 2));
-      gap: 1.25rem;
-      border-bottom-color: var(--border);
-      box-shadow: 0 1px 0 rgba(17, 24, 39, 0.02);
-    }
-
-    .nav-brand {
-      gap: 0.6rem;
-      font-size: 1rem;
-      letter-spacing: -0.03em;
-      white-space: nowrap;
-    }
-
-    .brand-badge {
-      background: var(--bg-surface);
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-      padding: 0.22rem 0.5rem;
-      border-radius: 999px;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-    }
-
-    .nav-links {
-      margin-left: auto;
-      gap: 0.25rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-
-    .nav-links a {
-      color: var(--text-muted);
-      padding: 0.45rem 0.7rem;
-      border-radius: 8px;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.is-active {
-      color: var(--text-main);
-      background: var(--bg-surface);
-      text-decoration: none;
-    }
-
-    .nav-links a.is-active {
-      box-shadow: inset 0 0 0 1px var(--border);
-    }
-
-    .theme-toggle {
-      width: 2rem;
-      height: 2rem;
-      border-radius: 9px;
-      background: var(--bg-card);
-      box-shadow: 0 1px 2px var(--shadow-soft);
-    }
-
-    .container {
-      max-width: 1120px;
-      padding: 1.75rem clamp(1rem, 3vw, 1.5rem);
-    }
-
-    .hero {
-      text-align: left;
-      padding: 3.2rem 0 2.35rem;
-      border-bottom: 1px solid var(--border);
-      background:
-        radial-gradient(circle at 82% 28%, var(--primary-glow), transparent 24rem);
-    }
-
-    .hero::before { display: none; }
-
-    .hero .container {
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-
-    .hero-tagline {
-      gap: 0.4rem;
-      padding: 0.3rem 0.62rem;
-      margin-bottom: 1rem;
-      border-radius: 999px;
-      background: var(--bg-card);
-      border-color: var(--border);
-      color: var(--text-muted);
-      box-shadow: 0 1px 2px var(--shadow-soft);
-      font-size: 0.72rem;
-      font-weight: 600;
-    }
-
-    .hero h1 {
-      max-width: 900px;
-      margin: 0 0 0.7rem;
-      font-size: clamp(2.5rem, 6vw, 4.2rem);
-      line-height: 0.98;
-      letter-spacing: -0.065em;
-      background: none;
-      -webkit-text-fill-color: currentColor;
-      color: var(--text-main);
-    }
-
-    .hero-subtitle {
-      max-width: 760px;
-      margin: 0 0 1rem;
-      color: var(--text-muted);
-      font-size: clamp(1.05rem, 2vw, 1.25rem);
-      font-weight: 500;
-      line-height: 1.45;
-    }
-
-    .hero-author {
-      display: inline;
-      margin-right: 0.5rem;
-      color: var(--text-main);
-      font-size: 0.86rem;
-      font-weight: 600;
-    }
-
-    .hero-affil {
-      display: inline;
-      color: var(--text-dim);
-      font-size: 0.82rem;
-    }
-
-    .hero p {
-      max-width: 780px;
-      margin: 1.25rem 0 1.4rem;
-      color: var(--text-muted);
-      font-size: 0.98rem;
-      line-height: 1.62;
-    }
-
-    .hero-actions {
-      justify-content: flex-start;
-      gap: 0.65rem;
-    }
-
-    .btn {
-      min-height: 40px;
-      padding: 0.6rem 1rem;
-      gap: 0.45rem;
-      border-radius: 10px;
-      font-size: 0.84rem;
-      box-shadow: 0 1px 2px var(--shadow-soft);
-    }
-
-    .btn-primary,
-    .btn-primary:hover {
-      background: var(--primary-strong);
-      color: #ffffff;
-    }
-
-    .btn-primary:hover {
-      box-shadow: 0 4px 12px var(--primary-glow);
-      transform: translateY(-1px);
-    }
-
-    .btn-outline {
-      background: var(--bg-card);
-      border-color: var(--border);
-    }
-
-    .badge-ribbon {
-      justify-content: flex-start;
-      gap: 0.45rem;
-      margin-top: 1.25rem;
-    }
-
-    .pill {
-      padding: 0.3rem 0.62rem;
-      border-color: var(--border);
-      background: var(--bg-card);
-      font-family: var(--font-sans);
-      font-size: 0.7rem;
-      font-weight: 600;
-      box-shadow: 0 1px 2px var(--shadow-soft);
-    }
-
-    main.container {
-      padding-top: 2.35rem;
-      padding-bottom: 2.5rem;
-    }
-
-    main > section {
-      margin-bottom: 2.65rem !important;
-      scroll-margin-top: 5rem;
-    }
-
-    main > section + section {
-      padding-top: 2.4rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .section-header {
-      max-width: 820px;
-      margin-bottom: 1.25rem;
-    }
-
-    .section-subtitle {
-      margin-bottom: 0.45rem;
-      color: var(--primary-ink-soft);
-      font-size: 0.68rem;
-      letter-spacing: 0.12em;
-    }
-
-    .section-title {
-      font-size: clamp(1.55rem, 3vw, 2rem);
-      line-height: 1.15;
-      letter-spacing: -0.04em;
-    }
-
-    .section-desc {
-      max-width: 760px;
-      margin-top: 0.55rem;
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    .explain-grid,
-    .card-grid,
-    .comparison-grid {
-      gap: 0.9rem;
-    }
-
-    .card-grid {
-      margin-bottom: 1.25rem;
-    }
-
-    .card,
-    .explain-step,
-    .comparison-column {
-      border-color: var(--border);
-      border-radius: 14px;
-      background: var(--bg-card);
-      box-shadow: 0 1px 2px var(--shadow-soft);
-    }
-
-    .card,
-    .explain-step {
-      padding: 1.15rem;
-    }
-
-    .card:hover {
-      border-color: var(--border-accent);
-      transform: translateY(-1px);
-      box-shadow: 0 8px 24px var(--shadow-soft);
-    }
-
-    .card-title {
-      margin-bottom: 0.45rem;
-      font-size: 0.98rem;
-      letter-spacing: -0.02em;
-    }
-
-    .card p,
-    .explain-step p {
-      font-size: 0.84rem;
-      line-height: 1.58;
-    }
-
-    .explain-step {
-      padding-top: 1.45rem;
-    }
-
-    .explain-num {
-      top: -0.72rem;
-      left: 1rem;
-      width: 1.45rem;
-      height: 1.45rem;
-      background: var(--primary-strong);
-      box-shadow: 0 0 0 4px var(--bg-dark);
-      font-size: 0.68rem;
-    }
-
-    .explain-step h3 {
-      margin: 0.2rem 0 0.55rem;
-      font-size: 0.93rem;
-    }
-
-    .analogy-box,
-    .honesty-box {
-      padding: 1rem 1.1rem;
-      margin-bottom: 0.8rem;
-      border-radius: 12px;
-      font-size: 0.84rem;
-      box-shadow: none;
-    }
-
-    .math-card {
-      padding: 1.2rem;
-      margin: 1rem 0;
-      border-radius: 14px;
-      background: var(--bg-card);
-      border-color: var(--border);
-      box-shadow: 0 1px 2px var(--shadow-soft);
-    }
-
-    .math-card::before {
-      width: 3px;
-      background: var(--primary);
-    }
-
-    .formula-box {
-      padding: 0.8rem;
-      margin: 0.75rem 0;
-      border-radius: 10px;
-      background: var(--bg-inset);
-      font-size: 0.92rem;
-    }
-
-    .sim-panel {
-      padding: 1.15rem;
-      margin-bottom: 1.35rem;
-      border-radius: 16px;
-      border-color: var(--border);
-      background: var(--bg-card);
-      box-shadow: 0 1px 2px var(--shadow-soft), 0 8px 30px rgba(17, 24, 39, 0.025);
-    }
-
-    .sim-controls {
-      gap: 0.7rem;
-      margin-bottom: 1rem;
-      padding: 0.75rem;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: var(--bg-surface);
-      align-items: flex-end;
-    }
-
-    .control-group {
-      gap: 0.28rem;
-    }
-
-    .control-label {
-      color: var(--text-dim);
-      font-size: 0.67rem;
-      letter-spacing: 0.08em;
-    }
-
-    select,
-    input[type="range"],
-    input[type="text"] {
-      min-height: 38px;
-      padding: 0.48rem 0.68rem;
-      border-color: var(--border-accent);
-      border-radius: 9px;
-      background: var(--bg-card);
-      font-size: 0.82rem;
-    }
-
-    .comparison-column {
-      padding: 1rem;
-      background: var(--bg-surface);
-    }
-
-    .metric-badge {
-      margin: 0.25rem 0;
-      font-size: 1.25rem;
-      letter-spacing: -0.04em;
-    }
-
-    .canvas-container {
-      height: clamp(300px, 44vh, 420px);
-      border-color: var(--border);
-      border-radius: 12px;
-      background: var(--canvas-bg);
-    }
-
-    .canvas-overlay {
-      border-color: var(--border);
-      border-radius: 10px;
-      background: var(--nav-bg);
-      box-shadow: 0 4px 16px var(--shadow-soft);
-    }
-
-    pre {
-      padding: 0.9rem 1rem;
-      margin: 0.8rem 0;
-      border-color: var(--border);
-      border-radius: 11px;
-      background: var(--bg-inset);
-      font-size: 0.78rem;
-      line-height: 1.55;
-    }
-
-    .table-scroll {
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: var(--bg-card);
-    }
-
-    .data-table {
-      margin: 0;
-      font-size: 0.78rem;
-    }
-
-    .data-table th,
-    .data-table td {
-      padding: 0.68rem 0.75rem;
-    }
-
-    .data-table th {
-      background: var(--bg-surface);
-      font-size: 0.65rem;
-      letter-spacing: 0.07em;
-    }
-
-    .data-table tr:last-child td {
-      border-bottom: 0;
-    }
-
-    .data-table tr:hover td {
-      background: var(--bg-card-hover);
-    }
-
-    .data-table .highlight-row td {
-      background: var(--tint-primary);
-      color: var(--text-main);
-    }
-
-    footer {
-      padding: 1.5rem;
-      border-top-color: var(--border);
-      background: var(--bg-card);
-    }
-
-    footer .container {
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-
-    @media (max-width: 860px) {
-      .navbar {
-        min-height: 56px;
-        padding: 0.6rem 0.8rem;
-        flex-wrap: wrap;
-        gap: 0.45rem 0.75rem;
-      }
-
-      .nav-brand { font-size: 0.95rem; }
-      .brand-badge { display: inline-flex; }
-
-      .nav-links {
-        display: flex !important;
-        order: 3;
-        width: 100%;
-        margin: 0;
-        padding-bottom: 0.05rem;
-        gap: 0.2rem;
-        overflow-x: auto;
-        overscroll-behavior-inline: contain;
-        scrollbar-width: none;
-        white-space: nowrap;
-      }
-
-      .nav-links::-webkit-scrollbar { display: none; }
-
-      .nav-links a {
-        display: block;
-        padding: 0.38rem 0.6rem;
-        font-size: 0.72rem;
-      }
-
-      .theme-toggle {
-        margin-left: auto;
-      }
-
-      .hero {
-        padding: 2.25rem 0 1.7rem;
-        background:
-          radial-gradient(circle at 90% 8%, var(--primary-glow), transparent 16rem);
-      }
-
-      .hero h1 {
-        font-size: clamp(2.25rem, 12vw, 3.4rem);
-        line-height: 1;
-      }
-
-      .hero-author,
-      .hero-affil {
-        display: block;
-      }
-
-      .hero-affil {
-        margin-top: 0.2rem;
-      }
-
-      .container {
-        padding: 1.25rem 0.85rem;
-      }
-
-      main.container {
-        padding-top: 1.65rem;
-      }
-
-      main > section {
-        margin-bottom: 2rem !important;
-      }
-
-      main > section + section {
-        padding-top: 1.8rem;
-      }
-
-      .section-header {
-        margin-bottom: 1rem;
-      }
-
-      .sim-panel {
-        padding: 0.85rem;
-        margin-bottom: 1rem;
-      }
-
-      .sim-controls {
-        padding: 0.65rem;
-        align-items: stretch;
-      }
-
-      .canvas-container {
-        height: clamp(280px, 42vh, 350px);
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero-actions {
-        display: grid;
-        grid-template-columns: 1fr;
-      }
-
-      .hero-actions .btn {
-        width: 100%;
-      }
-
-      .badge-ribbon {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .pill {
-        min-width: 0;
-        justify-content: flex-start;
-        border-radius: 10px;
-      }
-
-      .card,
-      .comparison-column,
-      .math-card {
-        padding: 0.9rem;
-      }
-
-      .section-title {
-        font-size: 1.45rem;
-      }
-    }
-
-    @media (max-height: 760px) and (min-width: 861px) {
-      .hero {
-        padding-top: 2.2rem;
-        padding-bottom: 1.7rem;
-      }
-
-      main.container {
-        padding-top: 1.8rem;
-      }
-
-      .canvas-container {
-        height: clamp(280px, 40vh, 360px);
-      }
-    }
-
-    /* ---------------------------------------------------------------------
-       2026 visualization workspace pass
-       Keep the application shell compact, but give simulations, diagrams,
-       controls, and tabular outputs enough physical space to be legible.
-       --------------------------------------------------------------------- */
-    @media (min-width: 861px) {
-      .navbar {
-        padding-inline: max(1.25rem, calc((100vw - 1320px) / 2));
-      }
-
-      .container,
-      main.container {
-        max-width: 1360px;
-        padding-left: clamp(1.25rem, 3vw, 2rem);
-        padding-right: clamp(1.25rem, 3vw, 2rem);
-      }
-
-      main.container {
-        padding-top: 2.75rem;
-        padding-bottom: 3.25rem;
-      }
-
-      main > section {
-        margin-bottom: 3.5rem !important;
-      }
-
-      main > section + section {
-        padding-top: 3rem;
-      }
-
-      .section-header {
-        max-width: 940px;
-        margin-bottom: 1.6rem;
-      }
-
-      .section-desc {
-        max-width: 900px;
-        font-size: 0.95rem;
-      }
-
-      .sim-panel {
-        padding: clamp(1.4rem, 2vw, 1.8rem);
-        margin-bottom: 2rem;
-        border-radius: 18px;
-      }
-
-      .sim-controls {
-        gap: 1rem;
-        margin-bottom: 1.4rem;
-        padding: 1rem 1.1rem;
-        align-items: flex-end;
-      }
-
-      .control-group {
-        flex-basis: 260px;
-      }
-
-      select,
-      input[type="range"],
-      input[type="text"] {
-        min-height: 42px;
-        font-size: 0.88rem;
-      }
-
-      .comparison-grid,
-      #comparison-sim .sim-panel > div[style*="grid-template-columns"] {
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)) !important;
-        gap: 1.25rem !important;
-      }
-
-      .comparison-column {
-        padding: 1.3rem;
-      }
-
-      .metric-badge {
-        font-size: 1.42rem;
-      }
-
-      .canvas-container {
-        height: clamp(500px, 62vh, 680px);
-        min-height: 500px;
-        border-radius: 14px;
-      }
-
-      #simplex-sim .sim-panel > div[style*="grid-template-columns"] {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
-        gap: 1rem !important;
-      }
-
-      .table-scroll > .data-table {
-        min-width: 760px;
-      }
-
-      .data-table {
-        font-size: 0.84rem;
-      }
-
-      .data-table th,
-      .data-table td {
-        padding: 0.8rem 0.9rem;
-      }
-
-      pre {
-        padding: 1rem 1.1rem;
-        font-size: 0.82rem;
-      }
-    }
-
-    @media (max-width: 860px) {
-      .container,
-      main.container {
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
-
-      main > section {
-        margin-bottom: 2.5rem !important;
-      }
-
-      .section-header {
-        margin-bottom: 1.2rem;
-      }
-
-      .sim-panel {
-        padding: 1rem;
-        margin-bottom: 1.35rem;
-        border-radius: 14px;
-      }
-
-      .sim-controls {
-        gap: 0.9rem;
-        padding: 0.8rem;
-        margin-bottom: 1.15rem;
-      }
-
-      select,
-      input[type="range"],
-      input[type="text"] {
-        min-height: 44px;
-        font-size: 0.88rem;
-      }
-
-      .comparison-grid {
-        gap: 1.1rem;
-      }
-
-      .comparison-column {
-        padding: 1.05rem;
-      }
-
-      .canvas-container {
-        height: clamp(390px, 58vh, 520px);
-        min-height: 390px;
-      }
-
-      .canvas-overlay {
-        top: auto;
-        right: 8px;
-        bottom: 8px;
-        left: 8px;
-        max-width: none;
-      }
-
-      .data-table {
-        font-size: 0.82rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .container,
-      main.container {
-        padding-left: 0.85rem;
-        padding-right: 0.85rem;
-      }
-
-      .sim-panel {
-        padding: 0.85rem;
-      }
-
-      .canvas-container {
-        height: clamp(360px, 56vh, 460px);
-        min-height: 360px;
-      }
-
-      .comparison-column {
-        padding: 1rem;
-      }
-
-      .table-scroll > .data-table {
-        min-width: 620px;
-      }
-    }
-
-
-    /* =====================================================================
-       MCM 2026 modern redesign
-       Visual direction: research editorial + developer-tool interface.
-       The scientific content and all interactive simulation IDs/JS remain intact.
-       ===================================================================== */
-
-    :root {
-      --bg-dark: #f7f8fa;
-      --bg-card: #ffffff;
-      --bg-card-hover: #f8faff;
-      --bg-surface: #f1f3f6;
-      --bg-inset: #edf0f4;
-      --nav-bg: rgba(247, 248, 250, 0.86);
-      --panel-grad-a: #ffffff;
-      --panel-grad-b: #f7f9fc;
-
-      --border: #e3e6eb;
-      --border-accent: #cbd2dc;
-
-      --text-main: #111318;
-      --text-muted: #626975;
-      --text-dim: #89919e;
-      --text-on-accent: #ffffff;
-      --code-text: #1a202c;
-
-      --primary: #315efb;
-      --primary-strong: #254bd2;
-      --primary-glow: rgba(49, 94, 251, 0.14);
-      --secondary: #315efb;
-      --emerald: #16805c;
-      --amber: #a85f00;
-      --rose: #cf3152;
-      --pink: #b33f86;
-
-      --primary-ink: #244bd6;
-      --primary-ink-soft: #315efb;
-      --secondary-ink: #244bd6;
-      --emerald-ink: #116847;
-      --rose-ink: #b52645;
-      --amber-ink: #8c5100;
-
-      --tint-primary: rgba(49, 94, 251, 0.055);
-      --tint-primary-strong: rgba(49, 94, 251, 0.14);
-      --tint-emerald: rgba(22, 128, 92, 0.07);
-      --tint-emerald-strong: rgba(22, 128, 92, 0.18);
-      --tint-rose: rgba(207, 49, 82, 0.07);
-      --tint-rose-strong: rgba(207, 49, 82, 0.18);
-      --tint-amber: rgba(168, 95, 0, 0.07);
-      --tint-amber-strong: rgba(168, 95, 0, 0.18);
-      --tint-neutral: rgba(17, 19, 24, 0.045);
-
-      --link: #244bd6;
-      --link-hover: #173aa9;
-      --shadow-strong: rgba(20, 28, 44, 0.12);
-      --shadow-soft: rgba(20, 28, 44, 0.06);
-      --hero-grad-a: #111318;
-      --hero-grad-b: #111318;
-      --hero-grad-c: #111318;
-
-      --canvas-bg: #ffffff;
-      --canvas-edge: #a4abb6;
-      --canvas-label: #111318;
-
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 20px;
-    }
-
-    :root[data-theme="dark"] {
-      --bg-dark: #0b0d10;
-      --bg-card: #111419;
-      --bg-card-hover: #171b21;
-      --bg-surface: #171a20;
-      --bg-inset: #090b0e;
-      --nav-bg: rgba(11, 13, 16, 0.84);
-      --panel-grad-a: #12161b;
-      --panel-grad-b: #0e1115;
-
-      --border: #242930;
-      --border-accent: #343b45;
-
-      --text-main: #f3f4f6;
-      --text-muted: #a1a7b0;
-      --text-dim: #747b86;
-      --text-on-accent: #ffffff;
-      --code-text: #e6e8eb;
-
-      --primary: #6d8cff;
-      --primary-strong: #5b79ec;
-      --primary-glow: rgba(109, 140, 255, 0.18);
-      --secondary: #6d8cff;
-      --emerald: #45b98a;
-      --amber: #d39a45;
-      --rose: #ed6b84;
-      --pink: #d980bd;
-
-      --primary-ink: #9db1ff;
-      --primary-ink-soft: #8fa6ff;
-      --secondary-ink: #9db1ff;
-      --emerald-ink: #7bd1ad;
-      --rose-ink: #f29aac;
-      --amber-ink: #e3b775;
-
-      --tint-primary: rgba(109, 140, 255, 0.075);
-      --tint-primary-strong: rgba(109, 140, 255, 0.19);
-      --tint-emerald: rgba(69, 185, 138, 0.08);
-      --tint-emerald-strong: rgba(69, 185, 138, 0.2);
-      --tint-rose: rgba(237, 107, 132, 0.08);
-      --tint-rose-strong: rgba(237, 107, 132, 0.2);
-      --tint-amber: rgba(211, 154, 69, 0.08);
-      --tint-amber-strong: rgba(211, 154, 69, 0.2);
-      --tint-neutral: rgba(255, 255, 255, 0.045);
-
-      --link: #9db1ff;
-      --link-hover: #c0ccff;
-      --shadow-strong: rgba(0, 0, 0, 0.38);
-      --shadow-soft: rgba(0, 0, 0, 0.24);
-
-      --canvas-bg: #0b0d10;
-      --canvas-edge: #4d5561;
-      --canvas-label: #f3f4f6;
-    }
-
-    body {
-      letter-spacing: -0.005em;
-      background:
-        linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box;
-    }
-
-    .container {
-      max-width: 1360px;
-      padding-left: clamp(1.1rem, 3vw, 2rem);
-      padding-right: clamp(1.1rem, 3vw, 2rem);
-    }
-
-    /* Navigation */
-    .navbar {
-      min-height: 72px;
-      padding: 0.65rem max(1.1rem, calc((100vw - 1360px) / 2 + 2rem));
-      gap: 1.25rem;
-      background: var(--nav-bg);
-      backdrop-filter: blur(18px) saturate(140%);
-      -webkit-backdrop-filter: blur(18px) saturate(140%);
-      border-bottom-color: color-mix(in srgb, var(--border) 82%, transparent);
-    }
-
-    .nav-brand {
-      min-width: max-content;
-      gap: 0.72rem;
-      color: var(--text-main);
-      text-decoration: none;
-    }
-    .nav-brand:hover { color: var(--text-main); text-decoration: none; }
-
-    .brand-mark {
-      width: 2rem;
-      height: 2rem;
-      display: inline-grid;
-      place-items: center;
-      border-radius: 8px;
-      background: var(--text-main);
-      color: var(--bg-dark);
-      font-family: var(--font-mono);
-      font-size: 0.86rem;
-      font-weight: 700;
-      letter-spacing: -0.06em;
-    }
-
-    .brand-copy {
-      display: grid;
-      line-height: 1.05;
-      gap: 0.22rem;
-    }
-    .brand-copy strong {
-      font-size: 0.92rem;
-      letter-spacing: -0.02em;
-    }
-    .brand-copy > span {
-      color: var(--text-dim);
-      font-size: 0.67rem;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-    }
-
-    .nav-links {
-      margin-left: auto;
-      gap: 0.15rem;
-      flex-wrap: nowrap;
-    }
-    .nav-links a {
-      padding: 0.48rem 0.62rem;
-      border-radius: 7px;
-      font-size: 0.78rem;
-      font-weight: 550;
-      color: var(--text-muted);
-    }
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--text-main);
-      background: var(--tint-neutral);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-shrink: 0;
-    }
-    .nav-repo {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      min-height: 2.2rem;
-      padding: 0.45rem 0.78rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text-main);
-      background: var(--bg-card);
-      font-size: 0.77rem;
-      font-weight: 650;
-      text-decoration: none;
-    }
-    .nav-repo:hover {
-      border-color: var(--border-accent);
-      background: var(--bg-card-hover);
-      color: var(--text-main);
-      text-decoration: none;
-    }
-
-    .theme-toggle {
-      border-radius: 8px;
-      background: transparent;
-    }
-
-    /* Hero */
-    .hero {
-      text-align: left;
-      padding: clamp(4.4rem, 8vw, 7.8rem) 0 2.8rem;
-      overflow: hidden;
-      border-bottom: 1px solid var(--border);
-      isolation: isolate;
-    }
-    .hero::before {
-      top: -20%;
-      left: 78%;
-      width: min(760px, 80vw);
-      height: min(760px, 80vw);
-      transform: none;
-      filter: blur(0);
-      background:
-        radial-gradient(circle at center, var(--primary-glow) 0, transparent 64%);
-      opacity: 0.9;
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -2;
-      pointer-events: none;
-      opacity: 0.42;
-      background-image:
-        linear-gradient(to right, color-mix(in srgb, var(--border) 48%, transparent) 1px, transparent 1px),
-        linear-gradient(to bottom, color-mix(in srgb, var(--border) 48%, transparent) 1px, transparent 1px);
-      background-size: 44px 44px;
-      mask-image: linear-gradient(to bottom, black 0%, transparent 78%);
-      -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 78%);
-    }
-
-    .hero .container {
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-
-    .hero-shell {
-      display: grid;
-      grid-template-columns: minmax(0, 1.02fr) minmax(430px, 0.98fr);
-      gap: clamp(3rem, 6vw, 6.5rem);
-      align-items: center;
-    }
-
-    .hero-copy {
-      min-width: 0;
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-      margin-bottom: 1.35rem;
-      color: var(--text-muted);
-      font-size: 0.76rem;
-      font-weight: 650;
-      letter-spacing: 0.02em;
-    }
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--emerald);
-      box-shadow: 0 0 0 4px var(--tint-emerald);
-    }
-    .version-chip {
-      padding: 0.24rem 0.48rem;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: var(--bg-card);
-      color: var(--text-main);
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      font-weight: 600;
-    }
-
-    .hero h1 {
-      max-width: 820px;
-      margin: 0;
-      background: none;
-      -webkit-background-clip: initial;
-      background-clip: initial;
-      -webkit-text-fill-color: currentColor;
-      color: var(--text-main);
-      font-size: clamp(3.25rem, 6.2vw, 6.4rem);
-      font-weight: 700;
-      line-height: 0.96;
-      letter-spacing: -0.067em;
-      text-wrap: balance;
-    }
-    .hero h1 .accent {
-      color: var(--primary);
-    }
-
-    .hero .hero-lede {
-      max-width: 700px;
-      margin: 1.7rem 0 0;
-      color: var(--text-muted);
-      font-size: clamp(1.05rem, 1.45vw, 1.28rem);
-      line-height: 1.65;
-      letter-spacing: -0.015em;
-    }
-
-    .hero-actions {
-      justify-content: flex-start;
-      gap: 0.7rem;
-      margin-top: 2rem;
-    }
-
-    .btn {
-      min-height: 2.75rem;
-      justify-content: center;
-      padding: 0.72rem 1.08rem;
-      border-radius: 9px;
-      font-size: 0.83rem;
-      font-weight: 650;
-      box-shadow: none;
-      transform: none;
-    }
-    .btn-primary {
-      background: var(--text-main);
-      color: var(--bg-dark);
-      border-color: var(--text-main);
-      box-shadow: none;
-    }
-    .btn-primary:hover {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: #fff;
-      box-shadow: none;
-      transform: none;
-    }
-    .btn-outline {
-      background: var(--bg-card);
-      color: var(--text-main);
-      border-color: var(--border);
-    }
-    .btn-outline:hover {
-      border-color: var(--border-accent);
-      background: var(--bg-card-hover);
-      transform: none;
-    }
-    .btn-quiet {
-      color: var(--text-muted);
-      background: transparent;
-      border-color: transparent;
-    }
-    .btn-quiet:hover {
-      color: var(--text-main);
-      background: var(--tint-neutral);
-      text-decoration: none;
-    }
-
-    .hero-byline {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1.3rem;
-      color: var(--text-dim);
-      font-size: 0.76rem;
-    }
-    .hero-byline a {
-      color: var(--text-muted);
-      text-decoration: underline;
-      text-decoration-color: var(--border-accent);
-      text-underline-offset: 0.2em;
-    }
-
-    /* Hero graph visual */
-    .hero-visual {
-      position: relative;
-      min-width: 0;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      background: color-mix(in srgb, var(--bg-card) 94%, var(--primary) 6%);
-      box-shadow:
-        0 1px 2px var(--shadow-soft),
-        0 24px 70px color-mix(in srgb, var(--shadow-strong) 55%, transparent);
-    }
-
-    .visual-toolbar {
-      min-height: 49px;
-      display: grid;
-      grid-template-columns: 70px 1fr auto;
-      align-items: center;
-      gap: 0.7rem;
-      padding: 0 1rem;
-      border-bottom: 1px solid var(--border);
-      background: color-mix(in srgb, var(--bg-card) 92%, transparent);
-      font-family: var(--font-mono);
-      font-size: 0.67rem;
-    }
-
-    .visual-dots {
-      display: flex;
-      gap: 0.3rem;
-    }
-    .visual-dots span {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--border-accent);
-    }
-    .visual-title {
-      color: var(--text-muted);
-    }
-    .visual-state {
-      padding: 0.22rem 0.48rem;
-      border-radius: 999px;
-      background: var(--tint-emerald);
-      color: var(--emerald-ink);
-      white-space: nowrap;
-    }
-
-    .graph-stage {
-      position: relative;
-      min-height: 390px;
-      background-image:
-        radial-gradient(circle, color-mix(in srgb, var(--border-accent) 62%, transparent) 1px, transparent 1px);
-      background-size: 18px 18px;
-    }
-
-    .graph-links {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-    .graph-link {
-      fill: none;
-      stroke: var(--border-accent);
-      stroke-width: 1.8;
-      stroke-dasharray: 5 5;
-    }
-    .graph-link.primary-link {
-      stroke: var(--primary);
-      stroke-dasharray: none;
-      stroke-width: 2.1;
-    }
-    .graph-link.test-link {
-      stroke: var(--emerald);
-      stroke-dasharray: 4 4;
-    }
-
-    .graph-node {
-      position: absolute;
-      width: min(190px, 36%);
-      padding: 0.8rem 0.9rem;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: color-mix(in srgb, var(--bg-card) 95%, transparent);
-      box-shadow: 0 8px 22px var(--shadow-soft);
-      backdrop-filter: blur(10px);
-    }
-    .graph-node strong,
-    .graph-node small {
-      display: block;
-    }
-    .graph-node strong {
-      margin-top: 0.24rem;
-      color: var(--text-main);
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      line-height: 1.35;
-    }
-    .graph-node small {
-      margin-top: 0.18rem;
-      color: var(--text-dim);
-      font-size: 0.65rem;
-    }
-    .node-type {
-      color: var(--text-dim);
-      font-family: var(--font-mono);
-      font-size: 0.59rem;
-      font-weight: 650;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-    }
-    .node-intent {
-      top: 8%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-color: color-mix(in srgb, var(--primary) 48%, var(--border));
-    }
-    .node-target { top: 43%; left: 7%; }
-    .node-caller { top: 43%; right: 7%; }
-    .node-test {
-      bottom: 7%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-color: color-mix(in srgb, var(--emerald) 44%, var(--border));
-    }
-
-    .visual-caption {
-      min-height: 48px;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      padding: 0.72rem 1rem;
-      border-top: 1px solid var(--border);
-      color: var(--text-dim);
-      font-size: 0.66rem;
-    }
-    .visual-caption span {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.42rem;
-    }
-    .legend-line {
-      display: inline-block;
-      width: 22px;
-      height: 0;
-      border-top: 2px solid var(--primary);
-    }
-    .legend-test {
-      border-top-color: var(--emerald);
-      border-top-style: dashed;
-    }
-
-    .evidence-strip {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 1.7fr repeat(3, 1fr);
-      margin-top: clamp(2.6rem, 5vw, 4.8rem);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      background: color-mix(in srgb, var(--bg-card) 92%, transparent);
-      overflow: hidden;
-    }
-    .evidence-item {
-      min-width: 0;
-      padding: 1rem 1.15rem;
-      color: var(--text-main);
-      text-decoration: none;
-      border-right: 1px solid var(--border);
-    }
-    .evidence-item:last-child { border-right: 0; }
-    .evidence-item span,
-    .evidence-item strong {
-      display: block;
-    }
-    .evidence-item span {
-      margin-bottom: 0.28rem;
-      color: var(--text-dim);
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-    .evidence-item strong {
-      overflow: hidden;
-      color: var(--text-main);
-      font-size: 0.76rem;
-      font-weight: 650;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    a.evidence-item:hover {
-      background: var(--tint-primary);
-      color: var(--text-main);
-      text-decoration: none;
-    }
-
-    /* Long-form research content */
-    main.container {
-      padding-top: clamp(4.8rem, 8vw, 7rem);
-      padding-bottom: 7rem;
-    }
-
-    main > section {
-      margin-bottom: clamp(5.5rem, 9vw, 8rem) !important;
-      scroll-margin-top: 6rem;
-    }
-
-    .section-header {
-      max-width: 900px;
-      margin-bottom: 2.6rem;
-    }
-    .section-subtitle {
-      margin-bottom: 0.72rem;
-      color: var(--primary-ink);
-      font-family: var(--font-mono);
-      font-size: 0.69rem;
-      font-weight: 650;
-      letter-spacing: 0.08em;
-    }
-    .section-title {
-      max-width: 900px;
-      font-size: clamp(2.1rem, 4.2vw, 3.7rem);
-      font-weight: 650;
-      line-height: 1.05;
-      letter-spacing: -0.052em;
-      text-wrap: balance;
-    }
-    .section-desc {
-      max-width: 760px;
-      margin-top: 1rem;
-      color: var(--text-muted);
-      font-size: 1rem;
-      line-height: 1.7;
-    }
-
-    .explain-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
-      margin-top: 3.1rem;
-      margin-bottom: 1.4rem;
-    }
-    .explain-step,
-    .card,
-    .comparison-column,
-    .sim-panel,
-    .math-card,
-    .control-group {
-      border-radius: 18px;
-    }
-    .explain-step {
-      min-height: 100%;
-      padding: 1.8rem;
-      box-shadow: 0 1px 2px var(--shadow-soft);
-    }
-    .explain-num {
-      position: static;
-      width: 2rem;
-      height: 2rem;
-      margin-bottom: 1.25rem;
-      border-radius: 8px;
-      background: var(--text-main);
-      color: var(--bg-card);
-      font-size: 0.72rem;
-    }
-    .explain-step h3 {
-      margin: 0 0 0.72rem;
-      font-size: 1.02rem;
-    }
-    .explain-step p {
-      font-size: 0.88rem;
-      line-height: 1.7;
-    }
-
-    .analogy-box,
-    .honesty-box {
-      border-radius: 16px;
-      border-left-width: 1px;
-      padding: 1.45rem 1.55rem;
-      box-shadow: 0 1px 2px var(--shadow-soft);
-    }
-
-    .card-grid {
-      gap: 1rem;
-    }
-    .card {
-      padding: 1.55rem;
-      box-shadow: 0 1px 2px var(--shadow-soft);
-      transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
-    }
-    .card:hover {
-      transform: none;
-      background: var(--bg-card-hover);
-      border-color: var(--border-accent);
-    }
-
-    .sim-panel,
-    .comparison-column,
-    .math-card {
-      box-shadow: 0 1px 2px var(--shadow-soft);
-    }
-
-    .data-table {
-      border-color: var(--border);
-    }
-    .data-table th {
-      background: var(--bg-surface);
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.035em;
-    }
-    .data-table td {
-      border-color: var(--border);
-    }
-
-    input[type="range"] {
-      accent-color: var(--primary);
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      background: var(--bg-surface);
-    }
-
-    @media (max-width: 1120px) {
-      .nav-links { display: none; }
-      .hero-shell {
-        grid-template-columns: minmax(0, 1fr) minmax(390px, 0.88fr);
-        gap: 2.3rem;
-      }
-      .hero h1 { font-size: clamp(3.1rem, 7vw, 5.4rem); }
-    }
-
-    @media (max-width: 900px) {
-      .navbar {
-        min-height: 64px;
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
-      .brand-copy > span { display: none; }
-
-      .hero {
-        padding-top: 3.8rem;
-      }
-      .hero-shell {
-        grid-template-columns: 1fr;
-      }
-      .hero-copy {
-        max-width: 760px;
-      }
-      .hero-visual {
-        max-width: 760px;
-      }
-      .evidence-strip {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .evidence-item:nth-child(2) { border-right: 0; }
-      .evidence-item:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
-
-      .explain-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 620px) {
-      .nav-repo { display: none; }
-      .nav-brand { gap: 0.5rem; }
-
-      .hero {
-        padding-top: 3rem;
-      }
-      .hero h1 {
-        font-size: clamp(2.75rem, 14vw, 4.4rem);
-        line-height: 0.98;
-      }
-      .hero .hero-lede {
-        font-size: 1rem;
-      }
-      .hero-actions {
-        display: grid;
-        grid-template-columns: 1fr;
-        width: 100%;
-      }
-      .btn { width: 100%; }
-
-      .graph-stage { min-height: 350px; }
-      .graph-node {
-        width: 41%;
-        padding: 0.68rem 0.7rem;
-      }
-      .graph-node strong { font-size: 0.69rem; }
-      .node-target { left: 4%; }
-      .node-caller { right: 4%; }
-
-      .visual-toolbar {
-        grid-template-columns: 50px 1fr;
-      }
-      .visual-state { display: none; }
-
-      .evidence-strip {
-        grid-template-columns: 1fr;
-      }
-      .evidence-item,
-      .evidence-item:nth-child(2) {
-        border-right: 0;
-        border-bottom: 1px solid var(--border);
-      }
-      .evidence-item:last-child { border-bottom: 0; }
-
-      main.container {
-        padding-top: 4rem;
-      }
-      main > section {
-        margin-bottom: 5.5rem !important;
-      }
-      .section-title {
-        font-size: clamp(2rem, 10vw, 2.8rem);
-      }
-    }
-
-  </style>
+:root {
+  color-scheme: light;
+  --paper: #f3f1eb;
+  --paper-2: #ebe8df;
+  --panel: #fbfaf6;
+  --panel-2: #ffffff;
+  --ink: #151515;
+  --muted: #66645f;
+  --faint: #8c8980;
+  --line: #d8d4c8;
+  --line-strong: #bdb8aa;
+  --accent: #c54a33;
+  --accent-2: #8d3324;
+  --accent-wash: rgba(197, 74, 51, .08);
+  --blue: #315b8a;
+  --green: #39745a;
+  --amber: #9b6a1d;
+  --rose: #a43c51;
+
+  --bg-dark: var(--paper);
+  --bg-card: var(--panel);
+  --bg-card-hover: #f6f3eb;
+  --bg-surface: var(--paper-2);
+  --bg-inset: #ece9e0;
+  --nav-bg: rgba(243, 241, 235, .92);
+  --panel-grad-a: var(--panel);
+  --panel-grad-b: var(--panel);
+  --border: var(--line);
+  --border-accent: var(--line-strong);
+  --text-main: var(--ink);
+  --text-muted: var(--muted);
+  --text-dim: var(--faint);
+  --text-on-accent: #fff;
+  --code-text: #22211e;
+  --primary: var(--accent);
+  --primary-strong: var(--accent-2);
+  --primary-glow: rgba(197, 74, 51, .16);
+  --secondary: var(--blue);
+  --emerald: var(--green);
+  --pink: #8e5578;
+  --primary-ink: var(--accent-2);
+  --primary-ink-soft: var(--accent);
+  --secondary-ink: var(--blue);
+  --emerald-ink: var(--green);
+  --rose-ink: var(--rose);
+  --amber-ink: var(--amber);
+  --tint-primary: rgba(197, 74, 51, .07);
+  --tint-primary-strong: rgba(197, 74, 51, .17);
+  --tint-emerald: rgba(57, 116, 90, .08);
+  --tint-emerald-strong: rgba(57, 116, 90, .18);
+  --tint-rose: rgba(164, 60, 81, .08);
+  --tint-rose-strong: rgba(164, 60, 81, .18);
+  --tint-amber: rgba(155, 106, 29, .08);
+  --tint-amber-strong: rgba(155, 106, 29, .18);
+  --tint-neutral: rgba(21,21,21,.05);
+  --link: #315b8a;
+  --link-hover: #244668;
+  --shadow-soft: rgba(30, 27, 20, .07);
+  --shadow-strong: rgba(30, 27, 20, .13);
+  --canvas-bg: #fbfaf6;
+  --canvas-edge: #aaa59a;
+  --canvas-label: #151515;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #111210;
+  --paper-2: #171815;
+  --panel: #1a1b18;
+  --panel-2: #20211e;
+  --ink: #f0eee7;
+  --muted: #aaa79f;
+  --faint: #817f78;
+  --line: #30312d;
+  --line-strong: #474842;
+  --accent: #ef765f;
+  --accent-2: #ff927d;
+  --accent-wash: rgba(239,118,95,.08);
+  --blue: #8bb1db;
+  --green: #7fc09d;
+  --amber: #d4a357;
+  --rose: #e58da0;
+  --bg-dark: var(--paper);
+  --bg-card: var(--panel);
+  --bg-card-hover: #23241f;
+  --bg-surface: var(--paper-2);
+  --bg-inset: #0d0e0c;
+  --nav-bg: rgba(17,18,16,.9);
+  --panel-grad-a: var(--panel);
+  --panel-grad-b: var(--panel);
+  --border: var(--line);
+  --border-accent: var(--line-strong);
+  --text-main: var(--ink);
+  --text-muted: var(--muted);
+  --text-dim: var(--faint);
+  --text-on-accent: #111;
+  --code-text: #ece9df;
+  --primary: var(--accent);
+  --primary-strong: var(--accent-2);
+  --primary-glow: rgba(239,118,95,.18);
+  --secondary: var(--blue);
+  --emerald: var(--green);
+  --pink: #d292bc;
+  --primary-ink: var(--accent-2);
+  --primary-ink-soft: var(--accent);
+  --secondary-ink: var(--blue);
+  --emerald-ink: var(--green);
+  --rose-ink: var(--rose);
+  --amber-ink: var(--amber);
+  --tint-primary: rgba(239,118,95,.08);
+  --tint-primary-strong: rgba(239,118,95,.18);
+  --tint-emerald: rgba(127,192,157,.08);
+  --tint-emerald-strong: rgba(127,192,157,.18);
+  --tint-rose: rgba(229,141,160,.08);
+  --tint-rose-strong: rgba(229,141,160,.18);
+  --tint-amber: rgba(212,163,87,.08);
+  --tint-amber-strong: rgba(212,163,87,.18);
+  --tint-neutral: rgba(255,255,255,.05);
+  --link: #9ec0e6;
+  --link-hover: #c7daf0;
+  --shadow-soft: rgba(0,0,0,.18);
+  --shadow-strong: rgba(0,0,0,.34);
+  --canvas-bg: #161714;
+  --canvas-edge: #5c5d56;
+  --canvas-label: #f0eee7;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 86px; -webkit-text-size-adjust: 100%; }
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; text-underline-offset: .2em; }
+code, pre, .mono { font-family: var(--font-mono); }
+code { font-size: .92em; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+.container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+.icon { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.skip-link {
+  position: fixed; top: -80px; left: 16px; z-index: 9999;
+  background: var(--ink); color: var(--paper); padding: 9px 12px; border-radius: 6px;
+}
+.skip-link:focus { top: 12px; color: var(--paper); text-decoration: none; }
+
+/* header */
+.navbar {
+  position: sticky; top: 0; z-index: 1000;
+  min-height: 68px; display: flex; align-items: center; gap: 24px;
+  padding: 0 max(20px, calc((100vw - 1180px)/2));
+  background: var(--nav-bg);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 750; letter-spacing: -.03em; }
+.nav-brand:hover { color: var(--ink); text-decoration: none; }
+.brand-glyph {
+  width: 30px; height: 30px; display: grid; place-items: center;
+  border: 1px solid var(--ink); border-radius: 50%;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: -.08em;
+}
+.nav-links { margin-left: auto; display: flex; gap: 4px; list-style: none; }
+.nav-links a { display: block; padding: 7px 9px; border-radius: 5px; color: var(--muted); font-size: 13px; font-weight: 600; }
+.nav-links a:hover, .nav-links a.active { background: var(--tint-neutral); color: var(--ink); text-decoration: none; }
+.nav-actions { display: flex; align-items: center; gap: 7px; }
+.nav-repo, .theme-toggle {
+  height: 34px; display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--line); border-radius: 6px; background: var(--panel);
+  color: var(--ink); font-size: 12px; font-weight: 650;
+}
+.nav-repo { padding: 0 10px; }
+.nav-repo:hover { border-color: var(--line-strong); color: var(--ink); text-decoration: none; }
+.theme-toggle { width: 34px; cursor: pointer; }
+
+/* hero */
+.hero { padding: clamp(64px, 8vw, 116px) 0 36px; border-bottom: 1px solid var(--line); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(380px,.95fr); gap: clamp(42px,7vw,92px); align-items: start; }
+.kicker { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: 12px; font-weight: 650; letter-spacing: .02em; }
+.kicker-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.hero h1 {
+  margin-top: 20px; max-width: 720px;
+  font-size: clamp(48px, 6vw, 82px); line-height: .98; font-weight: 680;
+  letter-spacing: -.068em; text-wrap: balance;
+}
+.hero h1 em { color: var(--accent); font-style: normal; }
+.hero-lede { max-width: 690px; margin-top: 26px; color: var(--muted); font-size: clamp(17px,1.6vw,21px); line-height: 1.62; letter-spacing: -.015em; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.btn {
+  min-height: 42px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 0 14px; border: 1px solid transparent; border-radius: 6px; cursor: pointer;
+  font-family: var(--font-sans); font-size: 13px; font-weight: 700; text-decoration: none;
+}
+.btn:hover { text-decoration: none; }
+.btn-primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-outline { background: var(--panel); color: var(--ink); border-color: var(--line); }
+.btn-outline:hover { border-color: var(--line-strong); color: var(--ink); background: var(--panel-2); }
+.btn-quiet { background: transparent; color: var(--muted); }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 24px; color: var(--faint); font-family: var(--font-mono); font-size: 11px; }
+
+/* concept map */
+.concept {
+  border-top: 4px solid var(--ink);
+  background: var(--panel);
+  box-shadow: 0 12px 38px var(--shadow-soft);
+}
+.concept-head { display: flex; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.concept-body { padding: 18px; }
+.query-card { padding: 14px; background: var(--ink); color: var(--paper); border-radius: 5px; }
+.query-card span { display: block; margin-bottom: 5px; color: #cfcac0; font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .08em; }
+.query-card code { color: inherit; font-size: 12px; }
+.flow-arrow { height: 34px; display: grid; place-items: center; color: var(--faint); font-family: var(--font-mono); }
+.store-box { border: 1px solid var(--line-strong); background: var(--panel-2); padding: 14px; }
+.store-title { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.store-title strong { font-size: 14px; }
+.store-title code { color: var(--accent); font-size: 12px; }
+.store-parts { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; margin-top: 12px; }
+.store-parts span { min-width: 0; padding: 8px 4px; border-top: 2px solid var(--line-strong); color: var(--muted); text-align: center; font-family: var(--font-mono); font-size: 9px; }
+.output-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 7px; }
+.output-grid div { min-height: 64px; padding: 10px; border: 1px solid var(--line); background: var(--panel-2); }
+.output-grid span { display: block; color: var(--faint); font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .07em; }
+.output-grid strong { display: block; margin-top: 4px; font-size: 12px; line-height: 1.35; }
+.hero-facts { grid-column: 1/-1; display: grid; grid-template-columns: 1.5fr repeat(3,1fr); margin-top: 46px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.hero-facts > * { padding: 14px 16px; border-right: 1px solid var(--line); }
+.hero-facts > *:last-child { border-right: 0; }
+.hero-facts span { display: block; color: var(--faint); font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .08em; }
+.hero-facts strong { display: block; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; color: var(--ink); }
+
+/* sections */
+main { padding: 84px 0 120px; }
+section { scroll-margin-top: 90px; margin-bottom: clamp(86px,10vw,132px); }
+.section-header { max-width: 790px; margin-bottom: 34px; }
+.section-subtitle { margin-bottom: 11px; color: var(--accent); font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.section-title { font-size: clamp(32px,4vw,52px); line-height: 1.05; letter-spacing: -.048em; font-weight: 650; text-wrap: balance; }
+.section-desc { max-width: 720px; margin-top: 14px; color: var(--muted); font-size: 16px; line-height: 1.75; }
+.rule-title { display: grid; grid-template-columns: 60px 1fr; gap: 20px; align-items: start; margin-bottom: 28px; }
+.rule-title .n { color: var(--accent); font-family: var(--font-mono); font-size: 11px; padding-top: 7px; }
+.rule-title h2 { font-size: clamp(30px,4vw,50px); line-height: 1.06; letter-spacing: -.045em; font-weight: 650; }
+
+/* idea */
+.dual-context { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong); }
+.context-side { padding: 30px 28px 34px 0; }
+.context-side + .context-side { padding-left: 28px; padding-right: 0; border-left: 1px solid var(--line); }
+.context-side .label { color: var(--faint); font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+.context-side h3 { margin-top: 9px; font-size: 24px; line-height: 1.15; letter-spacing: -.035em; }
+.context-side p { margin-top: 12px; color: var(--muted); font-size: 14px; }
+.context-side .question { margin-top: 18px; padding: 12px 0 0; border-top: 1px solid var(--line); color: var(--ink); font-family: var(--font-mono); font-size: 12px; }
+.position-note { margin-top: 26px; max-width: 840px; padding-left: 18px; border-left: 3px solid var(--accent); color: var(--muted); }
+.position-note strong { color: var(--ink); }
+
+/* concrete flow */
+.change-example { display: grid; grid-template-columns: 280px 1fr; gap: 38px; border-top: 1px solid var(--line-strong); padding-top: 26px; }
+.change-input { align-self: start; padding: 16px; background: var(--ink); color: var(--paper); border-radius: 5px; }
+.change-input small { display: block; color: #c9c5bb; font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing:.08em; }
+.change-input code { display: block; margin-top: 8px; color: inherit; font-size: 12px; white-space: pre-wrap; }
+.process-list { list-style: none; counter-reset: process; }
+.process-list li { position: relative; display: grid; grid-template-columns: 40px 180px 1fr; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.process-list li::before { counter-increment: process; content: "0" counter(process); color: var(--accent); font-family: var(--font-mono); font-size: 10px; padding-top: 3px; }
+.process-list strong { font-size: 14px; }
+.process-list p { color: var(--muted); font-size: 13px; }
+
+/* theory */
+.math-card { padding: 24px 0; margin: 0; border-top: 1px solid var(--line); background: transparent; }
+.math-card:last-child { border-bottom: 1px solid var(--line); }
+.math-title { color: var(--ink); font-size: 15px; font-weight: 700; }
+.formula-box { margin-top: 14px; padding: 14px 16px; overflow-x: auto; border-left: 3px solid var(--accent); background: var(--panel); }
+.math-card ul { padding-left: 20px; }
+
+/* lab intro */
+.lab-intro {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: end;
+  padding: 26px 0; border-top: 3px solid var(--ink); border-bottom: 1px solid var(--line);
+}
+.lab-intro h2 { font-size: clamp(34px,5vw,58px); line-height: 1; letter-spacing: -.055em; font-weight: 650; }
+.lab-intro p { color: var(--muted); }
+.lab-intro strong { color: var(--ink); }
+
+/* labs */
+.lab-section { display: grid; grid-template-columns: 260px minmax(0,1fr); gap: 42px; align-items: start; }
+.lab-section > .section-header { position: sticky; top: 94px; margin: 0; }
+.lab-section .section-title { font-size: 28px; line-height: 1.08; }
+.lab-section .section-desc { font-size: 13px; line-height: 1.7; }
+.sim-panel {
+  min-width: 0; padding: 20px; overflow: hidden;
+  border: 1px solid var(--line); border-top: 3px solid var(--ink);
+  border-radius: 0; background: var(--panel);
+  box-shadow: 0 10px 28px var(--shadow-soft);
+}
+.sim-controls { display: flex; align-items: end; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+.control-group { min-width: 170px; flex: 1; }
+.control-label { display: block; margin-bottom: 6px; color: var(--faint); font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+select, input[type="text"], input[type="number"] {
+  width: 100%; min-height: 38px; padding: 7px 10px; color: var(--ink); background: var(--panel-2);
+  border: 1px solid var(--line); border-radius: 4px; font: inherit; font-size: 12px;
+}
+input[type="range"] { width: 100%; accent-color: var(--accent); }
+.comparison-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0; border: 1px solid var(--line); }
+.comparison-column { min-width: 0; padding: 16px; border: 0 !important; border-right: 1px solid var(--line) !important; background: transparent !important; }
+.comparison-column:last-child { border-right: 0 !important; }
+.metric-badge { display: inline-flex; margin: 6px 0 10px; padding: 3px 6px; background: var(--bg-inset); border: 1px solid var(--line); border-radius: 3px; font-family: var(--font-mono); font-size: 10px; }
+.text-rose { color: var(--rose); } .text-amber { color: var(--amber); } .text-emerald { color: var(--green); }
+.canvas-container { position: relative; width: 100%; min-height: 430px; border: 1px solid var(--line); background: var(--canvas-bg); overflow: hidden; }
+.canvas-container canvas { width: 100%; height: 430px; display: block; }
+.canvas-overlay { position: absolute; left: 12px; bottom: 12px; max-width: calc(100% - 24px); padding: 8px 10px; background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--line); color: var(--muted); font-family: var(--font-mono); font-size: 10px; pointer-events: none; }
+
+/* generic cards / callouts */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,240px),1fr)); gap: 10px; }
+.card { padding: 18px; border: 1px solid var(--line); background: var(--panel); }
+.card-title { display: flex; gap: 8px; align-items: center; font-size: 15px; font-weight: 700; }
+.card p { margin-top: 8px; color: var(--muted); font-size: 13px; }
+.pill { display: inline-flex; align-items: center; padding: 3px 6px; border: 1px solid var(--line); border-radius: 999px; font-family: var(--font-mono); font-size: 9px; background: var(--panel); }
+.analogy-box, .honesty-box { padding: 16px 18px; border: 1px solid var(--line); background: var(--panel); }
+.analogy-box { border-left: 3px solid var(--blue); }
+.honesty-box { border-left: 3px solid var(--amber); }
+.analogy-box h4, .honesty-box h4 { margin-bottom: 6px; font-size: 13px; }
+.analogy-box p, .honesty-box p { color: var(--muted); font-size: 13px; }
+
+/* integration */
+.integration-grid { display: grid; grid-template-columns: .92fr 1.08fr; gap: 18px; }
+.integration-card { border-top: 3px solid var(--ink); background: var(--panel); padding: 20px; border-left: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.integration-card h3 { font-size: 16px; margin-bottom: 10px; }
+pre { overflow-x: auto; padding: 14px; background: #171713; color: #ece9df; border-radius: 4px; font-size: 11px; line-height: 1.65; }
+pre code { color: inherit; }
+.tool-table { width: 100%; margin-top: 18px; border-collapse: collapse; font-size: 12px; }
+.tool-table th, .tool-table td { padding: 10px 8px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.tool-table th { color: var(--faint); font-family: var(--font-mono); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; }
+.tool-table td:first-child { font-family: var(--font-mono); color: var(--ink); white-space: nowrap; }
+.integration-note { margin-top: 16px; color: var(--muted); font-size: 12px; }
+
+/* evidence */
+.evidence-stats { display: grid; grid-template-columns: repeat(4,1fr); border-top: 3px solid var(--ink); border-bottom: 1px solid var(--line); }
+.evidence-stat { padding: 18px 16px; border-right: 1px solid var(--line); }
+.evidence-stat:last-child { border-right: 0; }
+.evidence-stat strong { display: block; font-size: 28px; line-height: 1; letter-spacing: -.04em; }
+.evidence-stat span { display: block; margin-top: 7px; color: var(--muted); font-size: 11px; line-height: 1.4; }
+.finding-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
+.finding { padding: 20px; border: 1px solid var(--line); background: var(--panel); }
+.finding h3 { font-size: 15px; }
+.finding p { margin-top: 9px; color: var(--muted); font-size: 13px; }
+.finding.positive { border-top: 3px solid var(--green); }
+.finding.caution { border-top: 3px solid var(--amber); }
+.finding.null { border-top: 3px solid var(--rose); }
+.finding.neutral { border-top: 3px solid var(--blue); }
+.agent-result { margin-top: 28px; display: grid; grid-template-columns: 250px 1fr; border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong); }
+.agent-result .result-number { padding: 24px 22px 24px 0; }
+.agent-result .result-number strong { display: block; font-size: 54px; letter-spacing: -.06em; line-height: .95; }
+.agent-result .result-number span { color: var(--muted); font-size: 11px; }
+.agent-result .result-copy { padding: 24px 0 24px 28px; border-left: 1px solid var(--line); }
+.agent-result .result-copy h3 { font-size: 19px; }
+.agent-result .result-copy p { margin-top: 8px; color: var(--muted); font-size: 13px; }
+details.evidence-detail { margin-top: 16px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: transparent; }
+details.evidence-detail summary { cursor: pointer; padding: 13px 0; font-weight: 700; font-size: 13px; }
+details.evidence-detail > div { padding: 0 0 16px; }
+.table-scroll { max-width: 100%; overflow-x: auto; }
+.data-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.data-table th, .data-table td { padding: 9px 8px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+.data-table th { color: var(--faint); background: transparent; font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .04em; }
+.highlight-row { background: var(--tint-primary); }
+
+/* api */
+.api-section { display: grid; grid-template-columns: 260px minmax(0,1fr); gap: 42px; }
+.api-section > .section-header { margin: 0; }
+.api-section .section-title { font-size: 28px; }
+.api-section .section-desc { font-size: 13px; }
+
+/* status/citation */
+.status-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 34px; }
+.status-list { border-top: 1px solid var(--line-strong); }
+.status-row { display: grid; grid-template-columns: 130px 1fr; gap: 18px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.status-row span { color: var(--faint); font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
+.status-row strong, .status-row p { font-size: 13px; }
+.status-row p { color: var(--muted); }
+.citation-card { padding: 20px; border-top: 3px solid var(--ink); background: var(--panel); border-left:1px solid var(--line); border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+.citation-card h3 { margin-bottom: 10px; font-size: 15px; }
+
+footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); }
+.footer-grid { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; font-size: 11px; }
+.footer-grid strong { color: var(--ink); }
+
+@media (max-width: 980px) {
+  .nav-links { display: none; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-facts { grid-template-columns: repeat(2,1fr); }
+  .hero-facts > *:nth-child(2) { border-right:0; }
+  .hero-facts > *:nth-child(-n+2) { border-bottom:1px solid var(--line); }
+  .lab-section, .api-section { grid-template-columns: 1fr; gap: 22px; }
+  .lab-section > .section-header { position: static; }
+  .comparison-grid { grid-template-columns: 1fr; }
+  .comparison-column { border-right: 0 !important; border-bottom: 1px solid var(--line) !important; }
+  .comparison-column:last-child { border-bottom:0 !important; }
+}
+@media (max-width: 760px) {
+  .container { width: min(100% - 28px, 1180px); }
+  .navbar { padding: 0 14px; }
+  .nav-repo { display: none; }
+  .hero { padding-top: 54px; }
+  .hero h1 { font-size: clamp(44px,14vw,64px); }
+  .store-parts { grid-template-columns: repeat(2,1fr); }
+  .store-parts span:last-child { grid-column: 1/-1; }
+  .dual-context, .lab-intro, .integration-grid, .finding-grid, .status-grid, .change-example { grid-template-columns: 1fr; }
+  .context-side, .context-side + .context-side { padding: 22px 0; border-left:0; border-bottom:1px solid var(--line); }
+  .process-list li { grid-template-columns: 36px 1fr; }
+  .process-list li p { grid-column: 2; }
+  .evidence-stats { grid-template-columns: repeat(2,1fr); }
+  .evidence-stat:nth-child(2) { border-right:0; }
+  .evidence-stat:nth-child(-n+2) { border-bottom:1px solid var(--line); }
+  .agent-result { grid-template-columns: 1fr; }
+  .agent-result .result-copy { padding-left:0; border-left:0; border-top:1px solid var(--line); }
+  .hero-facts { grid-template-columns:1fr; }
+  .hero-facts > * { border-right:0; border-bottom:1px solid var(--line); }
+  .hero-facts > *:last-child { border-bottom:0; }
+}
+
+</style>
 </head>
+
 <body>
-
   <a class="skip-link" href="#start-here">Skip to content</a>
-
-  <!-- Icon sprite. Defined once and referenced with <use>, so an icon appears
-       in the markup as one short element and changing it changes it everywhere.
-       Stroke geometry on a 24x24 grid, Lucide-style, inheriting currentColor. -->
+  
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
     <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
-    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1Z"/></symbol>
     <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></symbol>
     <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
     <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
@@ -2803,282 +476,176 @@
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
   </svg>
 
-  <!-- Navigation Bar -->
-  <nav class="navbar" aria-label="Primary">
-    <a class="nav-brand" href="#top" aria-label="MCM home">
-      <span class="brand-mark" aria-hidden="true">M</span>
-      <span class="brand-copy">
-        <strong>MCM</strong>
-        <span>Mathematical Context Model</span>
-      </span>
+  <nav class="navbar">
+    <a class="nav-brand" href="#top">
+      <span class="brand-glyph">MCM</span>
+      <span>Mathematical Context Model</span>
     </a>
-
-    <ul class="nav-links" aria-label="Page sections">
-      <li><a href="#start-here">Model</a></li>
-      <li><a href="#comparison-sim">Simulations</a></li>
+    <ul class="nav-links" aria-label="Primary navigation">
+      <li><a href="#start-here">Idea</a></li>
+      <li><a href="#theory">Model</a></li>
+      <li><a href="#comparison-sim">Lab</a></li>
       <li><a href="#benchmarks">Evidence</a></li>
-      <li><a href="#agent-api">Integration</a></li>
-      <li><a href="#research-summary">Research</a></li>
+      <li><a href="#use-it">Use it</a></li>
     </ul>
-
     <div class="nav-actions">
-      <a class="nav-repo" href="https://github.com/abusuraihsakhri/mcm" target="_blank" rel="noopener">
-        GitHub <span aria-hidden="true">↗</span>
-      </a>
-      <button id="themeToggle" class="theme-toggle" type="button"
-              onclick="toggleTheme()" aria-label="Switch theme" title="Switch theme"></button>
+      <a class="nav-repo" href="https://github.com/abusuraihsakhri/mcm" target="_blank" rel="noopener">GitHub ↗</a>
+      <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Switch theme" title="Switch theme"></button>
     </div>
   </nav>
 
-  <!-- Hero Section -->
   <header class="hero" id="top">
-    <div class="container hero-shell">
-      <div class="hero-copy">
-        <div class="hero-eyebrow">
-          <span class="status-dot" aria-hidden="true"></span>
-          <span>Open-source research prototype</span>
-          <span class="version-chip">v0.1.0</span>
-        </div>
-
-        <h1>Give coding agents the context <span class="accent">before they edit.</span></h1>
-
-        <p class="hero-lede">
-          MCM converts Python code into a typed, evidence-backed graph so an agent can retrieve
-          structure, trace dependencies, and estimate change impact before writing code.
-        </p>
-
+    <div class="container hero-grid">
+      <div>
+        <div class="kicker"><span class="kicker-dot"></span><span>Open-source research software · v0.1.0</span></div>
+        <h1>Code is more than <em>text.</em></h1>
+        <p class="hero-lede">MCM gives coding agents a typed model of what code elements are, how they depend on one another, what evidence supports those links, and when those facts were true—so context can be retrieved and change impact reasoned about before an edit.</p>
         <div class="hero-actions">
-          <a href="#start-here" class="btn btn-primary">
-            Explore the model
-            <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
-          </a>
-          <a href="#blast-sim" class="btn btn-outline">Run impact simulator</a>
-          <a href="#use-it" class="btn btn-quiet">Use with an agent</a>
+          <a class="btn btn-primary" href="#start-here">Understand the model <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <a class="btn btn-outline" href="#benchmarks">Read the evidence</a>
+          <a class="btn btn-quiet" href="#use-it">Connect an agent</a>
         </div>
-
-        <div class="hero-byline">
-          <span>Abu Suraih Sakhri</span>
-          <span aria-hidden="true">·</span>
-          <span>2026</span>
-          <span aria-hidden="true">·</span>
-          <a href="https://doi.org/10.5281/zenodo.22923463" target="_blank" rel="noopener">Zenodo DOI ↗</a>
+        <div class="hero-meta">
+          <span>Python ≥3.12</span>
+          <span>Apache-2.0</span>
+          <span>DOI 10.5281/zenodo.22923463</span>
         </div>
       </div>
 
-      <div class="hero-visual" role="img" aria-label="Conceptual diagram showing a proposed code change linked to a target function, its callers, and tests through a typed context graph">
-        <div class="visual-toolbar">
-          <div class="visual-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-          <span class="visual-title">context.graph</span>
-          <span class="visual-state">pre-action analysis</span>
-        </div>
-
-        <div class="graph-stage" aria-hidden="true">
-          <svg class="graph-links" viewBox="0 0 620 390" preserveAspectRatio="none">
-            <path class="graph-link primary-link" d="M310 78 C310 120 205 118 178 168"/>
-            <path class="graph-link" d="M310 78 C310 120 414 118 442 168"/>
-            <path class="graph-link" d="M178 218 C190 285 270 278 310 320"/>
-            <path class="graph-link test-link" d="M442 218 C430 285 350 278 310 320"/>
-          </svg>
-
-          <div class="graph-node node-intent">
-            <span class="node-type">Intent</span>
-            <strong>change parse_config()</strong>
+      <div class="concept" aria-label="Diagram of a proposed code change flowing through MCM into structural context">
+        <div class="concept-head"><span>PRE-ACTION CONTEXT</span><span>canonical store</span></div>
+        <div class="concept-body">
+          <div class="query-card"><span>Proposed edit</span><code>change Signer.sign(...) signature</code></div>
+          <div class="flow-arrow">↓ resolve</div>
+          <div class="store-box">
+            <div class="store-title"><strong>Mathematical Context Model</strong><code>K = ⟨O,R,E,P,T⟩</code></div>
+            <div class="store-parts"><span>objects</span><span>relations</span><span>evidence</span><span>provenance</span><span>time</span></div>
           </div>
-          <div class="graph-node node-target">
-            <span class="node-type">Target</span>
-            <strong>parser.py</strong>
-            <small>typed symbol</small>
+          <div class="flow-arrow">↓ traverse + minimise</div>
+          <div class="output-grid">
+            <div><span>target</span><strong>stable symbol identity</strong></div>
+            <div><span>consequence</span><strong>callers + dependencies</strong></div>
+            <div><span>validation</span><strong>linked tests + evidence</strong></div>
+            <div><span>agent context</span><strong>bounded support set</strong></div>
           </div>
-          <div class="graph-node node-caller">
-            <span class="node-type">Caller</span>
-            <strong>pipeline.py</strong>
-            <small>CALLS relation</small>
-          </div>
-          <div class="graph-node node-test">
-            <span class="node-type">Evidence</span>
-            <strong>test_parser.py</strong>
-            <small>test coverage edge</small>
-          </div>
-        </div>
-
-        <div class="visual-caption">
-          <span><i class="legend-line legend-primary"></i> structural relation</span>
-          <span><i class="legend-line legend-test"></i> evidence / test relation</span>
         </div>
       </div>
 
-      <div class="evidence-strip" aria-label="Project facts">
-        <a class="evidence-item" href="https://doi.org/10.5281/zenodo.22923463" target="_blank" rel="noopener">
-          <span>Archive</span>
-          <strong>10.5281/zenodo.22923463</strong>
-        </a>
-        <div class="evidence-item">
-          <span>Release</span>
-          <strong>v0.1.0</strong>
-        </div>
-        <div class="evidence-item">
-          <span>Runtime</span>
-          <strong>Python 3.12+</strong>
-        </div>
-        <div class="evidence-item">
-          <span>License</span>
-          <strong>Apache-2.0</strong>
-        </div>
+      <div class="hero-facts">
+        <a href="https://doi.org/10.5281/zenodo.22923463" target="_blank" rel="noopener"><span>Archived release</span><strong>10.5281/zenodo.22923463</strong></a>
+        <div><span>Evaluation suite</span><strong>10 repositories</strong></div>
+        <div><span>Largest repo</span><strong>Django · 2,932 files</strong></div>
+        <div><span>Agent study</span><strong>23 tasks · null result</strong></div>
       </div>
     </div>
   </header>
 
   <main class="container">
-
-    <!-- Plain-language orientation -->
-    <section id="start-here" style="margin-bottom: 4rem;">
+    
+<section id="start-here">
+  <div class="rule-title">
+    <div class="n">01 / IDEA</div>
+    <div>
+      <h2>A coding agent needs relevance <em>and</em> consequence.</h2>
+      <p class="section-desc">Search is good at finding code that resembles a request. Editing safely also requires knowing what depends on the code being changed. MCM keeps those two problems distinct and lets them work together.</p>
+    </div>
+  </div>
+  <div class="dual-context">
+    <div class="context-side">
+      <div class="label">Semantic relevance</div>
+      <h3>What code looks related to the task?</h3>
+      <p>Vector and lexical retrieval are useful for locating definitions when names and wording are uncertain. MCM keeps these channels.</p>
+      <div class="question">“Where is token validation implemented?”</div>
+    </div>
+    <div class="context-side">
+      <div class="label">Structural consequence</div>
+      <h3>What code is connected to the thing I may change?</h3>
+      <p>This needs explicit relations: calls, imports, tests, inheritance, evidence and time. MCM stores those relations rather than asking similarity to stand in for them.</p>
+      <div class="question">“If I change this signature, which callers and tests matter?”</div>
+    </div>
+  </div>
+  <p class="position-note"><strong>MCM is not a replacement for retrieval.</strong> It is a canonical context layer underneath retrieval and change analysis: typed objects and relations are primary; vector, lexical and graph indexes are rebuildable projections.</p>
+</section>
+    
+<section id="problem">
+  <div class="rule-title">
+    <div class="n">02 / FLOW</div>
+    <div>
+      <h2>One proposed edit becomes a traceable context package.</h2>
+      <p class="section-desc">The central workflow is pre-action: resolve the target, traverse what the change can reach, attach evidence, then assemble only the context the agent needs.</p>
+    </div>
+  </div>
+  <div class="change-example">
+    <div class="change-input">
+      <small>Proposed change</small>
+      <code>Signer.sign(value, key=None)
++ algorithm="sha256"</code>
+    </div>
+    <ol class="process-list">
+      <li><strong>Resolve</strong><p>Map the request to a stable symbol identity rather than a line-number chunk.</p></li>
+      <li><strong>Propagate</strong><p>Walk typed relations from the target and attenuate confidence as paths get longer.</p></li>
+      <li><strong>Ground</strong><p>Keep the source bytes and provenance that justify every relation surfaced to the agent.</p></li>
+      <li><strong>Minimise</strong><p>Build a bounded context set that still reproduces the relevant closure and keeps its evidence.</p></li>
+      <li><strong>Act</strong><p>Expose the result through CLI, REST or MCP before the agent edits the repository.</p></li>
+    </ol>
+  </div>
+</section>
+    <section id="theory">
       <div class="section-header">
-        <div class="section-subtitle">Start here</div>
-        <h2 class="section-title">The idea in plain language</h2>
-        <p class="section-desc">
-          No mathematics in this section. If you only read one part of this page, read this one.
-        </p>
+        <div class="section-subtitle">03 / MODEL</div>
+        <h2 class="section-title">The canonical store keeps meaning, evidence and time together</h2>
+        <p class="section-desc">A repository is represented as objects, relations, evidence, provenance and temporal validity. Retrieval indexes and graph adjacency are derived from this store and can be rebuilt.</p>
       </div>
 
-      <div class="explain-grid">
-        <div class="explain-step">
-          <div class="explain-num">1</div>
-          <h3>What an agent does today</h3>
-          <p>
-            Ask a coding assistant to change a function and it searches your repository for text that
-            <em>looks</em> similar to your request. It reads back a few chunks of files, roughly forty
-            lines at a time, and starts editing.
-          </p>
-          <p>
-            That works until the code it needs is not the code that sounds similar. A function that
-            calls the one you are changing, three files away, with no shared vocabulary, will not come
-            back from a text search. The agent edits confidently and breaks it.
-          </p>
-        </div>
-
-        <div class="explain-step">
-          <div class="explain-num">2</div>
-          <h3>What MCM does instead</h3>
-          <p>
-            MCM reads your code once and records what it <em>is</em> rather than what it says:
-            these are the functions, this one calls that one, this test covers this function, this
-            class inherits from that one.
-          </p>
-          <p>
-            Every one of those facts points back at the exact bytes of source that justify it, and
-            carries a number saying how sure MCM is. A fact read straight from the syntax tree is
-            certain. A fact inferred three steps away is not, and says so.
-          </p>
-        </div>
-
-        <div class="explain-step">
-          <div class="explain-num">3</div>
-          <h3>Why that matters before an edit</h3>
-          <p>
-            Because you can walk the graph. Point at a function, say what you intend to change, and
-            MCM follows the calls outward to report what would need updating and which tests cover
-            it &mdash; <strong>before the edit is written</strong>.
-          </p>
-          <p>
-            Searching cannot do this at all. It is not a question about similarity, so no amount of
-            better search answers it.
-          </p>
+      <div class="math-card">
+        <div class="math-title">Definition 1: Canonical Semantic Store</div>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          A code repository is represented as a 5-tuple store $K$, where all symbols possess deterministic, line-independent qualname identities:
+        </p>
+        <div class="formula-box">
+          $$K = \langle \mathcal{O}, \mathcal{R}, \mathcal{E}, \mathcal{P}, \mathcal{T} \rangle$$
+          $$\text{id}(o) = \texttt{repo://} \parallel \text{relpath}(o) \parallel \texttt{\#} \parallel \tau_o \parallel \texttt{:} \parallel \text{qualname}(o)$$
         </div>
       </div>
 
-      <div class="analogy-box">
-        <h4>An analogy</h4>
-        <p>
-          Text search over code is like finding a phone number by reading the phone book cover to
-          cover for a name that looks right. It usually works, and it has no idea who that person
-          actually calls.
+      <div class="math-card">
+        <div class="math-title">Relation composition and confidence attenuation</div>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          Composing relational paths along the call graph attenuates confidence multiplicatively with path-decay factor $\delta$:
         </p>
-        <p>
-          MCM is the call log. It is less clever about names and it knows exactly who is connected to
-          whom &mdash; which is the thing you need before you disconnect anyone.
-        </p>
+        <div class="formula-box">
+          $$c(R_1 \circ R_2) = c(R_1) \cdot c(R_2) \cdot \delta(R_1, R_2)$$
+          $$C_{t+1} = \frac{C_t \cdot \alpha + s_{\text{observed}}}{\alpha + 1} \quad (\text{Bayesian Observation Update})$$
+        </div>
       </div>
 
-      <div class="honesty-box">
-        <h4>What this is, and what it is not</h4>
-        <p>
-          This is a research prototype by one author, not a product. It handles Python only. Its
-          analysis is static, so code reached at runtime through dynamic dispatch or a registry is
-          invisible to it unless you run the tracing channel.
+      <div class="math-card">
+        <div class="math-title">Context reduction must preserve support</div>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          A minimised context prompt package $C^*$ entails task query $Q$ ($C^* \models Q$) if and only if three independent formal clauses hold:
         </p>
-        <p>
-          The benchmark below measures what MCM puts in front of an agent. Whether that makes the
-          agent finish more tasks correctly is <strong>not measured</strong>, and the page says so
-          rather than implying otherwise. The numbers are reported with the parts that did not work.
-        </p>
+        <ul style="margin: 0.75rem 0 0 1.5rem; color: var(--text-muted); font-size: 0.92rem; line-height: 1.8;">
+          <li><strong style="color: var(--emerald);">Replay Clause:</strong> Traversal over the relations in $C$ generates the identical deductive closure and confidence values as the full store $K$.</li>
+          <li><strong style="color: var(--secondary);">Presence Clause:</strong> Every object referenced in the transitive closure exists within $C$'s object set.</li>
+          <li><strong style="color: var(--amber);">Traceability Clause:</strong> Every relation in $C$ retains at least one verifiable evidence record pointing to valid source artifacts.</li>
+        </ul>
       </div>
     </section>
-
-    <!-- Why chunk retrieval fails on code -->
-    <section id="problem" style="margin-bottom: 4rem;">
+    
+<section aria-labelledby="lab-heading">
+  <div class="lab-intro">
+    <div>
+      <div class="section-subtitle">04 / RESEARCH LAB</div>
+      <h2 id="lab-heading">Interact with the mechanisms, not the claims.</h2>
+    </div>
+    <p><strong>These browser exercises are fixed fixtures.</strong> They are here to make MCM’s representation and operations inspectable. They do not generate the empirical results reported later on the page; those come from repository-history benchmarks and the separate agent experiment.</p>
+  </div>
+</section>
+    <section id="comparison-sim" class="lab-section">
       <div class="section-header">
-        <div class="section-subtitle">The problem</div>
-        <h2 class="section-title">Why text search over code runs out of road</h2>
-        <p class="section-desc">
-          Both failures below are about representation, not tuning. Neither is fixed by a better
-          embedding model, because neither is a similarity problem.
-        </p>
-      </div>
-
-      <div class="card-grid">
-        <div class="card">
-          <div class="card-title">
-            <span style="color: var(--rose);"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></span> Chunks cut across structure
-          </div>
-          <p>
-            A forty-line window is drawn by line count, not by scope. It routinely separates a method
-            from the class it overrides, or a signature from the docstring that explains it. The agent
-            receives half a fact and has no way to tell that the other half exists.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="card-title">
-            <span style="color: var(--amber);"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></span> Similar wording is not a call graph
-          </div>
-          <p>
-            Cosine similarity ranks text that reads like the query. It cannot tell you whether one
-            function calls another, and it will not surface a caller three files away that shares no
-            vocabulary with what you asked. That caller is exactly what breaks.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="card-title">
-            <span style="color: var(--emerald);"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span> Record the structure instead
-          </div>
-          <p>
-            MCM stores typed objects and the relations between them, each pointing at the source bytes
-            that justify it. The vector index, the lexical index and the graph adjacency are derived
-            views over that, deletable and rebuildable without losing anything.
-          </p>
-        </div>
-      </div>
-
-      <div class="analogy-box" style="margin-top: 1.25rem;">
-        <h4>The question that separates them</h4>
-        <p>
-          <em>If I change the signature of this function, which callers break and which tests should I
-          re-run?</em> Retrieval cannot answer this at any quality of embedding, because it is not a
-          question about what resembles what. It is a question about what reaches what, and answering
-          it needs edges.
-        </p>
-      </div>
-    </section>
-
-    <!-- Head-to-Head Comparative Architecture Simulator -->
-    <section id="comparison-sim" style="margin-bottom: 4rem;">
-      <div class="section-header">
-        <div class="section-subtitle">Simulation 1</div>
-        <h2 class="section-title">Three architectures on the same task</h2>
-        <p class="section-desc">
-          Compare how current AI agent memory paradigms behave against real software engineering challenges. Select an agent scenario to observe live failure modes and retrieval differences.
-        </p>
+        <div class="section-subtitle">Research lab · 01</div>
+        <h2 class="section-title">Compare the retrieval strategies</h2>
+        <p class="section-desc">Choose the same engineering task for each representation. This fixture shows what each approach is able to put in front of an agent; it is an explanatory demo, not benchmark evidence.</p>
       </div>
 
       <div class="sim-panel">
@@ -3099,7 +666,7 @@
           <!-- Vector RAG -->
           <div class="comparison-column" style="border-color: var(--tint-rose-strong);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <h4 style="color: var(--rose);">1. Vector RAG (Chunks)</h4>
+              <h4 style="color: var(--rose);">1. Vector RAG</h4>
               <span class="pill" style="color: var(--rose); border-color: var(--tint-rose-strong);">Heuristic</span>
             </div>
             <div id="vragMetric" class="metric-badge text-rose">3 Chunks (1,840 toks)</div>
@@ -3114,7 +681,7 @@
           <!-- Graph Memory -->
           <div class="comparison-column" style="border-color: var(--tint-amber-strong);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <h4 style="color: var(--amber);">2. Graph Memory (CPG)</h4>
+              <h4 style="color: var(--amber);">2. Graph memory</h4>
               <span class="pill" style="color: var(--amber); border-color: var(--tint-amber-strong);">Untyped Graph</span>
             </div>
             <div id="graphMetric" class="metric-badge text-amber">4 Nodes (780 toks)</div>
@@ -3129,8 +696,8 @@
           <!-- MCM -->
           <div class="comparison-column" style="border-color: var(--tint-emerald-strong); background: var(--tint-emerald);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <h4 style="color: var(--emerald);">3. MCM (Proposed)</h4>
-              <span class="pill" style="color: var(--emerald); border-color: var(--tint-emerald-strong);">Provably Grounded</span>
+              <h4 style="color: var(--emerald);">3. MCM</h4>
+              <span class="pill" style="color: var(--emerald); border-color: var(--tint-emerald-strong);">Typed + evidence-backed</span>
             </div>
             <div id="mcmMetric" class="metric-badge text-emerald">6 Objects (520 toks)</div>
             <p id="mcmDesc" style="font-size: 0.85rem; color: var(--text-muted); min-height: 55px; margin-bottom: 0.75rem;">
@@ -3144,103 +711,11 @@
         </div>
       </div>
     </section>
-
-    <!-- Theoretical Foundations -->
-    <section id="theory" style="margin-bottom: 4rem;">
+    <section id="blast-sim" class="lab-section">
       <div class="section-header">
-        <div class="section-subtitle">The formal core</div>
-        <h2 class="section-title">How a fact carries its own evidence</h2>
-        <p class="section-desc">
-          MCM establishes formal algebraic guarantees over knowledge objects, directional composition, and confidence attenuation.
-        </p>
-      </div>
-
-      <div class="math-card">
-        <div class="math-title">Definition 1: Canonical Semantic Store</div>
-        <p style="color: var(--text-muted); font-size: 0.95rem;">
-          A code repository is represented as a 5-tuple store $K$, where all symbols possess deterministic, line-independent qualname identities:
-        </p>
-        <div class="formula-box">
-          $$K = \langle \mathcal{O}, \mathcal{R}, \mathcal{E}, \mathcal{P}, \mathcal{T} \rangle$$
-          $$\text{id}(o) = \texttt{repo://} \parallel \text{relpath}(o) \parallel \texttt{\#} \parallel \tau_o \parallel \texttt{:} \parallel \text{qualname}(o)$$
-        </div>
-      </div>
-
-      <div class="math-card">
-        <div class="math-title">Theorem 1: Relation Composition &amp; Confidence Attenuation</div>
-        <p style="color: var(--text-muted); font-size: 0.95rem;">
-          Composing relational paths along the call graph attenuates confidence multiplicatively with path-decay factor $\delta$:
-        </p>
-        <div class="formula-box">
-          $$c(R_1 \circ R_2) = c(R_1) \cdot c(R_2) \cdot \delta(R_1, R_2)$$
-          $$C_{t+1} = \frac{C_t \cdot \alpha + s_{\text{observed}}}{\alpha + 1} \quad (\text{Bayesian Observation Update})$$
-        </div>
-      </div>
-
-      <div class="math-card">
-        <div class="math-title">Theorem 2: Tri-Clause Entailment Verification</div>
-        <p style="color: var(--text-muted); font-size: 0.95rem;">
-          A minimised context prompt package $C^*$ entails task query $Q$ ($C^* \models Q$) if and only if three independent formal clauses hold:
-        </p>
-        <ul style="margin: 0.75rem 0 0 1.5rem; color: var(--text-muted); font-size: 0.92rem; line-height: 1.8;">
-          <li><strong style="color: var(--emerald);">Replay Clause:</strong> Traversal over the relations in $C$ generates the identical deductive closure and confidence values as the full store $K$.</li>
-          <li><strong style="color: var(--secondary);">Presence Clause:</strong> Every object referenced in the transitive closure exists within $C$'s object set.</li>
-          <li><strong style="color: var(--amber);">Traceability Clause:</strong> Every relation in $C$ retains at least one verifiable evidence record pointing to valid source artifacts.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Interactive Simulation 2: Force-Directed Knowledge Graph -->
-    <section id="graph-sim" style="margin-bottom: 4rem;">
-      <div class="section-header">
-        <div class="section-subtitle">Simulation 2</div>
-        <h2 class="section-title">What the graph actually holds</h2>
-        <p class="section-desc">
-          Explore real extracted AST entities from <code style="color: var(--secondary-ink);">itsdangerous</code>. Drag nodes to inspect physical forces, filter by relation types, and observe qualname-grounded symbol linkage.
-        </p>
-      </div>
-
-      <div class="sim-panel">
-        <div class="sim-controls">
-          <div class="control-group">
-            <span class="control-label">Filter Edge Relation</span>
-            <select id="edgeFilter" onchange="updateGraphFilter()">
-              <option value="ALL">All Relations (CALLS, INHERITS, TESTS, IMPORTS)</option>
-              <option value="CALLS">Calls Only (Direct &amp; Transitive)</option>
-              <option value="TESTS">Tests Only (Test Coverage)</option>
-              <option value="INHERITS">Inheritance Hierarchy</option>
-            </select>
-          </div>
-          <div class="control-group">
-            <span class="control-label">Highlight Module</span>
-            <select id="moduleFilter" onchange="highlightModule()">
-              <option value="ALL">All Modules</option>
-              <option value="serializer">serializer.py</option>
-              <option value="signer">signer.py</option>
-              <option value="timed">timed.py</option>
-              <option value="test">test_serializer.py</option>
-            </select>
-          </div>
-          <button class="btn btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem; margin-top: auto;" onclick="resetGraphPhysics()">Reset Layout</button>
-        </div>
-
-        <div class="canvas-container">
-          <canvas id="graphCanvas"></canvas>
-          <div class="canvas-overlay" id="graphTooltip">
-            Hover over a node or drag to inspect qualname identity and relational confidence.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Interactive Simulation 3: Pre-Action Blast Radius Simulator -->
-    <section id="blast-sim" style="margin-bottom: 4rem;">
-      <div class="section-header">
-        <div class="section-subtitle">Simulation 3</div>
-        <h2 class="section-title">What would this change break?</h2>
-        <p class="section-desc">
-          Simulate modifying code <em>before</em> writing files to disk. Select a target function and a typed change kind ($\Delta$) to compute transitive caller regressions and identify failing test suites.
-        </p>
+        <div class="section-subtitle">Research lab · 02</div>
+        <h2 class="section-title">Walk a change before writing it</h2>
+        <p class="section-desc">Pick a symbol and a typed change. The model traverses dependency relations, attenuates confidence by path, and surfaces callers and tests that may need attention before the edit is made.</p>
       </div>
 
       <div class="sim-panel">
@@ -3301,15 +776,50 @@
         </div>
       </div>
     </section>
-
-    <!-- Interactive Simulation 4: Context Minimisation -->
-    <section id="minimisation" style="margin-bottom: 4rem;">
+    <section id="graph-sim" class="lab-section">
       <div class="section-header">
-        <div class="section-subtitle">Simulation 4</div>
-        <h2 class="section-title">Cutting context without losing the answer</h2>
-        <p class="section-desc">
-          Compare a naive repository prompt dump against MCM's formal minimal context package ($C^*$). Adjust token budget $B$ to see greedy reverse-confidence ablation in real time.
-        </p>
+        <div class="section-subtitle">Research lab · 03</div>
+        <h2 class="section-title">Inspect the structural memory</h2>
+        <p class="section-desc">This fixed <code>itsdangerous</code> fixture exposes the representation directly: stable symbols, typed edges, evidence-backed links, and confidence carried on the graph.</p>
+      </div>
+
+      <div class="sim-panel">
+        <div class="sim-controls">
+          <div class="control-group">
+            <span class="control-label">Filter Edge Relation</span>
+            <select id="edgeFilter" onchange="updateGraphFilter()">
+              <option value="ALL">All Relations (CALLS, INHERITS, TESTS, IMPORTS)</option>
+              <option value="CALLS">Calls Only (Direct &amp; Transitive)</option>
+              <option value="TESTS">Tests Only (Test Coverage)</option>
+              <option value="INHERITS">Inheritance Hierarchy</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <span class="control-label">Highlight Module</span>
+            <select id="moduleFilter" onchange="highlightModule()">
+              <option value="ALL">All Modules</option>
+              <option value="serializer">serializer.py</option>
+              <option value="signer">signer.py</option>
+              <option value="timed">timed.py</option>
+              <option value="test">test_serializer.py</option>
+            </select>
+          </div>
+          <button class="btn btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem; margin-top: auto;" onclick="resetGraphPhysics()">Reset Layout</button>
+        </div>
+
+        <div class="canvas-container">
+          <canvas id="graphCanvas"></canvas>
+          <div class="canvas-overlay" id="graphTooltip">
+            Hover over a node or drag to inspect qualname identity and relational confidence.
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="minimisation" class="lab-section">
+      <div class="section-header">
+        <div class="section-subtitle">Research lab · 04</div>
+        <h2 class="section-title">Spend a context budget deliberately</h2>
+        <p class="section-desc">Reduce the context package while preserving the objects, relations and evidence needed for the task. The point is not “fewer tokens” by itself; it is fewer irrelevant tokens without breaking support for the answer.</p>
       </div>
 
       <div class="sim-panel">
@@ -3367,15 +877,11 @@
         </div>
       </div>
     </section>
-
-    <!-- Contradiction & Temporal Resolution Engine -->
-    <section id="contradiction-sim" style="margin-bottom: 4rem;">
+    <section id="contradiction-sim" class="lab-section">
       <div class="section-header">
-        <div class="section-subtitle">Simulation 5</div>
-        <h2 class="section-title">When two sources disagree</h2>
-        <p class="section-desc">
-          When multiple agents or extractors propose conflicting architectural assertions, MCM applies a tri-criteria algebraic resolution based on temporal precedence ($t_2 > t_1$), provenance reliability ($r$), and structural subsumption.
-        </p>
+        <div class="section-subtitle">Advanced lab · evidence</div>
+        <h2 class="section-title">Resolve conflicting claims</h2>
+        <p class="section-desc">Vary temporal overlap and source reliability to see how incompatible assertions are handled. This demonstrates the model’s separation of observation strength, provenance reliability and time.</p>
       </div>
 
       <div class="sim-panel">
@@ -3427,15 +933,11 @@
         </div>
       </div>
     </section>
-
-    <!-- Multi-channel retrieval weights -->
-    <section id="simplex-sim" style="margin-bottom: 4rem;">
+    <section id="simplex-sim" class="lab-section">
       <div class="section-header">
-        <div class="section-subtitle">Simulation 6</div>
-        <h2 class="section-title">Five ranking channels, one budget</h2>
-        <p class="section-desc">
-          MCM ranks code by combining five channels whose weights sum to one ($w_v + w_l + w_g + w_s + w_p = 1.0$). Move a slider and watch the ranking reorder. The real tuner searches this space on GPU when PyTorch and CUDA are present and falls back to CPU otherwise; this panel recomputes the scores in your browser so the trade-off is visible.
-        </p>
+        <div class="section-subtitle">Advanced lab · ranking</div>
+        <h2 class="section-title">See how retrieval channels trade off</h2>
+        <p class="section-desc">Adjust the five retrieval weights and watch the ranking move. The production tuner searches this simplex; the browser fixture makes the interaction visible.</p>
       </div>
 
       <div class="sim-panel">
@@ -3482,323 +984,160 @@
         </div>
       </div>
     </section>
+    
+<section id="use-it">
+  <div class="section-header">
+    <div class="section-subtitle">05 / USE IT</div>
+    <h2 class="section-title">Index locally, then expose MCM as an agent tool</h2>
+    <p class="section-desc">The default indexer and hashed embedding provider are local. The MCP server runs over stdio, so an agent can query the same store without a separate service.</p>
+  </div>
 
-    <!-- Empirical Benchmarks -->
-    <!-- Agent integration -->
-    <section id="use-it" style="margin-bottom: 4rem;">
+  <div class="integration-grid">
+    <div class="integration-card">
+      <h3>1. Create the index</h3>
+      <pre><code>git clone https://github.com/abusuraihsakhri/mcm.git
+cd mcm
+python -m venv .venv
+pip install -e ".[dev,api]"
+
+mcm ingest /path/to/repo --db mcm.db
+mcm index --db mcm.db</code></pre>
+      <p class="integration-note">Current repository measurements report roughly 66 files/s; Django’s 2,932 Python files index in about 44 seconds on the test laptop.</p>
+    </div>
+
+    <div class="integration-card">
+      <h3>2. Connect your agent</h3>
+      <div class="control-group">
+        <span class="control-label">Client configuration</span>
+        <select id="clientSelect" onchange="updateClientConfig()">
+          <option value="claude">Claude Code</option>
+          <option value="cursor">Cursor</option>
+          <option value="codex">Codex CLI</option>
+          <option value="opencode">OpenCode</option>
+          <option value="antigravity">Antigravity</option>
+        </select>
+      </div>
+      <div id="clientPath" class="integration-note"></div>
+      <pre><code id="clientConfig"></code></pre>
+      <div id="clientNote" class="integration-note"></div>
+    </div>
+  </div>
+
+  <table class="tool-table">
+    <thead><tr><th>MCP tool</th><th>What it gives the agent</th></tr></thead>
+    <tbody>
+      <tr><td>mcm_search</td><td>Definitions ranked by semantic, lexical, structural, symbolic and provenance channels.</td></tr>
+      <tr><td>mcm_impact</td><td>Potential downstream consequences of a typed proposed change, before the edit.</td></tr>
+      <tr><td>mcm_context</td><td>A bounded, evidence-backed context package for the current task.</td></tr>
+      <tr><td>mcm_constraints</td><td>Checks against declared architectural constraints.</td></tr>
+      <tr><td>mcm_ingest</td><td>Indexes or refreshes a repository from the agent session.</td></tr>
+    </tbody>
+  </table>
+  <p class="integration-note">Use absolute paths for the MCP executable and database. Repository content stays in the local SQLite index unless you explicitly use external model-provider experiment scripts.</p>
+</section>
+    
+<section id="benchmarks">
+  <div class="section-header">
+    <div class="section-subtitle">06 / EVIDENCE</div>
+    <h2 class="section-title">The latest evidence is useful, mixed and narrower than the architecture</h2>
+    <p class="section-desc">The current evaluation separates three questions: how efficiently context is retrieved, how accurately impact is predicted, and whether giving that tool to an agent improves the agent’s work. Those questions do not have the same answer.</p>
+  </div>
+
+  <div class="evidence-stats">
+    <div class="evidence-stat"><strong>10</strong><span>repositories in the complete feature-hashing suite</span></div>
+    <div class="evidence-stat"><strong>4</strong><span>repository size tiers across six ecosystems</span></div>
+    <div class="evidence-stat"><strong>23</strong><span>cross-file agent tasks found from 520 candidate commits</span></div>
+    <div class="evidence-stat"><strong>0.28</strong><span>paired sign-flip p-value in the agent-in-the-loop experiment</span></div>
+  </div>
+
+  <div class="finding-grid">
+    <article class="finding positive">
+      <h3>Context efficiency: signal exists</h3>
+      <p>With the default feature-hashing provider, MCM is ahead of vector RAG on 7/10 repositories and level on 3/10; against the hybrid baseline it is ahead on 7/10 and level on 3/10. In the trained-embedding sweep it is ahead of vector RAG on 5/8 and level on 3/8.</p>
+    </article>
+    <article class="finding caution">
+      <h3>The effect is not uniform</h3>
+      <p><code>requests</code> is a counterexample in both sweeps, and <code>python-dotenv</code> falls behind the best baseline with the trained embedding. Repository size appears relevant, but the current data do not establish size as the causal explanation.</p>
+    </article>
+    <article class="finding neutral">
+      <h3>Impact predictions are selective</h3>
+      <p>The evaluation reports 0.88 precision for impact prediction over five repositories at a 7% firing rate. When the system makes a prediction it is often trustworthy, but it does not fire on most candidate changes.</p>
+    </article>
+    <article class="finding null">
+      <h3>Agent benefit: not demonstrated</h3>
+      <p>The separate agent study does not establish that access to <code>mcm_impact</code> improves file selection. The apparent gain on four informative tasks disappears under the obvious usage check: most winning trials never called the tool.</p>
+    </article>
+  </div>
+
+  <div class="agent-result">
+    <div class="result-number">
+      <strong>p = 0.28</strong>
+      <span>23 paired task deltas</span>
+    </div>
+    <div class="result-copy">
+      <h3>The agent-in-the-loop result is a null</h3>
+      <p>Across 23 tasks, three trials per condition produced 138 trials, six of which errored. Treatment was better on 5 tasks, worse on 2 and tied on 16, with mean paired delta +0.072. A two-sided sign-flip permutation test gives p = 0.28. The current experiment therefore cannot show that supplying impact analysis makes the agent perform better.</p>
+      <p>Only 9 of the 23 tasks were downstream consequences of the target—the class of problem propagation is designed to predict. Eleven were upstream co-requirements and three had no recorded edge.</p>
+    </div>
+  </div>
+
+  <details class="evidence-detail">
+    <summary>Complete Sweep A — feature hashing, 10 repositories</summary>
+    <div>
+      <table class="data-table">
+        <thead><tr><th>Repository</th><th>Tier</th><th>Files</th><th>Tasks</th><th>MCM efficiency</th><th>Best baseline</th><th>Margin</th></tr></thead>
+        <tbody>
+          <tr><td>itsdangerous</td><td>tiny</td><td>15</td><td>34</td><td>0.240</td><td>vector-rag 0.130</td><td>+0.110</td></tr>
+          <tr><td>python-dotenv</td><td>tiny</td><td>20</td><td>34</td><td>0.088</td><td>hybrid 0.082</td><td>+0.006</td></tr>
+          <tr><td>requests</td><td>tiny</td><td>37</td><td>130</td><td>0.029</td><td>vector-rag 0.039</td><td>-0.010</td></tr>
+          <tr><td>flask</td><td>small</td><td>83</td><td>149</td><td>0.069</td><td>vector-rag 0.057</td><td>+0.012</td></tr>
+          <tr><td>click</td><td>small</td><td>90</td><td>306</td><td>0.099</td><td>graph 0.082</td><td>+0.017</td></tr>
+          <tr><td>rich</td><td>medium</td><td>213</td><td>234</td><td>0.079</td><td>graph 0.071</td><td>+0.008</td></tr>
+          <tr><td>pydantic</td><td>medium</td><td>449</td><td>312</td><td>0.064</td><td>graph 0.056</td><td>+0.008</td></tr>
+          <tr><td>scrapy</td><td>medium</td><td>491</td><td>329</td><td>0.129</td><td>graph 0.100</td><td>+0.030</td></tr>
+          <tr><td>sqlalchemy</td><td>large</td><td>673</td><td>314</td><td>0.100</td><td>graph 0.039</td><td>+0.061</td></tr>
+          <tr><td>django</td><td>large</td><td>2,932</td><td>107</td><td>0.173</td><td>hybrid 0.090</td><td>+0.083</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <details class="evidence-detail">
+    <summary>Sweep B — trained MiniLM embedding on GPU, 8 repositories</summary>
+    <div>
+      <table class="data-table">
+        <thead><tr><th>Repository</th><th>Tier</th><th>Files</th><th>Tasks</th><th>MCM efficiency</th><th>Best baseline</th><th>Margin</th></tr></thead>
+        <tbody>
+          <tr><td>itsdangerous</td><td>tiny</td><td>15</td><td>34</td><td>0.205</td><td>hybrid 0.124</td><td>+0.081</td></tr>
+          <tr><td>python-dotenv</td><td>tiny</td><td>20</td><td>34</td><td>0.093</td><td>vector-rag 0.102</td><td>-0.008</td></tr>
+          <tr><td>requests</td><td>tiny</td><td>37</td><td>130</td><td>0.031</td><td>vector-rag 0.040</td><td>-0.010</td></tr>
+          <tr><td>flask</td><td>small</td><td>83</td><td>149</td><td>0.067</td><td>vector-rag 0.063</td><td>+0.004</td></tr>
+          <tr><td>click</td><td>small</td><td>90</td><td>306</td><td>0.100</td><td>graph 0.082</td><td>+0.018</td></tr>
+          <tr><td>rich</td><td>medium</td><td>213</td><td>234</td><td>0.086</td><td>graph 0.071</td><td>+0.015</td></tr>
+          <tr><td>pydantic</td><td>medium</td><td>449</td><td>312</td><td>0.068</td><td>hybrid 0.057</td><td>+0.011</td></tr>
+          <tr><td>scrapy</td><td>medium</td><td>491</td><td>329</td><td>0.127</td><td>hybrid 0.100</td><td>+0.027</td></tr>
+        </tbody>
+      </table>
+      <p class="integration-note">The large tier was not completed in this sweep because the 16 GB test machine could not hold the trained model plus the largest repositories concurrently. That is a hardware limitation of this run, not evidence about the method.</p>
+    </div>
+  </details>
+
+  <details class="evidence-detail">
+    <summary>Key limitations that still bound the claims</summary>
+    <div class="finding-grid">
+      <article class="finding neutral"><h3>One horizon per repository</h3><p>Within-repository variance is not measured even though the evaluation now spans four size tiers and six ecosystems.</p></article>
+      <article class="finding caution"><h3>Fitted weights overfit</h3><p>MCM’s seven-parameter fitted weights improve the tuning repository but buy nothing on held-out data.</p></article>
+      <article class="finding caution"><h3>Feature hashing is the default</h3><p>The default embedding is not a trained sentence model. The paired provider experiments show that this choice changes the comparison materially.</p></article>
+      <article class="finding neutral"><h3>Python only</h3><p>The parser and extractors remain Python-specific, and dynamic behavior still requires the runtime observation channel.</p></article>
+    </div>
+  </details>
+
+  <p class="integration-note">The full methods, bootstrap rules, tuning protocol, provider ablations and limitations are maintained in <a href="evaluation.md">docs/evaluation.md</a>.</p>
+</section>
+    <section id="agent-api" class="api-section">
       <div class="section-header">
-        <div class="section-subtitle">Use it</div>
-        <h2 class="section-title">Connect MCM to your coding agent</h2>
-        <p class="section-desc">
-          MCM ships a Model Context Protocol server over stdio, which is how Claude Code, Cursor,
-          Codex, OpenCode and Antigravity reach outside tools. No service to run, no key, nothing
-          leaves your machine.
-        </p>
-      </div>
-
-      <div class="sim-panel" style="margin-bottom: 1.5rem;">
-        <h3 style="font-size: 1rem; color: var(--primary-ink); margin-bottom: 0.8rem;">Two commands to get an index</h3>
-        <pre><code>pip install -e .
-mcm ingest /path/to/your/repo --db /path/to/mcm.db</code></pre>
-        <p style="color: var(--text-dim); font-size: 0.83rem; margin-top: 0.7rem;">
-          Roughly 66 files per second. Django's 2,932 Python files index in 44 seconds on a laptop.
-        </p>
-      </div>
-
-      <div class="sim-panel" style="margin-bottom: 1.5rem;">
-        <div class="sim-controls" style="margin-bottom: 0.9rem;">
-          <div class="control-group" style="flex: 1;">
-            <span class="control-label">Your agent</span>
-            <select id="clientSelect" onchange="updateClientConfig()">
-              <option value="claude">Claude Code</option>
-              <option value="cursor">Cursor</option>
-              <option value="codex">Codex CLI</option>
-              <option value="opencode">OpenCode</option>
-              <option value="antigravity">Antigravity</option>
-            </select>
-          </div>
-        </div>
-        <div id="clientPath" style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.6rem;"></div>
-        <pre><code id="clientConfig"></code></pre>
-        <div id="clientNote" style="font-size: 0.83rem; color: var(--text-dim); margin-top: 0.7rem;"></div>
-      </div>
-
-      <div class="card-grid">
-        <div class="card">
-          <h3 style="font-size: 0.95rem; color: var(--primary-ink);">mcm_search</h3>
-          <p>Find definitions by what they do, not what they are called. Use it instead of guessing
-          file paths in unfamiliar code.</p>
-        </div>
-        <div class="card">
-          <h3 style="font-size: 0.95rem; color: var(--rose-ink);">mcm_impact</h3>
-          <p>Predict what a change would break, before making it. The one with no equivalent in a
-          search-based setup.</p>
-        </div>
-        <div class="card">
-          <h3 style="font-size: 0.95rem; color: var(--secondary-ink);">mcm_context</h3>
-          <p>Assemble the smallest set of facts that supports a task, each traced to its source.</p>
-        </div>
-        <div class="card">
-          <h3 style="font-size: 0.95rem; color: var(--emerald-ink);">mcm_constraints</h3>
-          <p>Check the codebase against its declared architectural rules and report violations.</p>
-        </div>
-        <div class="card">
-          <h3 style="font-size: 0.95rem; color: var(--amber-ink);">mcm_ingest</h3>
-          <p>Index a repository, or refresh a stale index, from inside the agent session.</p>
-        </div>
-      </div>
-
-      <div style="background: var(--tint-amber); border: 1px solid var(--tint-amber-strong); border-radius: 8px; padding: 1.1rem; margin-top: 1.25rem; font-size: 0.86rem;">
-        <h4 style="color: var(--amber-ink); margin-bottom: 0.45rem; font-size: 0.92rem;">The mistake everyone makes first</h4>
-        <p style="color: var(--text-muted);">
-          Use <strong>absolute paths</strong> for both the executable and the database. Agents do not
-          reliably inherit your shell's <code>PATH</code> or working directory, and a relative path is
-          the most common reason a server shows up as "failed to start" with no further explanation.
-          Find the executable with <code>which mcm-mcp</code>, or
-          <code>(Get-Command mcm-mcp).Source</code> on Windows.
-        </p>
-      </div>
-    </section>
-
-    <section id="benchmarks" style="margin-bottom: 4rem;">
-      <div class="section-header">
-        <div class="section-subtitle">Empirical Validation</div>
-        <h2 class="section-title">What the benchmark actually found</h2>
-        <p class="section-desc">
-          Ground truth is held-out Git history. Each system indexes a repository at a horizon commit and is asked
-          about commits after it, so the answer is what the commit really changed and nobody chose it.
-          A 4,000-token budget per task, and a paired bootstrap over 2,000 resamples with a fixed seed.
-          Three repositories are scored, the largest of them Django at 2,932 Python files.
-        </p>
-      </div>
-
-      <!-- SUITE PANEL START -->
-      <div class="sim-panel" style="margin-bottom: 1.5rem;">
-        <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
-          <h3 style="font-size: 1rem; color: var(--primary-ink);">10 repositories, four size tiers, six ecosystems</h3>
-          <span class="pill" style="color: var(--emerald);">The evidence base</span>
-        </div>
-        <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem;">
-          Every system shares one embedding provider. The set is fixed in
-          <code>scripts/evaluation_suite.py</code> and was chosen before any of it ran, because picking
-          repositories once the scores are visible is how an evaluation quietly becomes a demonstration.
-          <code>httpx</code> is not here: it is the tuning repository.
-        </p>
-        <table class="data-table">
-          <thead>
-            <tr><th>Repository</th><th>Tier</th><th>Files</th><th>Tasks</th>
-                <th>MCM efficiency</th><th>Best baseline</th><th>Margin</th></tr>
-          </thead>
-          <tbody>
-            <tr class="highlight-row"><td><em>itsdangerous</em></td><td>tiny</td><td>15</td><td>34</td><td>0.240</td><td>vector-rag 0.130</td><td style="color: var(--emerald-ink); font-weight: 600;">+0.110</td></tr>
-            <tr><td><em>python-dotenv</em></td><td>tiny</td><td>20</td><td>34</td><td>0.088</td><td>hybrid 0.082</td><td style="color: var(--emerald-ink); font-weight: 600;">+0.006</td></tr>
-            <tr><td><em>requests</em></td><td>tiny</td><td>37</td><td>130</td><td>0.029</td><td>vector-rag 0.039</td><td style="color: var(--rose-ink); font-weight: 600;">-0.010</td></tr>
-            <tr class="highlight-row"><td><em>flask</em></td><td>small</td><td>83</td><td>149</td><td>0.069</td><td>vector-rag 0.057</td><td style="color: var(--emerald-ink); font-weight: 600;">+0.012</td></tr>
-            <tr class="highlight-row"><td><em>click</em></td><td>small</td><td>90</td><td>306</td><td>0.099</td><td>graph 0.082</td><td style="color: var(--emerald-ink); font-weight: 600;">+0.017</td></tr>
-            <tr><td><em>rich</em></td><td>medium</td><td>213</td><td>234</td><td>0.079</td><td>graph 0.071</td><td style="color: var(--emerald-ink); font-weight: 600;">+0.008</td></tr>
-            <tr><td><em>pydantic</em></td><td>medium</td><td>449</td><td>312</td><td>0.064</td><td>graph 0.056</td><td style="color: var(--emerald-ink); font-weight: 600;">+0.008</td></tr>
-            <tr class="highlight-row"><td><em>scrapy</em></td><td>medium</td><td>491</td><td>329</td><td>0.129</td><td>graph 0.100</td><td style="color: var(--emerald-ink); font-weight: 600;">+0.030</td></tr>
-            <tr class="highlight-row"><td><em>sqlalchemy</em></td><td>large</td><td>673</td><td>314</td><td>0.100</td><td>graph 0.039</td><td style="color: var(--emerald-ink); font-weight: 600;">+0.061</td></tr>
-            <tr class="highlight-row"><td><em>django</em></td><td>large</td><td>2,932</td><td>107</td><td>0.173</td><td>hybrid 0.090</td><td style="color: var(--emerald-ink); font-weight: 600;">+0.083</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="sim-panel" style="margin-bottom: 1.5rem;">
-        <h3 style="font-size: 1rem; color: var(--primary-ink); margin-bottom: 0.5rem;">How often each link holds</h3>
-        <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem;">
-          A single repository gives a verdict; a set gives a rate. Where a link holds on some
-          repositories and not others, that is a result about <em>when</em> it holds, not a result
-          that it does.
-        </p>
-        <table class="data-table">
-          <thead>
-            <tr><th>Link</th><th>Repos</th><th>Ahead</th><th>Level</th><th>Behind</th><th></th></tr>
-          </thead>
-          <tbody>
-            <tr><td><code>mcm &gt; vector-rag</code></td><td>10</td><td style="color: var(--emerald-ink); font-weight:600;">7</td><td>3</td><td style="color: var(--rose-ink); font-weight:600;">0</td><td style="min-width:120px;"><span style="display:flex;height:8px;border-radius:4px;overflow:hidden;"><span title="7 ahead" style="flex:7;background:var(--emerald);height:100%"></span><span title="3 level" style="flex:3;background:var(--border-accent);height:100%"></span></span></td></tr>
-            <tr><td><code>mcm &gt; graph</code></td><td>10</td><td style="color: var(--emerald-ink); font-weight:600;">6</td><td>4</td><td style="color: var(--rose-ink); font-weight:600;">0</td><td style="min-width:120px;"><span style="display:flex;height:8px;border-radius:4px;overflow:hidden;"><span title="6 ahead" style="flex:6;background:var(--emerald);height:100%"></span><span title="4 level" style="flex:4;background:var(--border-accent);height:100%"></span></span></td></tr>
-            <tr><td><code>mcm &gt; hybrid</code></td><td>10</td><td style="color: var(--emerald-ink); font-weight:600;">7</td><td>3</td><td style="color: var(--rose-ink); font-weight:600;">0</td><td style="min-width:120px;"><span style="display:flex;height:8px;border-radius:4px;overflow:hidden;"><span title="7 ahead" style="flex:7;background:var(--emerald);height:100%"></span><span title="3 level" style="flex:3;background:var(--border-accent);height:100%"></span></span></td></tr>
-            <tr><td><code>graph &gt; vector-rag</code></td><td>10</td><td style="color: var(--emerald-ink); font-weight:600;">4</td><td>5</td><td style="color: var(--rose-ink); font-weight:600;">1</td><td style="min-width:120px;"><span style="display:flex;height:8px;border-radius:4px;overflow:hidden;"><span title="4 ahead" style="flex:4;background:var(--emerald);height:100%"></span><span title="5 level" style="flex:5;background:var(--border-accent);height:100%"></span><span title="1 behind" style="flex:1;background:var(--rose);height:100%"></span></span></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- SUITE PANEL END -->
-      <div class="sim-panel" style="margin-bottom: 1.5rem;">
-        <h3 style="font-size: 1rem; color: var(--primary-ink); margin-bottom: 0.6rem;">Why only two repositories are scored</h3>
-        <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0.9rem;">
-          Three repositories are used. The third is deliberately never scored: hyperparameters are fitted on
-          <code style="color: var(--secondary-ink);">httpx</code>, so reporting its numbers would measure the quality of the
-          fit rather than the quality of the method. Keeping it separate is what makes every number below a held-out score.
-        </p>
-        <table class="data-table">
-          <thead>
-            <tr><th>Repository</th><th>Role</th><th>Python files</th><th>Horizon</th><th>Tasks</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><em>itsdangerous</em></td><td>Scored, never fitted on</td><td>16</td><td>250 commits back</td><td>34</td></tr>
-            <tr><td><em>flask</em></td><td>Scored, never fitted on</td><td>83</td><td>400 commits back</td><td>149</td></tr>
-            <tr><td><em>httpx</em></td><td>Fitted on, never scored</td><td>61</td><td>400 commits back</td><td>237</td></tr>
-          </tbody>
-        </table>
-        <p style="color: var(--text-dim); font-size: 0.82rem; margin-top: 0.8rem;">
-          The four repository size tiers the specification asks for were not all run, and the reason is cost rather
-          than principle.
-        </p>
-      </div>
-
-      <div class="sim-panel" style="margin-bottom: 1.5rem;">
-        <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
-          <h3 style="font-size: 1rem; color: var(--primary-ink);">Headline result, every system tuned on equal terms</h3>
-          <span class="pill" style="color: var(--emerald);">The comparison that counts</span>
-        </div>
-        <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem;">
-          Each system, MCM included, had its own hyperparameters fitted on <em>httpx</em> and was then scored on the two
-          repositories it never saw. Tuning only MCM and running it against untuned baselines would have produced a
-          better-looking table and a meaningless one.
-        </p>
-        <table class="data-table">
-          <thead>
-            <tr><th>Repository</th><th>System</th><th>Recall@10</th><th>Precision@10</th><th>MRR</th><th>Context efficiency</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><em>itsdangerous</em></td><td>Vector RAG</td><td>0.320</td><td>0.157</td><td>0.388</td><td>0.200</td></tr>
-            <tr><td><em>itsdangerous</em></td><td>Graph memory</td><td>0.238</td><td>0.139</td><td>0.288</td><td>0.165</td></tr>
-            <tr><td><em>itsdangerous</em></td><td>Hybrid RRF</td><td>0.395</td><td>0.178</td><td>0.454</td><td>0.176</td></tr>
-            <tr class="highlight-row"><td><em>itsdangerous</em></td><td><strong>MCM</strong></td><td><strong>0.408</strong></td><td><strong>0.228</strong></td><td><strong>0.512</strong></td><td><strong>0.246</strong></td></tr>
-            <tr><td><em>flask</em></td><td>Vector RAG</td><td>0.279</td><td>0.085</td><td>0.250</td><td>0.071</td></tr>
-            <tr><td><em>flask</em></td><td>Graph memory</td><td>0.195</td><td>0.078</td><td>0.176</td><td>0.035</td></tr>
-            <tr><td><em>flask</em></td><td>Hybrid RRF</td><td>0.311</td><td>0.095</td><td>0.277</td><td>0.050</td></tr>
-            <tr class="highlight-row"><td><em>flask</em></td><td><strong>MCM</strong></td><td><strong>0.341</strong></td><td><strong>0.110</strong></td><td><strong>0.315</strong></td><td>0.069</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="sim-panel" style="margin-bottom: 1.5rem;">
-        <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
-          <h3 style="font-size: 1rem; color: var(--primary-ink);">Django, 2,932 files &mdash; and a result that nearly went the other way</h3>
-          <span class="pill" style="color: var(--amber);">Read this one</span>
-        </div>
-        <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem;">
-          A third repository, added once ingestion got fast enough to run it. MCM beats all three baselines
-          on context efficiency with separated intervals &mdash; the cleanest win in the evaluation. Every
-          system shares a trained embedding model here, run on GPU.
-        </p>
-        <table class="data-table">
-          <thead>
-            <tr><th>System</th><th>Recall@10</th><th>Precision@10</th><th>MRR</th><th>Context efficiency</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Vector RAG</td><td>0.285</td><td>0.079</td><td>0.253</td><td>0.053</td></tr>
-            <tr><td>Graph memory</td><td>0.135</td><td>0.037</td><td>0.140</td><td>0.061</td></tr>
-            <tr><td>Hybrid RRF</td><td>0.315</td><td>0.085</td><td>0.324</td><td>0.068</td></tr>
-            <tr class="highlight-row"><td><strong>MCM</strong></td><td><strong>0.454</strong></td><td><strong>0.143</strong></td><td><strong>0.496</strong></td><td><strong>0.114</strong></td></tr>
-          </tbody>
-        </table>
-
-        <div class="honesty-box" style="margin-top: 1.25rem; margin-bottom: 0;">
-          <h4>The finding that was nearly published, and was wrong</h4>
-          <p>
-            Run the same repository with the <em>default</em> embedding provider &mdash; feature hashing, which
-            is not a trained model &mdash; and Django appears to support the full hypothesis chain, including
-            <code>graph &gt; vector&#8209;rag</code> at +0.018 with a separated interval over 426 tasks.
-          </p>
-          <p>
-            Give every system a real embedding model and that link returns to <strong>approximately equal</strong>.
-            Nothing about the repository changed. Vector RAG improved, because it finally had an embedding
-            worth the name; graph memory did not, because it embeds nothing.
-          </p>
-          <p>
-            So the chain holds in <strong>one configuration out of five tested</strong>, and it is the one with
-            the weakest baseline. That is not a result about repository size, and reporting it as one would
-            have been flattering and false.
-          </p>
-        </div>
-      </div>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-        <div style="background: var(--tint-emerald); border: 1px solid var(--tint-emerald-strong); border-radius: 8px; padding: 1.1rem;">
-          <h4 style="color: var(--emerald-ink); margin-bottom: 0.5rem; font-size: 0.92rem;">What holds up</h4>
-          <p style="color: var(--text-muted); font-size: 0.85rem;">
-            MCM leads on recall, precision and MRR on every scored repository. On Django it beats all three
-            baselines on context efficiency with separated intervals, under either embedding provider. On the
-            small repositories it beats graph memory, and the hybrid on <em>flask</em>.
-          </p>
-        </div>
-        <div style="background: var(--tint-rose); border: 1px solid var(--tint-rose-strong); border-radius: 8px; padding: 1.1rem;">
-          <h4 style="color: var(--rose-ink); margin-bottom: 0.5rem; font-size: 0.92rem;">What does not</h4>
-          <p style="color: var(--text-muted); font-size: 0.85rem;">
-            On the two small repositories, MCM's efficiency advantage over Vector RAG <strong>does not survive</strong>
-            tuning the baselines on equal terms. And the specification's chain fails at its second link almost
-            everywhere: graph memory is the weakest of the three baselines, not the second best.
-          </p>
-        </div>
-      </div>
-
-      <div class="sim-panel" style="margin-bottom: 1.5rem;">
-        <h3 style="font-size: 1rem; color: var(--primary-ink); margin-bottom: 0.5rem;">The untuned run, and why it is reported too</h3>
-        <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem;">
-          With default, unfitted weights MCM looks considerably stronger, beating every baseline on efficiency with
-          separated intervals. The gap between this table and the one above is itself a finding. A seven-parameter
-          search over 1,404 configurations finds repository-specific structure that a six-point sweep cannot:
-          MCM's fitted weights gained <strong>+0.046 on the repository they were fitted on and nothing on either
-          repository they were not</strong>, while the simplest baseline improved on both.
-        </p>
-        <table class="data-table">
-          <thead>
-            <tr><th>Repository</th><th>System</th><th>Recall@10</th><th>Precision@10</th><th>MRR</th><th>Context efficiency</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><em>itsdangerous</em></td><td>Vector RAG</td><td>0.363</td><td>0.179</td><td>0.325</td><td>0.130</td></tr>
-            <tr><td><em>itsdangerous</em></td><td>Graph memory</td><td>0.243</td><td>0.114</td><td>0.288</td><td>0.114</td></tr>
-            <tr><td><em>itsdangerous</em></td><td>Hybrid RRF</td><td>0.465</td><td>0.201</td><td>0.395</td><td>0.127</td></tr>
-            <tr class="highlight-row"><td><em>itsdangerous</em></td><td><strong>MCM</strong></td><td><strong>0.518</strong></td><td><strong>0.261</strong></td><td><strong>0.625</strong></td><td><strong>0.240</strong></td></tr>
-            <tr><td><em>flask</em></td><td>Vector RAG</td><td>0.348</td><td>0.092</td><td>0.278</td><td>0.057</td></tr>
-            <tr><td><em>flask</em></td><td>Graph memory</td><td>0.198</td><td>0.077</td><td>0.179</td><td>0.034</td></tr>
-            <tr><td><em>flask</em></td><td>Hybrid RRF</td><td>0.326</td><td>0.094</td><td>0.273</td><td>0.046</td></tr>
-            <tr class="highlight-row"><td><em>flask</em></td><td><strong>MCM</strong></td><td><strong>0.371</strong></td><td><strong>0.114</strong></td><td><strong>0.324</strong></td><td><strong>0.069</strong></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="sim-panel">
-        <h3 style="font-size: 1rem; color: var(--primary-ink); margin-bottom: 0.7rem;">How to read these numbers</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1rem; font-size: 0.85rem; color: var(--text-muted);">
-          <div>
-            <strong style="color: var(--text-main);">Recall@10</strong> &mdash; of the definitions the real commit changed,
-            how many appeared in the top ten results. Higher is better.
-          </div>
-          <div>
-            <strong style="color: var(--text-main);">MRR</strong> &mdash; how near the top the first correct answer landed.
-            A score of 1.0 means it was always first.
-          </div>
-          <div>
-            <strong style="color: var(--text-main);">Context efficiency</strong> &mdash; useful tokens divided by total
-            tokens delivered. A 900-token file carrying a 40-token answer scores 40/900, which is why absolute values
-            are low for every system. The claim rests on the ratio between systems, not on the value.
-          </div>
-          <div>
-            <strong style="color: var(--text-main);">Separated</strong> &mdash; the 95% bootstrap interval excludes zero
-            <em>and</em> the gap exceeds 1% of the means being compared. No p-values are computed, and nothing here is
-            called statistically significant.
-          </div>
-        </div>
-        <p style="color: var(--text-dim); font-size: 0.82rem; margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid var(--border);">
-          Absolute recall is low for every system because the query is a commit subject and the answer is a definition
-          set. These tasks are hard; no system here is broken. Two repositories, one horizon each, both from the same
-          maintainer's ecosystem. Python only. The offline embedding provider is feature hashing rather than a trained
-          model. Nine further limitations, including the fact that no agent-in-the-loop outcome is measured at all, are
-          listed in <code>docs/evaluation.md</code>.
-        </p>
-      </div>
-    </section>
-
-    <!-- Agent Integration Playground -->
-    <section id="agent-api" style="margin-bottom: 4rem;">
-      <div class="section-header">
-        <div class="section-subtitle">REST API</div>
-        <h2 class="section-title">Calling MCM from a service</h2>
+        <div class="section-subtitle">Service interface</div>
+        <h2 class="section-title">The REST surface mirrors the same model</h2>
         <p class="section-desc">
           The HTTP surface, for calling MCM from a service. If you want to use MCM from a coding
           agent, you want the MCP server above instead &mdash; these routes are not what an agent speaks.
@@ -3832,86 +1171,43 @@ mcm ingest /path/to/your/repo --db /path/to/mcm.db</code></pre>
 }</code></pre>
       </div>
     </section>
+    
+<section id="research-summary">
+  <div class="section-header">
+    <div class="section-subtitle">07 / STATUS + CITATION</div>
+    <h2 class="section-title">What the repository currently establishes</h2>
+    <p class="section-desc">MCM is a v0.1.0 research prototype with a reproducible software release and an explicit distinction between architectural capability, benchmark evidence and unanswered questions.</p>
+  </div>
+  <div class="status-grid">
+    <div class="status-list">
+      <div class="status-row"><span>Software</span><strong>v0.1.0 · Python ≥3.12 · Apache-2.0</strong></div>
+      <div class="status-row"><span>Archive</span><p><a href="https://doi.org/10.5281/zenodo.22923463" target="_blank" rel="noopener">10.5281/zenodo.22923463</a></p></div>
+      <div class="status-row"><span>Core claim</span><p>A typed, evidence-backed context representation supports retrieval, dependency traversal, change-impact analysis and context minimisation in one store.</p></div>
+      <div class="status-row"><span>Evidence</span><p>Context-efficiency advantages appear across much of the repository suite, but are not universal; the original <code>graph &gt; vector-rag</code> chain is not supported consistently.</p></div>
+      <div class="status-row"><span>Agent effect</span><p>Not demonstrated in the current 23-task agent experiment (paired sign-flip p = 0.28).</p></div>
+      <div class="status-row"><span>Scope</span><p>Python-specific research software. Browser labs are illustrative fixtures, not evaluation runs.</p></div>
+    </div>
 
-    <!-- Theoretical & Architectural Highlights -->
-    <section id="research-summary" style="margin-bottom: 4rem;">
-      <div class="section-header">
-        <div class="section-subtitle">In summary</div>
-        <h2 class="section-title">What is new here, and what is borrowed</h2>
-        <p class="section-desc">
-          A concise view of the model's core structures, change-impact analysis, context minimisation, and the evidence reported in this repository.
-        </p>
-      </div>
-
-      <div class="card-grid">
-        <div class="card">
-          <div class="card-title" style="color: var(--primary);">
-            <span><svg class="icon" aria-hidden="true"><use href="#i-graph"/></svg></span> 1. Canonical 5-Tuple Semantic Core
-          </div>
-          <p style="margin-bottom: 0.5rem;">
-            Software knowledge is formalized as $K = \langle \mathcal{O}, \mathcal{R}, \mathcal{E}, \mathcal{P}, \mathcal{T} \rangle$. Dense vectors, graph projections, and BM25 tables are derived views recomputed deterministically from content digests.
-          </p>
-          <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--primary-ink-soft);">
-            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Line-shift invariant qualnames<br>
-            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Dual uncertainty: evidence vs. provenance<br>
-            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Non-monotonic temporal intervals [t1, t2)
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-title" style="color: var(--secondary);">
-            <span><svg class="icon" aria-hidden="true"><use href="#i-zap"/></svg></span> 2. Pre-Action Causal Simulation
-          </div>
-          <p style="margin-bottom: 0.5rem;">
-            Forks the store into a predicted successor state $K_t + \Delta \rightarrow K_{t+1}^{\text{pred}}$ and
-            walks it to report affected callers and the tests covering them, before anything is written to disk.
-          </p>
-          <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--secondary-ink);">
-            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Evaluated against real co-change history<br>
-            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Typed changes: REMOVE, RENAME, SIGNATURE<br>
-            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Dynamic sys.settrace Bayesian updates
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-title" style="color: var(--emerald);">
-            <span><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg></span> 3. Entailment-Preserving Minimisation
-          </div>
-          <p style="margin-bottom: 0.5rem;">
-            Computes $C^* = \arg\min |C|$ subject to $C \models Q$, accepting a reduced set only if it
-            replays the full store's closure, contains every object it references, and keeps live evidence
-            on every relation.
-          </p>
-          <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--emerald-ink);">
-            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Every claim traced to source bytes<br>
-            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Designed to reduce irrelevant context<br>
-            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Context efficiency measured in the evaluation suite
-          </div>
-        </div>
-      </div>
-
-      <div class="math-card" style="margin-top: 1.5rem;">
-        <div class="math-title">Cite this Research Architecture</div>
-        <pre><code style="background: transparent; border: none; padding: 0; color: var(--text-muted);">@article{sakhri2026mcm,
-  title={Mathematical Context Model (MCM): Semantic Code Memory, Retrieval, and Pre-Action Change-Impact Analysis},
-  author={Dr. Abu Suraih Sakhri},
-  journal={arXiv preprint arXiv:2609.XXXXX},
-  year={2026}
+    <div class="citation-card">
+      <h3>Cite the archived software</h3>
+      <pre><code>@software{sakhri2026mcm,
+  author  = {Sakhri, Abu Suraih},
+  title   = {Mathematical Context Model (MCM)},
+  version = {0.1.0},
+  year    = {2026},
+  doi     = {10.5281/zenodo.22923463},
+  url     = {https://doi.org/10.5281/zenodo.22923463}
 }</code></pre>
-      </div>
-    </section>
-
+      <p class="integration-note">No preprint identifier is asserted here. Use the Zenodo DOI for the current software release.</p>
+    </div>
+  </div>
+</section>
   </main>
 
-  <!-- Footer -->
   <footer>
-    <div class="container">
-      <p style="margin-bottom: 0.5rem; font-weight: 600; color: var(--text-main);">
-        Mathematical Context Model (MCM) • Authored by Dr. Abu Suraih Sakhri
-      </p>
-      <p style="color: var(--text-dim); font-size: 0.8rem;">
-        Research prototype • Apache License 2.0
-      </p>
+    <div class="container footer-grid">
+      <div><strong>Mathematical Context Model</strong><br>Research prototype by Abu Suraih Sakhri</div>
+      <div>v0.1.0 · Apache-2.0 · <a href="https://github.com/abusuraihsakhri/mcm">GitHub</a> · <a href="https://doi.org/10.5281/zenodo.22923463">Zenodo DOI</a></div>
     </div>
   </footer>
 
