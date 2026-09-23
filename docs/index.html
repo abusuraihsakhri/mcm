@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mathematical Context Model (MCM) | Research &amp; Interactive Testing Portal</title>
+  <title>MCM — Mathematical Context Model</title>
   <meta name="description" content="Mathematical Context Model (MCM) - research prototype for semantic code memory, retrieval, dependency analysis, and pre-action change-impact analysis.">
 
   <!-- Stamp the theme before first paint. Light is the first-visit default;
@@ -19,15 +19,11 @@
     })();
   </script>
 
-  <!-- Type. IBM Plex Sans reads well at small sizes and has a real 500 weight,
-       which the hierarchy below relies on; JetBrains Mono is the code face and
-       also carries identifiers inside running prose. Preconnect first so the
-       font request does not wait on a fresh DNS + TLS round trip, and
-       display=swap so text is never invisible while they load. -->
+  <!-- Type: Inter for the interface and JetBrains Mono for code/identifiers. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
 
   <!-- KaTeX for crisp mathematical typography (deferred safely) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
@@ -111,7 +107,7 @@
       --canvas-edge: #94a3b8;
       --canvas-label: #0f172a;
 
-      --font-sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Consolas, monospace;
 
       /* Type scale, 1.25 ratio off a 16px base, rounded to whole pixels.
@@ -1062,6 +1058,707 @@
       .sim-panel { padding: 1.35rem; margin-bottom: 2rem; }
       .canvas-container { height: clamp(300px, 44vh, 400px); }
     }
+
+    /* ---------------------------------------------------------------------
+       2026 interface refresh
+       A compact, light-first application shell. Existing simulations and
+       semantics remain unchanged; this layer only changes presentation.
+       --------------------------------------------------------------------- */
+    :root {
+      --bg-dark: #f5f7fb;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --bg-surface: #f7f8fb;
+      --bg-inset: #f1f3f7;
+      --nav-bg: rgba(255, 255, 255, 0.92);
+      --panel-grad-a: #ffffff;
+      --panel-grad-b: #fafbfc;
+
+      --border: #e4e7ec;
+      --border-accent: #cfd5df;
+
+      --text-main: #111827;
+      --text-muted: #596273;
+      --text-dim: #7a8494;
+      --code-text: #1f2937;
+
+      --primary: #2563eb;
+      --primary-strong: #1d4ed8;
+      --primary-glow: rgba(37, 99, 235, 0.14);
+      --secondary: #0f766e;
+      --emerald: #047857;
+      --amber: #a16207;
+      --rose: #be123c;
+      --pink: #be185d;
+
+      --primary-ink: #1d4ed8;
+      --primary-ink-soft: #2563eb;
+      --secondary-ink: #0f766e;
+      --emerald-ink: #047857;
+      --rose-ink: #be123c;
+      --amber-ink: #92400e;
+
+      --tint-primary: #eff6ff;
+      --tint-primary-strong: #dbeafe;
+      --tint-emerald: #ecfdf5;
+      --tint-emerald-strong: #d1fae5;
+      --tint-rose: #fff1f2;
+      --tint-rose-strong: #ffe4e6;
+      --tint-amber: #fffbeb;
+      --tint-amber-strong: #fef3c7;
+      --tint-neutral: #f3f4f6;
+
+      --link: #1d4ed8;
+      --link-hover: #1e40af;
+      --shadow-strong: rgba(17, 24, 39, 0.12);
+      --shadow-soft: rgba(17, 24, 39, 0.055);
+      --hero-grad-a: #111827;
+      --hero-grad-b: #111827;
+      --hero-grad-c: #111827;
+
+      --canvas-bg: #ffffff;
+      --canvas-edge: #9ca3af;
+      --canvas-label: #111827;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    :root[data-theme="dark"] {
+      --bg-dark: #0b0d12;
+      --bg-card: #11151c;
+      --bg-card-hover: #151a23;
+      --bg-surface: #151a22;
+      --bg-inset: #0d1117;
+      --nav-bg: rgba(11, 13, 18, 0.92);
+      --panel-grad-a: #11151c;
+      --panel-grad-b: #0f131a;
+
+      --border: #242a34;
+      --border-accent: #394150;
+
+      --text-main: #f3f4f6;
+      --text-muted: #a4adba;
+      --text-dim: #7f8998;
+      --code-text: #e5e7eb;
+
+      --primary: #60a5fa;
+      --primary-strong: #3b82f6;
+      --primary-glow: rgba(96, 165, 250, 0.16);
+      --secondary: #2dd4bf;
+      --emerald: #34d399;
+      --amber: #fbbf24;
+      --rose: #fb7185;
+      --pink: #f472b6;
+
+      --primary-ink: #93c5fd;
+      --primary-ink-soft: #60a5fa;
+      --secondary-ink: #5eead4;
+      --emerald-ink: #6ee7b7;
+      --rose-ink: #fda4af;
+      --amber-ink: #fcd34d;
+
+      --tint-primary: rgba(59, 130, 246, 0.10);
+      --tint-primary-strong: rgba(59, 130, 246, 0.22);
+      --tint-emerald: rgba(16, 185, 129, 0.09);
+      --tint-emerald-strong: rgba(16, 185, 129, 0.22);
+      --tint-rose: rgba(244, 63, 94, 0.09);
+      --tint-rose-strong: rgba(244, 63, 94, 0.22);
+      --tint-amber: rgba(245, 158, 11, 0.09);
+      --tint-amber-strong: rgba(245, 158, 11, 0.22);
+      --tint-neutral: rgba(255, 255, 255, 0.05);
+
+      --link: #93c5fd;
+      --link-hover: #bfdbfe;
+      --shadow-strong: rgba(0, 0, 0, 0.38);
+      --shadow-soft: rgba(0, 0, 0, 0.22);
+      --hero-grad-a: #f9fafb;
+      --hero-grad-b: #f9fafb;
+      --hero-grad-c: #f9fafb;
+
+      --canvas-bg: #0d1117;
+      --canvas-edge: #566171;
+      --canvas-label: #f3f4f6;
+    }
+
+    body {
+      background:
+        linear-gradient(180deg, var(--bg-card) 0, var(--bg-dark) 22rem, var(--bg-dark) 100%);
+      line-height: 1.55;
+      letter-spacing: -0.006em;
+    }
+
+    .navbar {
+      min-height: 60px;
+      padding: 0.65rem max(1rem, calc((100vw - 1160px) / 2));
+      gap: 1.25rem;
+      border-bottom-color: var(--border);
+      box-shadow: 0 1px 0 rgba(17, 24, 39, 0.02);
+    }
+
+    .nav-brand {
+      gap: 0.6rem;
+      font-size: 1rem;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+    }
+
+    .brand-badge {
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 0.22rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    .nav-links {
+      margin-left: auto;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      padding: 0.45rem 0.7rem;
+      border-radius: 8px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.is-active {
+      color: var(--text-main);
+      background: var(--bg-surface);
+      text-decoration: none;
+    }
+
+    .nav-links a.is-active {
+      box-shadow: inset 0 0 0 1px var(--border);
+    }
+
+    .theme-toggle {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 9px;
+      background: var(--bg-card);
+      box-shadow: 0 1px 2px var(--shadow-soft);
+    }
+
+    .container {
+      max-width: 1120px;
+      padding: 1.75rem clamp(1rem, 3vw, 1.5rem);
+    }
+
+    .hero {
+      text-align: left;
+      padding: 3.2rem 0 2.35rem;
+      border-bottom: 1px solid var(--border);
+      background:
+        radial-gradient(circle at 82% 28%, var(--primary-glow), transparent 24rem);
+    }
+
+    .hero::before { display: none; }
+
+    .hero .container {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .hero-tagline {
+      gap: 0.4rem;
+      padding: 0.3rem 0.62rem;
+      margin-bottom: 1rem;
+      border-radius: 999px;
+      background: var(--bg-card);
+      border-color: var(--border);
+      color: var(--text-muted);
+      box-shadow: 0 1px 2px var(--shadow-soft);
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      max-width: 900px;
+      margin: 0 0 0.7rem;
+      font-size: clamp(2.5rem, 6vw, 4.2rem);
+      line-height: 0.98;
+      letter-spacing: -0.065em;
+      background: none;
+      -webkit-text-fill-color: currentColor;
+      color: var(--text-main);
+    }
+
+    .hero-subtitle {
+      max-width: 760px;
+      margin: 0 0 1rem;
+      color: var(--text-muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      font-weight: 500;
+      line-height: 1.45;
+    }
+
+    .hero-author {
+      display: inline;
+      margin-right: 0.5rem;
+      color: var(--text-main);
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .hero-affil {
+      display: inline;
+      color: var(--text-dim);
+      font-size: 0.82rem;
+    }
+
+    .hero p {
+      max-width: 780px;
+      margin: 1.25rem 0 1.4rem;
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      line-height: 1.62;
+    }
+
+    .hero-actions {
+      justify-content: flex-start;
+      gap: 0.65rem;
+    }
+
+    .btn {
+      min-height: 40px;
+      padding: 0.6rem 1rem;
+      gap: 0.45rem;
+      border-radius: 10px;
+      font-size: 0.84rem;
+      box-shadow: 0 1px 2px var(--shadow-soft);
+    }
+
+    .btn-primary,
+    .btn-primary:hover {
+      background: var(--primary-strong);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 4px 12px var(--primary-glow);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: var(--bg-card);
+      border-color: var(--border);
+    }
+
+    .badge-ribbon {
+      justify-content: flex-start;
+      gap: 0.45rem;
+      margin-top: 1.25rem;
+    }
+
+    .pill {
+      padding: 0.3rem 0.62rem;
+      border-color: var(--border);
+      background: var(--bg-card);
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      box-shadow: 0 1px 2px var(--shadow-soft);
+    }
+
+    main.container {
+      padding-top: 2.35rem;
+      padding-bottom: 2.5rem;
+    }
+
+    main > section {
+      margin-bottom: 2.65rem !important;
+      scroll-margin-top: 5rem;
+    }
+
+    main > section + section {
+      padding-top: 2.4rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      max-width: 820px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-subtitle {
+      margin-bottom: 0.45rem;
+      color: var(--primary-ink-soft);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+    }
+
+    .section-title {
+      font-size: clamp(1.55rem, 3vw, 2rem);
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+    }
+
+    .section-desc {
+      max-width: 760px;
+      margin-top: 0.55rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .explain-grid,
+    .card-grid,
+    .comparison-grid {
+      gap: 0.9rem;
+    }
+
+    .card-grid {
+      margin-bottom: 1.25rem;
+    }
+
+    .card,
+    .explain-step,
+    .comparison-column {
+      border-color: var(--border);
+      border-radius: 14px;
+      background: var(--bg-card);
+      box-shadow: 0 1px 2px var(--shadow-soft);
+    }
+
+    .card,
+    .explain-step {
+      padding: 1.15rem;
+    }
+
+    .card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px var(--shadow-soft);
+    }
+
+    .card-title {
+      margin-bottom: 0.45rem;
+      font-size: 0.98rem;
+      letter-spacing: -0.02em;
+    }
+
+    .card p,
+    .explain-step p {
+      font-size: 0.84rem;
+      line-height: 1.58;
+    }
+
+    .explain-step {
+      padding-top: 1.45rem;
+    }
+
+    .explain-num {
+      top: -0.72rem;
+      left: 1rem;
+      width: 1.45rem;
+      height: 1.45rem;
+      background: var(--primary-strong);
+      box-shadow: 0 0 0 4px var(--bg-dark);
+      font-size: 0.68rem;
+    }
+
+    .explain-step h3 {
+      margin: 0.2rem 0 0.55rem;
+      font-size: 0.93rem;
+    }
+
+    .analogy-box,
+    .honesty-box {
+      padding: 1rem 1.1rem;
+      margin-bottom: 0.8rem;
+      border-radius: 12px;
+      font-size: 0.84rem;
+      box-shadow: none;
+    }
+
+    .math-card {
+      padding: 1.2rem;
+      margin: 1rem 0;
+      border-radius: 14px;
+      background: var(--bg-card);
+      border-color: var(--border);
+      box-shadow: 0 1px 2px var(--shadow-soft);
+    }
+
+    .math-card::before {
+      width: 3px;
+      background: var(--primary);
+    }
+
+    .formula-box {
+      padding: 0.8rem;
+      margin: 0.75rem 0;
+      border-radius: 10px;
+      background: var(--bg-inset);
+      font-size: 0.92rem;
+    }
+
+    .sim-panel {
+      padding: 1.15rem;
+      margin-bottom: 1.35rem;
+      border-radius: 16px;
+      border-color: var(--border);
+      background: var(--bg-card);
+      box-shadow: 0 1px 2px var(--shadow-soft), 0 8px 30px rgba(17, 24, 39, 0.025);
+    }
+
+    .sim-controls {
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg-surface);
+      align-items: flex-end;
+    }
+
+    .control-group {
+      gap: 0.28rem;
+    }
+
+    .control-label {
+      color: var(--text-dim);
+      font-size: 0.67rem;
+      letter-spacing: 0.08em;
+    }
+
+    select,
+    input[type="range"],
+    input[type="text"] {
+      min-height: 38px;
+      padding: 0.48rem 0.68rem;
+      border-color: var(--border-accent);
+      border-radius: 9px;
+      background: var(--bg-card);
+      font-size: 0.82rem;
+    }
+
+    .comparison-column {
+      padding: 1rem;
+      background: var(--bg-surface);
+    }
+
+    .metric-badge {
+      margin: 0.25rem 0;
+      font-size: 1.25rem;
+      letter-spacing: -0.04em;
+    }
+
+    .canvas-container {
+      height: clamp(300px, 44vh, 420px);
+      border-color: var(--border);
+      border-radius: 12px;
+      background: var(--canvas-bg);
+    }
+
+    .canvas-overlay {
+      border-color: var(--border);
+      border-radius: 10px;
+      background: var(--nav-bg);
+      box-shadow: 0 4px 16px var(--shadow-soft);
+    }
+
+    pre {
+      padding: 0.9rem 1rem;
+      margin: 0.8rem 0;
+      border-color: var(--border);
+      border-radius: 11px;
+      background: var(--bg-inset);
+      font-size: 0.78rem;
+      line-height: 1.55;
+    }
+
+    .table-scroll {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg-card);
+    }
+
+    .data-table {
+      margin: 0;
+      font-size: 0.78rem;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 0.68rem 0.75rem;
+    }
+
+    .data-table th {
+      background: var(--bg-surface);
+      font-size: 0.65rem;
+      letter-spacing: 0.07em;
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .data-table tr:hover td {
+      background: var(--bg-card-hover);
+    }
+
+    .data-table .highlight-row td {
+      background: var(--tint-primary);
+      color: var(--text-main);
+    }
+
+    footer {
+      padding: 1.5rem;
+      border-top-color: var(--border);
+      background: var(--bg-card);
+    }
+
+    footer .container {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    @media (max-width: 860px) {
+      .navbar {
+        min-height: 56px;
+        padding: 0.6rem 0.8rem;
+        flex-wrap: wrap;
+        gap: 0.45rem 0.75rem;
+      }
+
+      .nav-brand { font-size: 0.95rem; }
+      .brand-badge { display: inline-flex; }
+
+      .nav-links {
+        display: flex !important;
+        order: 3;
+        width: 100%;
+        margin: 0;
+        padding-bottom: 0.05rem;
+        gap: 0.2rem;
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        scrollbar-width: none;
+        white-space: nowrap;
+      }
+
+      .nav-links::-webkit-scrollbar { display: none; }
+
+      .nav-links a {
+        display: block;
+        padding: 0.38rem 0.6rem;
+        font-size: 0.72rem;
+      }
+
+      .theme-toggle {
+        margin-left: auto;
+      }
+
+      .hero {
+        padding: 2.25rem 0 1.7rem;
+        background:
+          radial-gradient(circle at 90% 8%, var(--primary-glow), transparent 16rem);
+      }
+
+      .hero h1 {
+        font-size: clamp(2.25rem, 12vw, 3.4rem);
+        line-height: 1;
+      }
+
+      .hero-author,
+      .hero-affil {
+        display: block;
+      }
+
+      .hero-affil {
+        margin-top: 0.2rem;
+      }
+
+      .container {
+        padding: 1.25rem 0.85rem;
+      }
+
+      main.container {
+        padding-top: 1.65rem;
+      }
+
+      main > section {
+        margin-bottom: 2rem !important;
+      }
+
+      main > section + section {
+        padding-top: 1.8rem;
+      }
+
+      .section-header {
+        margin-bottom: 1rem;
+      }
+
+      .sim-panel {
+        padding: 0.85rem;
+        margin-bottom: 1rem;
+      }
+
+      .sim-controls {
+        padding: 0.65rem;
+        align-items: stretch;
+      }
+
+      .canvas-container {
+        height: clamp(280px, 42vh, 350px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .badge-ribbon {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .pill {
+        min-width: 0;
+        justify-content: flex-start;
+        border-radius: 10px;
+      }
+
+      .card,
+      .comparison-column,
+      .math-card {
+        padding: 0.9rem;
+      }
+
+      .section-title {
+        font-size: 1.45rem;
+      }
+    }
+
+    @media (max-height: 760px) and (min-width: 861px) {
+      .hero {
+        padding-top: 2.2rem;
+        padding-bottom: 1.7rem;
+      }
+
+      main.container {
+        padding-top: 1.8rem;
+      }
+
+      .canvas-container {
+        height: clamp(280px, 40vh, 360px);
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1088,21 +1785,14 @@
   <nav class="navbar">
     <div class="nav-brand">
       <span>MCM</span>
-      <span class="brand-badge">Formal Memory</span>
+      <span class="brand-badge">Research</span>
     </div>
-    <ul class="nav-links">
-      <li><a href="#start-here">Start here</a></li>
-      <li><a href="#comparison-sim">Head-to-Head</a></li>
-      <li><a href="#theory">Theoretical Core</a></li>
-      <li><a href="#graph-sim">Knowledge Graph</a></li>
-      <li><a href="#blast-sim">Pre-Action Simulator</a></li>
-      <li><a href="#minimisation">Context Minimisation</a></li>
-      <li><a href="#contradiction-sim">Contradiction Lab</a></li>
-      <li><a href="#simplex-sim">Retrieval Weights</a></li>
+    <ul class="nav-links" aria-label="Primary navigation">
+      <li><a href="#start-here">Overview</a></li>
+      <li><a href="#comparison-sim">Simulations</a></li>
+      <li><a href="#graph-sim">Graph</a></li>
       <li><a href="#use-it">Use it</a></li>
       <li><a href="#benchmarks">Benchmarks</a></li>
-      <li><a href="#agent-api">Agent API</a></li>
-      <li><a href="#research-summary">Highlights</a></li>
     </ul>
     <button id="themeToggle" class="theme-toggle" type="button"
             onclick="toggleTheme()" aria-label="Switch theme" title="Switch theme"></button>
@@ -1118,7 +1808,7 @@
       </div>
       <h1>Mathematical Context Model</h1>
       <div class="hero-subtitle">
-        A semantic memory and pre-action reasoning engine for coding agents
+        Semantic code memory, retrieval, dependency analysis, and pre-action change impact
       </div>
       <div class="hero-author">Dr. Abu Suraih Sakhri</div>
       <div class="hero-affil">
@@ -1137,7 +1827,7 @@
         <a href="#use-it" class="btn btn-outline">Use it in your agent</a>
       </div>
       <div class="badge-ribbon">
-        <div class="pill"><span class="pill-dot dot-green"></span> 504 tests passing</div>
+        <div class="pill"><span class="pill-dot dot-green"></span> CI verified</div>
         <div class="pill"><span class="pill-dot dot-blue"></span> MCP server for Claude Code, Cursor, Codex</div>
         <div class="pill"><span class="pill-dot dot-purple"></span> Python 3.12+, no runtime service</div>
         <div class="pill"><span class="pill-dot dot-green"></span> Benchmarked on held-out git history</div>
@@ -2056,7 +2746,7 @@ mcm ingest /path/to/your/repo --db /path/to/mcm.db</code></pre>
         <div class="section-subtitle">In summary</div>
         <h2 class="section-title">What is new here, and what is borrowed</h2>
         <p class="section-desc">
-          Key mathematical pillars and empirical discoveries establishing MCM as the next-generation memory model for autonomous coding agents.
+          A concise view of the model's core structures, change-impact analysis, context minimisation, and the evidence reported in this repository.
         </p>
       </div>
 
@@ -2101,8 +2791,8 @@ mcm ingest /path/to/your/repo --db /path/to/mcm.db</code></pre>
           </p>
           <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--emerald-ink);">
             <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Every claim traced to source bytes<br>
-            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Solves LLM "lost-in-the-middle"<br>
-            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> 5.4× lower inference API token cost
+            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Designed to reduce irrelevant context<br>
+            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Context efficiency measured in the evaluation suite
           </div>
         </div>
       </div>
@@ -2110,7 +2800,7 @@ mcm ingest /path/to/your/repo --db /path/to/mcm.db</code></pre>
       <div class="math-card" style="margin-top: 1.5rem;">
         <div class="math-title">Cite this Research Architecture</div>
         <pre><code style="background: transparent; border: none; padding: 0; color: var(--text-muted);">@article{sakhri2026mcm,
-  title={Mathematical Context Model (MCM): A Provably Grounded Semantic Memory and Pre-Action Causal Reasoning Engine for Coding AI Agents},
+  title={Mathematical Context Model (MCM): Semantic Code Memory, Retrieval, and Pre-Action Change-Impact Analysis},
   author={Dr. Abu Suraih Sakhri},
   journal={arXiv preprint arXiv:2609.XXXXX},
   year={2026}
@@ -2127,7 +2817,7 @@ mcm ingest /path/to/your/repo --db /path/to/mcm.db</code></pre>
         Mathematical Context Model (MCM) • Authored by Dr. Abu Suraih Sakhri
       </p>
       <p style="color: var(--text-dim); font-size: 0.8rem;">
-        Advanced Agentic Coding Research Group • All Rights Reserved
+        Research prototype • All Rights Reserved
       </p>
     </div>
   </footer>
@@ -2983,12 +3673,39 @@ startup_timeout_sec = 20`,
       });
     }
 
+    function initSectionSpy() {
+      const links = Array.from(document.querySelectorAll(".nav-links a[href^='#']"));
+      const pairs = links
+        .map((link) => ({ link, section: document.querySelector(link.getAttribute("href")) }))
+        .filter((entry) => entry.section);
+      if (!pairs.length || !("IntersectionObserver" in window)) return;
+
+      const setActive = (id) => {
+        for (const { link, section } of pairs) {
+          const active = section.id === id;
+          link.classList.toggle("is-active", active);
+          if (active) link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        }
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActive(visible[0].target.id);
+      }, { rootMargin: "-18% 0px -68% 0px", threshold: [0, 0.15, 0.35] });
+
+      for (const { section } of pairs) observer.observe(section);
+    }
+
     // --- DOMContentLoaded Initialization ---
     window.addEventListener("DOMContentLoaded", () => {
       // Theme first: the graph reads resolved colours at paint time, so it has
       // to know which palette is live before its first frame.
       applyTheme(activeTheme());
       prepareResponsiveTables();
+      initSectionSpy();
       renderMathSafely();
       initGraph();
       runHeadToHeadSimulation();
