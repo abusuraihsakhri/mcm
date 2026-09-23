@@ -10,7 +10,7 @@ A research prototype for semantic code memory, retrieval, dependency analysis, a
 [![Tests](https://github.com/abusuraihsakhri/mcm/actions/workflows/tests.yml/badge.svg)](https://github.com/abusuraihsakhri/mcm/actions/workflows/tests.yml)
 [![MCP](https://img.shields.io/badge/MCP-stdio%20server-7c3aed.svg)](docs/agent-integration.md)
 [![Portal](https://img.shields.io/badge/portal-interactive-4f46e5.svg)](https://abusuraihsakhri.github.io/mcm/)
-[![License](https://img.shields.io/badge/license-proprietary-red.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
 > **Status: research prototype.** This is an implementation of a specification,
 > with a benchmark attached that tries to falsify its central claim. The results
@@ -376,5 +376,5 @@ The full list is at the end of [docs/evaluation.md](docs/evaluation.md).
 
 ## License
 
-Copyright © 2026 Dr. Abu Suraih Sakhri. All rights reserved. Proprietary and
-confidential; see [LICENSE](LICENSE).
+Copyright © 2026 Abu Suraih Sakhri. Licensed under the Apache License,
+Version 2.0; see [LICENSE](LICENSE).
