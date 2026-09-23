@@ -435,9 +435,39 @@
 
     /* Container */
     .container {
+      width: 100%;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 2.5rem 1.5rem;
+      padding: 2.5rem clamp(0.85rem, 3vw, 1.5rem);
+    }
+
+    section,
+    .sim-panel,
+    .card,
+    .comparison-column,
+    .control-group,
+    .math-card {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .sim-panel > *,
+    .card > *,
+    .comparison-column > *,
+    .sim-controls > * {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .sim-panel,
+    .card,
+    .comparison-column {
+      overflow-wrap: anywhere;
+    }
+
+    img, video {
+      max-width: 100%;
+      height: auto;
     }
 
     /* Hero */
@@ -452,8 +482,8 @@
       top: 15%;
       left: 50%;
       transform: translateX(-50%);
-      width: 700px;
-      height: 380px;
+      width: min(700px, 92vw);
+      height: min(380px, 52vw);
       background: radial-gradient(circle, var(--primary-glow) 0%, var(--tint-primary) 50%, transparent 75%);
       filter: blur(70px);
       z-index: -1;
@@ -565,7 +595,7 @@
     /* Plain-language orientation */
     .explain-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
       gap: 1.25rem;
       margin-bottom: 1.5rem;
     }
@@ -685,7 +715,7 @@
     /* Card Grids */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
       gap: 1.5rem;
       margin-bottom: 2.5rem;
     }
@@ -773,8 +803,11 @@
     }
     .control-group {
       display: flex;
+      flex: 1 1 240px;
       flex-direction: column;
       gap: 0.35rem;
+      min-width: 0;
+      max-width: 100%;
     }
     .control-label {
       font-size: 0.78rem;
@@ -793,6 +826,20 @@
       font-family: inherit;
       outline: none;
       transition: border-color 0.2s;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .sim-controls select,
+    .sim-controls input[type="text"] {
+      width: 100%;
+    }
+
+    .sim-controls .btn {
+      max-width: 100%;
+      white-space: normal;
+      text-align: center;
+      justify-content: center;
     }
     select:focus, input[type="text"]:focus {
       border-color: var(--primary);
@@ -800,7 +847,7 @@
     .canvas-container {
       position: relative;
       width: 100%;
-      height: 480px;
+      height: clamp(300px, 48vh, 480px);
       background: var(--bg-inset);
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -822,7 +869,8 @@
       border-radius: 8px;
       font-size: 0.8rem;
       backdrop-filter: blur(8px);
-      max-width: 290px;
+      max-width: min(290px, calc(100% - 24px));
+      overflow-wrap: anywhere;
       pointer-events: none;
       box-shadow: 0 4px 15px var(--shadow-strong);
     }
@@ -830,7 +878,7 @@
     /* Comparison Columns */
     .comparison-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
       gap: 1.5rem;
       margin-top: 1.25rem;
     }
@@ -866,11 +914,23 @@
     }
 
     /* Benchmark Table */
+    .table-scroll {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-inline: contain;
+    }
+
     .data-table {
       width: 100%;
       border-collapse: collapse;
       margin: 1.5rem 0;
       font-size: 0.9rem;
+    }
+
+    .table-scroll > .data-table {
+      min-width: 620px;
     }
     .data-table th, .data-table td {
       padding: 0.85rem 1rem;
@@ -906,10 +966,99 @@
 
     /* Responsive */
     @media (max-width: 860px) {
-      .hero h1 { font-size: 2.2rem; }
+      .navbar {
+        padding: 0.7rem 1rem;
+        gap: 0.75rem;
+      }
       .nav-links { display: none; }
-      .canvas-container { height: 380px; }
-      .comparison-grid { grid-template-columns: 1fr; }
+      .nav-brand { min-width: 0; font-size: 1rem; }
+      .brand-badge { display: none; }
+
+      .container {
+        padding: 1.5rem clamp(0.75rem, 4vw, 1rem);
+      }
+      .hero {
+        padding: 2.75rem 0.75rem 2.25rem;
+      }
+      .hero h1 {
+        font-size: clamp(2rem, 9vw, 2.5rem);
+        overflow-wrap: anywhere;
+      }
+      .hero-subtitle { font-size: 1.05rem; }
+      .hero p { font-size: 0.98rem; }
+
+      .section-header { margin-bottom: 1.25rem; }
+      .section-title { font-size: clamp(1.45rem, 6vw, 1.8rem); }
+      .card-grid,
+      .comparison-grid,
+      .explain-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1rem;
+      }
+
+      .sim-panel {
+        padding: 1rem;
+        margin-bottom: 2rem;
+      }
+      .sim-controls {
+        gap: 0.85rem;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        align-items: stretch;
+      }
+      .control-group {
+        flex: 1 1 100% !important;
+        width: 100%;
+      }
+      .sim-controls .btn {
+        width: 100%;
+        margin-top: 0 !important;
+      }
+
+      .canvas-container {
+        height: clamp(280px, 45vh, 360px);
+      }
+      .canvas-overlay {
+        top: 8px;
+        right: 8px;
+        max-width: calc(100% - 16px);
+        padding: 0.55rem 0.7rem;
+        font-size: 0.72rem;
+      }
+
+      pre {
+        padding: 0.85rem;
+        font-size: 0.78rem;
+      }
+      .data-table {
+        font-size: 0.78rem;
+      }
+      .data-table th,
+      .data-table td {
+        padding: 0.65rem 0.7rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding-inline: 0.7rem; }
+      .hero { padding-inline: 0.35rem; }
+      .hero-actions { gap: 0.65rem; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+      .card,
+      .comparison-column,
+      .math-card { padding: 1rem; }
+      .sim-panel { border-radius: 10px; padding: 0.8rem; }
+      .metric-badge { font-size: 1.25rem; overflow-wrap: anywhere; }
+      .pill { max-width: 100%; overflow-wrap: anywhere; }
+      .table-scroll > .data-table { min-width: 560px; }
+    }
+
+    @media (max-height: 800px) and (min-width: 861px) {
+      .container { padding-top: 1.75rem; padding-bottom: 1.75rem; }
+      .hero { padding-top: 2.75rem; padding-bottom: 2.25rem; }
+      .section-header { margin-bottom: 1.4rem; }
+      .sim-panel { padding: 1.35rem; margin-bottom: 2rem; }
+      .canvas-container { height: clamp(300px, 44vh, 400px); }
     }
   </style>
 </head>
@@ -1161,7 +1310,7 @@
           <button class="btn btn-primary" style="margin-top: auto; padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="runHeadToHeadSimulation()">Run Comparison</button>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 1.25rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); gap: 1.25rem;">
           <!-- Vector RAG -->
           <div class="comparison-column" style="border-color: var(--tint-rose-strong);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
@@ -1514,7 +1663,7 @@
           </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
           <div class="control-group">
             <span class="control-label">Vector Weight ($w_v$): <span id="wvVal" style="color: var(--secondary);">0.35</span></span>
             <input type="range" id="wvSlider" min="0" max="1" step="0.05" value="0.35" oninput="normalizeSimplexWeights('v')">
@@ -1783,7 +1932,7 @@ mcm ingest /path/to/your/repo --db /path/to/mcm.db</code></pre>
         </div>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
         <div style="background: var(--tint-emerald); border: 1px solid var(--tint-emerald-strong); border-radius: 8px; padding: 1.1rem;">
           <h4 style="color: var(--emerald-ink); margin-bottom: 0.5rem; font-size: 0.92rem;">What holds up</h4>
           <p style="color: var(--text-muted); font-size: 0.85rem;">
@@ -1830,7 +1979,7 @@ mcm ingest /path/to/your/repo --db /path/to/mcm.db</code></pre>
 
       <div class="sim-panel">
         <h3 style="font-size: 1rem; color: var(--primary-ink); margin-bottom: 0.7rem;">How to read these numbers</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1rem; font-size: 0.85rem; color: var(--text-muted);">
           <div>
             <strong style="color: var(--text-main);">Recall@10</strong> &mdash; of the definitions the real commit changed,
             how many appeared in the top ten results. Higher is better.
@@ -2119,17 +2268,28 @@ mcm ingest /path/to/your/repo --db /path/to/mcm.db</code></pre>
       function resize() {
         dpr = window.devicePixelRatio || 1;
         const rect = canvas.parentElement.getBoundingClientRect();
-        logicalW = Math.max(rect.width, 320);
-        logicalH = Math.max(rect.height, 350);
+        const nextW = Math.max(rect.width, 1);
+        const nextH = Math.max(rect.height, 260);
+        const previousW = logicalW;
+        const previousH = logicalH;
 
-        canvas.width = logicalW * dpr;
-        canvas.height = logicalH * dpr;
+        logicalW = nextW;
+        logicalH = nextH;
 
-        // Position nodes proportionally if starting fresh
+        canvas.width = Math.max(1, Math.round(logicalW * dpr));
+        canvas.height = Math.max(1, Math.round(logicalH * dpr));
+
         for (const n of nodes) {
-          if (!n.x || n.x === 0) {
+          if (!n.x || !n.y) {
             n.x = n.nx * logicalW;
             n.y = n.ny * logicalH;
+          } else {
+            const sx = previousW > 0 ? logicalW / previousW : 1;
+            const sy = previousH > 0 ? logicalH / previousH : 1;
+            n.x = Math.min(logicalW - n.r, Math.max(n.r, n.x * sx));
+            n.y = Math.min(logicalH - n.r, Math.max(n.r, n.y * sy));
+            n.vx *= sx;
+            n.vy *= sy;
           }
         }
       }
@@ -2808,11 +2968,25 @@ startup_timeout_sec = 20`,
       document.getElementById("clientNote").innerHTML = entry.note;
     }
 
+    function prepareResponsiveTables() {
+      document.querySelectorAll(".data-table").forEach((table) => {
+        if (table.parentElement && table.parentElement.classList.contains("table-scroll")) return;
+        const wrapper = document.createElement("div");
+        wrapper.className = "table-scroll";
+        wrapper.setAttribute("role", "region");
+        wrapper.setAttribute("aria-label", "Scrollable data table");
+        wrapper.tabIndex = 0;
+        table.parentNode.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+      });
+    }
+
     // --- DOMContentLoaded Initialization ---
     window.addEventListener("DOMContentLoaded", () => {
       // Theme first: the graph reads resolved colours at paint time, so it has
       // to know which palette is live before its first frame.
       applyTheme(activeTheme());
+      prepareResponsiveTables();
       renderMathSafely();
       initGraph();
       runHeadToHeadSimulation();
