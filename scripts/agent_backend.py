@@ -167,8 +167,11 @@ class ToolBox:
         return output
 
     def _list_files(self, args: dict) -> str:
-        root = self.repo / args.get("subdirectory", "")
-        files = [str(p.relative_to(self.repo).as_posix())
+        repo_root = self.repo.resolve()
+        root = (repo_root / args.get("subdirectory", "")).resolve()
+        if repo_root not in root.parents and root != repo_root:
+            return "refused: path escapes the repository"
+        files = [str(p.relative_to(repo_root).as_posix())
                  for p in root.rglob("*.py")
                  if ".git" not in p.parts][:200]
         return "\n".join(files) or "no Python files there"
@@ -179,8 +182,9 @@ class ToolBox:
             return (f"You already read {requested} earlier in this conversation; "
                     f"scroll up rather than spending another call on it.")
         self.read_already.add(requested)
-        path = (self.repo / requested).resolve()
-        if self.repo.resolve() not in path.parents and path != self.repo.resolve():
+        repo_root = self.repo.resolve()
+        path = (repo_root / requested).resolve()
+        if repo_root not in path.parents and path != repo_root:
             return "refused: path escapes the repository"
         if not path.exists():
             return f"no such file: {args['path']}"
