@@ -16,6 +16,7 @@ import pytest
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "scripts"))
 
+from agent_backend import ToolBox  # noqa: E402
 from oracle_experiment import normalise, portable, same_file, score  # noqa: E402
 from oracle_tasks import defs_touching  # noqa: E402
 
@@ -103,3 +104,17 @@ def test_a_path_inside_the_working_directory_is_recorded_relative():
 def test_a_path_outside_the_working_directory_is_left_alone():
     outside = pathlib.Path(tempfile.gettempdir()).resolve() / "elsewhere" / "x.db"
     assert portable(outside) == outside.as_posix()
+
+
+def test_list_files_refuses_path_escape(tmp_path):
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    (outside / "secret.py").write_text("SECRET = True\n", encoding="utf-8")
+
+    toolbox = ToolBox(repo=repo, db=tmp_path / "index.db")
+    result = toolbox.run("list_files", {"subdirectory": "../outside"})
+
+    assert result == "refused: path escapes the repository"
+    assert "secret.py" not in result
