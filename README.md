@@ -7,6 +7,7 @@ A research prototype for semantic code memory, retrieval, dependency analysis, a
 **Dr. Abu Suraih Sakhri** — `abusuraihsakhri@gmail.com` · [`@abusuraihsakhri`](https://github.com/abusuraihsakhri)
 
 [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/abusuraihsakhri/mcm)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22923463.svg)](https://doi.org/10.5281/zenodo.22923463)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![Tests](https://github.com/abusuraihsakhri/mcm/actions/workflows/tests.yml/badge.svg)](https://github.com/abusuraihsakhri/mcm/actions/workflows/tests.yml)
 [![MCP](https://img.shields.io/badge/MCP-stdio%20server-7c3aed.svg)](docs/agent-integration.md)
@@ -372,7 +373,9 @@ The full list is at the end of [docs/evaluation.md](docs/evaluation.md).
   author = {Sakhri, Abu Suraih},
   year   = {2026},
   version = {0.1.0},
-  note   = {Research prototype. https://github.com/abusuraihsakhri/mcm}
+  doi    = {10.5281/zenodo.22923463},
+  url    = {https://doi.org/10.5281/zenodo.22923463},
+  note   = {Research prototype}
 }
 ```
 
