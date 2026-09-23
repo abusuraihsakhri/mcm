@@ -1,11 +1,13 @@
 # Mathematical Context Model (MCM)
 
-A semantic memory and pre-action reasoning engine for coding agents.
+### [Open the Live Application →](https://abusuraihsakhri.github.io/mcm/)
+
+A research prototype for semantic code memory, retrieval, dependency analysis, and pre-action change-impact analysis.
 
 **Dr. Abu Suraih Sakhri** — `abusuraihsakhri@gmail.com` · [`@abusuraihsakhri`](https://github.com/abusuraihsakhri)
 
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
-[![Tests](https://img.shields.io/badge/tests-526%20passing-brightgreen.svg)](tests/)
+[![Tests](https://github.com/abusuraihsakhri/mcm/actions/workflows/tests.yml/badge.svg)](https://github.com/abusuraihsakhri/mcm/actions/workflows/tests.yml)
 [![MCP](https://img.shields.io/badge/MCP-stdio%20server-7c3aed.svg)](docs/agent-integration.md)
 [![Portal](https://img.shields.io/badge/portal-interactive-4f46e5.svg)](https://abusuraihsakhri.github.io/mcm/)
 [![License](https://img.shields.io/badge/license-proprietary-red.svg)](LICENSE)
@@ -19,18 +21,15 @@ A semantic memory and pre-action reasoning engine for coding agents.
 
 ## The problem
 
-A coding agent that reads code as text chunks cannot answer the question that
-matters most before an edit: *if I change this function, what breaks?*
+A coding agent that relies only on text retrieval has limited explicit support
+for a question that matters before an edit: *if I change this function, what
+breaks?*
 
-Chunk retrieval fails at this for a structural reason, not a tuning one. A
-40-line window slices through scopes, separating a method from the class it
-overrides. Cosine similarity ranks by surface wording, so a query about token
-validation returns the docstring that mentions tokens and misses the hash
-primitive three calls down. Neither failure is fixed by a better embedding,
-because neither is a similarity problem. They are a representation problem.
-
-MCM replaces the chunk with a typed graph and the similarity score with a
-traversal that carries evidence.
+Fixed-size chunks can split structural relationships across windows, while
+similarity ranking can miss dependencies whose wording differs from the query.
+MCM adds a typed relation graph and evidence-carrying traversal so those
+relationships can be queried directly rather than inferred from text similarity
+alone.
 
 ## What it does
 
@@ -56,9 +55,9 @@ Three operations sit on top:
 vector similarity, lexical match, symbolic resolution and provenance together,
 rather than any one of them.
 
-**Impact analysis** takes a proposed change and walks the call graph to report
-what would need updating and which tests cover it, before the edit is written.
-This is the operation with no equivalent in a chunk-based system.
+**Impact analysis** takes a proposed change and walks the extracted dependency
+graph to report what it reaches and which tests are linked to those definitions,
+before the edit is written.
 
 **Context minimisation** assembles the smallest set of facts that still supports
 a task, and checks three conditions on the result: that traversing the reduced
@@ -196,7 +195,7 @@ while the simplest baseline improved on both. A seven-parameter search over 1404
 configurations overfits where a six-point sweep cannot. Details, and eight further
 limitations, are in [docs/evaluation.md](docs/evaluation.md).
 
-## What "526 tests passing" means, and does not
+## What the test suite establishes, and does not
 
 The suite checks that the implementation matches its own specification: that
 relation composition is associative, that temporal intervals close instead of
@@ -211,7 +210,7 @@ experiment returned a null: giving an agent impact analysis did not change which
 files it edited (p = 0.28 over 23 tasks).
 
 ```bash
-pytest                                    # 526 tests
+pytest                                    # full unit/integration suite
 python scripts/test_agent_simulation.py   # end-to-end agent walkthrough
 ```
 
@@ -310,7 +309,7 @@ Then `http://localhost:8000/docs` for the generated schema. The routes:
 | :--- | :--- | :--- |
 | `/health` | GET | Liveness |
 | `/repositories/ingest` | POST | Index a repository |
-| `/objects` | GET | List and filter objects |
+| `/objects` | GET | Get an object by ID/reference |
 | `/objects/{id}/relations` | GET | Relations touching an object |
 | `/query` | POST | Impact, dependency and other query modes |
 | `/impact` | POST | What a change to one definition reaches |
@@ -334,6 +333,22 @@ The simulations are illustrative. They run on a fixed fixture, not on a live
 index, and they are there to make the mechanism visible rather than to produce
 evidence.
 
+## Data handling and security
+
+The core indexer and default hashed embedding provider run locally. Repository
+content is stored in the SQLite index selected by the user. The GitHub Pages
+portal is a static, fixed-fixture demonstration: it does not upload repositories
+or call the MCM API, and its only browser persistence is the selected theme.
+
+The optional agent-experiment scripts can send prompts and selected tool output
+to external model providers when their API keys are supplied. Keys are read from
+environment variables and are not written to the repository; quota state stores
+only short key fingerprints.
+
+The REST ingestion endpoint accepts local filesystem paths by design. Keep the
+service bound to a trusted interface, or set `MCM_ALLOWED_INGEST_ROOTS` to a
+semicolon-separated list of directories that the API may index.
+
 ## Limitations
 
 Python only; the parser and every extractor are Python-specific. Static analysis
@@ -351,8 +366,8 @@ The full list is at the end of [docs/evaluation.md](docs/evaluation.md).
 
 ```bibtex
 @misc{sakhri2026mcm,
-  title  = {Mathematical Context Model (MCM): A Semantic Memory and
-            Pre-Action Reasoning Engine for Coding AI Agents},
+  title  = {Mathematical Context Model (MCM): Semantic Code Memory,
+            Retrieval, and Pre-Action Change-Impact Analysis},
   author = {Sakhri, Abu Suraih},
   year   = {2026},
   note   = {Research prototype. https://github.com/abusuraihsakhri/mcm}
