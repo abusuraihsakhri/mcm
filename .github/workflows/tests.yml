@@ -28,6 +28,14 @@ jobs:
       - name: Install
         run: pip install -e ".[dev,api]"
 
+      - name: Build wheel
+        run: python -m pip wheel . --no-deps -w /tmp/mcm-dist
+
+      - name: Audit Python dependencies
+        run: |
+          python -m pip install pip-audit==2.10.1
+          pip-audit --skip-editable --progress-spinner off
+
       - name: Run tests
         run: pytest -q
 
