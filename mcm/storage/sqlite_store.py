@@ -160,6 +160,9 @@ class SQLiteStore(Store):
                       include_derived: bool = False,
                       as_of: datetime | None = None,
                       include_historical: bool = False) -> list[MCMRelation]:
+        if direction not in {"out", "in", "any"}:
+            raise ValueError(f"invalid relation direction: {direction!r}")
+
         sql = ("SELECT r.* FROM relations r "
                "JOIN relation_arguments a ON a.relation_id = r.id "
                "WHERE a.object_id = ?")
