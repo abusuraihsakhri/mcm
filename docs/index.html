@@ -1759,6 +1759,199 @@
       }
     }
 
+    /* ---------------------------------------------------------------------
+       2026 visualization workspace pass
+       Keep the application shell compact, but give simulations, diagrams,
+       controls, and tabular outputs enough physical space to be legible.
+       --------------------------------------------------------------------- */
+    @media (min-width: 861px) {
+      .navbar {
+        padding-inline: max(1.25rem, calc((100vw - 1320px) / 2));
+      }
+
+      .container,
+      main.container {
+        max-width: 1360px;
+        padding-left: clamp(1.25rem, 3vw, 2rem);
+        padding-right: clamp(1.25rem, 3vw, 2rem);
+      }
+
+      main.container {
+        padding-top: 2.75rem;
+        padding-bottom: 3.25rem;
+      }
+
+      main > section {
+        margin-bottom: 3.5rem !important;
+      }
+
+      main > section + section {
+        padding-top: 3rem;
+      }
+
+      .section-header {
+        max-width: 940px;
+        margin-bottom: 1.6rem;
+      }
+
+      .section-desc {
+        max-width: 900px;
+        font-size: 0.95rem;
+      }
+
+      .sim-panel {
+        padding: clamp(1.4rem, 2vw, 1.8rem);
+        margin-bottom: 2rem;
+        border-radius: 18px;
+      }
+
+      .sim-controls {
+        gap: 1rem;
+        margin-bottom: 1.4rem;
+        padding: 1rem 1.1rem;
+        align-items: flex-end;
+      }
+
+      .control-group {
+        flex-basis: 260px;
+      }
+
+      select,
+      input[type="range"],
+      input[type="text"] {
+        min-height: 42px;
+        font-size: 0.88rem;
+      }
+
+      .comparison-grid,
+      #comparison-sim .sim-panel > div[style*="grid-template-columns"] {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)) !important;
+        gap: 1.25rem !important;
+      }
+
+      .comparison-column {
+        padding: 1.3rem;
+      }
+
+      .metric-badge {
+        font-size: 1.42rem;
+      }
+
+      .canvas-container {
+        height: clamp(500px, 62vh, 680px);
+        min-height: 500px;
+        border-radius: 14px;
+      }
+
+      #simplex-sim .sim-panel > div[style*="grid-template-columns"] {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+        gap: 1rem !important;
+      }
+
+      .table-scroll > .data-table {
+        min-width: 760px;
+      }
+
+      .data-table {
+        font-size: 0.84rem;
+      }
+
+      .data-table th,
+      .data-table td {
+        padding: 0.8rem 0.9rem;
+      }
+
+      pre {
+        padding: 1rem 1.1rem;
+        font-size: 0.82rem;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .container,
+      main.container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      main > section {
+        margin-bottom: 2.5rem !important;
+      }
+
+      .section-header {
+        margin-bottom: 1.2rem;
+      }
+
+      .sim-panel {
+        padding: 1rem;
+        margin-bottom: 1.35rem;
+        border-radius: 14px;
+      }
+
+      .sim-controls {
+        gap: 0.9rem;
+        padding: 0.8rem;
+        margin-bottom: 1.15rem;
+      }
+
+      select,
+      input[type="range"],
+      input[type="text"] {
+        min-height: 44px;
+        font-size: 0.88rem;
+      }
+
+      .comparison-grid {
+        gap: 1.1rem;
+      }
+
+      .comparison-column {
+        padding: 1.05rem;
+      }
+
+      .canvas-container {
+        height: clamp(390px, 58vh, 520px);
+        min-height: 390px;
+      }
+
+      .canvas-overlay {
+        top: auto;
+        right: 8px;
+        bottom: 8px;
+        left: 8px;
+        max-width: none;
+      }
+
+      .data-table {
+        font-size: 0.82rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container,
+      main.container {
+        padding-left: 0.85rem;
+        padding-right: 0.85rem;
+      }
+
+      .sim-panel {
+        padding: 0.85rem;
+      }
+
+      .canvas-container {
+        height: clamp(360px, 56vh, 460px);
+        min-height: 360px;
+      }
+
+      .comparison-column {
+        padding: 1rem;
+      }
+
+      .table-scroll > .data-table {
+        min-width: 620px;
+      }
+    }
+
   </style>
 </head>
 <body>
