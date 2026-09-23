@@ -6,17 +6,16 @@
   <title>Mathematical Context Model (MCM) | Research &amp; Interactive Testing Portal</title>
   <meta name="description" content="Mathematical Context Model (MCM) - research prototype for semantic code memory, retrieval, dependency analysis, and pre-action change-impact analysis.">
 
-  <!-- Stamp the chosen theme before the first paint. Deferring this to
-       DOMContentLoaded would render the page in the system theme and then swap,
-       which reads as a flash of the wrong colours on every load. -->
+  <!-- Stamp the theme before first paint. Light is the first-visit default;
+       an explicit light/dark choice is persisted locally. -->
   <script>
     (function () {
+      var theme = "light";
       try {
         var stored = localStorage.getItem("mcm-theme");
-        if (stored === "light" || stored === "dark") {
-          document.documentElement.setAttribute("data-theme", stored);
-        }
-      } catch (e) { /* storage blocked: fall through to the system theme */ }
+        if (stored === "light" || stored === "dark") theme = stored;
+      } catch (e) { /* storage blocked: keep the light default */ }
+      document.documentElement.setAttribute("data-theme", theme);
     })();
   </script>
 
@@ -37,10 +36,8 @@
 
   <style>
     /* ---------------------------------------------------------------------
-       Semantic tokens. Light is defined on bare :root so that a visitor whose
-       system is set to light, and who has never touched the toggle, gets light.
-       Dark is redefined twice: once for the system preference, once for an
-       explicit choice, so the toggle wins in both directions.
+       Semantic tokens. Light is the deterministic first-visit default.
+       Dark is available as an explicit persisted choice from the theme toggle.
 
        Nothing below this block should contain a raw colour. A hex in a rule or
        an inline style is a value that cannot follow the theme, which is exactly
@@ -1988,9 +1985,7 @@ mcm ingest /path/to/your/repo --db /path/to/mcm.db</code></pre>
   <script>
     // --- Theme -----------------------------------------------------------
     //
-    // Three states, not two: "light", "dark", and no stored preference at all,
-    // which follows the operating system and is the default. Storing "system"
-    // as a value would be a fourth state that means the same as the third.
+    // Two explicit themes. With no stored preference, the portal starts light.
 
     const THEME_KEY = "mcm-theme";
 
@@ -1998,21 +1993,10 @@ mcm ingest /path/to/your/repo --db /path/to/mcm.db</code></pre>
       try { return localStorage.getItem(THEME_KEY); } catch (e) { return null; }
     }
 
-    // Both of the browser features this relies on can be absent or throw:
-    // localStorage in a private window, matchMedia in an embedded or headless
-    // viewer. Neither is worth a broken page, so both degrade to light.
-    function prefersDark() {
-      try {
-        return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
-      } catch (e) {
-        return false;
-      }
-    }
-
     function activeTheme() {
       const stored = storedTheme();
       if (stored === "light" || stored === "dark") return stored;
-      return prefersDark() ? "dark" : "light";
+      return "light";
     }
 
     function applyTheme(theme) {
@@ -2054,17 +2038,6 @@ mcm ingest /path/to/your/repo --db /path/to/mcm.db</code></pre>
     function tone(token) {
       return themeColors[token] || "#6366f1";
     }
-
-    // Follow the system while the visitor has expressed no preference of their
-    // own; stop following the moment they do.
-    try {
-      const query = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");
-      if (query && query.addEventListener) {
-        query.addEventListener("change", () => {
-          if (!storedTheme()) applyTheme(activeTheme());
-        });
-      }
-    } catch (e) { /* no media query support: the toggle still works */ }
 
     // --- Safe Math Rendering ---
     function renderMathSafely() {
