@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use Mathematical Context Model (MCM) in your work, please cite the software using this metadata."
+title: "Mathematical Context Model (MCM)"
+authors:
+  - family-names: "Sakhri"
+    given-names: "Abu Suraih"
+    email: "abusuraihsakhri@gmail.com"
+version: "0.1.0"
+license: "Apache-2.0"
+repository-code: "https://github.com/abusuraihsakhri/mcm"
+url: "https://abusuraihsakhri.github.io/mcm/"
+abstract: >-
+  A research prototype for semantic code memory, retrieval, dependency analysis,
+  and pre-action change-impact analysis.
+keywords:
+  - "code retrieval"
+  - "code intelligence"
+  - "semantic code memory"
+  - "dependency analysis"
+  - "change-impact analysis"
+  - "retrieval-augmented generation"
+  - "coding agents"
