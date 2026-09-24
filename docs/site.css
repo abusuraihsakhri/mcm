@@ -169,7 +169,7 @@ code { font-size: .92em; }
 .brand-glyph {
   width: 30px; height: 30px; display: grid; place-items: center;
   border: 1px solid var(--ink); border-radius: 50%;
-  font-family: var(--font-mono); font-size: 11px; 
+  font-family: var(--font-mono); font-size: 11px;
 }
 .nav-links { margin-left: auto; display: flex; gap: 4px; list-style: none; }
 .nav-links a { display: block; padding: 7px 9px; border-radius: 5px; color: var(--muted); font-size: 13px; font-weight: 600; }
