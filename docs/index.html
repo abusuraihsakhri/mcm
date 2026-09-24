@@ -10,7 +10,7 @@
        an explicit light/dark choice is persisted locally. -->
   <script>
     (function () {
-      var theme = "dark";
+      var theme = "light";
       try {
         var stored = localStorage.getItem("mcm-theme");
         if (stored === "light" || stored === "dark") theme = stored;
@@ -30,696 +30,388 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
-  <style>
-
-:root {
-  color-scheme: dark;
-  --bg: #07090d;
-  --bg-2: #0a0d13;
-  --surface: #0d1119;
-  --surface-2: #111722;
-  --surface-3: #161d29;
-  --line: #202838;
-  --line-2: #2b3548;
-  --text: #f5f7fb;
-  --muted: #9aa4b5;
-  --dim: #6f7a8e;
-  --accent: #8b94ff;
-  --accent-2: #6f79f6;
-  --cyan: #60d7c8;
-  --green: #67d49f;
-  --amber: #e3ad63;
-  --rose: #ef7890;
-  --blue: #79b7ff;
-  --wash: rgba(139,148,255,.10);
-  --wash-strong: rgba(139,148,255,.18);
-  --glass: rgba(13,17,25,.76);
-  --shadow: rgba(0,0,0,.38);
-
-  --bg-dark: var(--bg);
-  --bg-card: var(--surface);
-  --bg-card-hover: var(--surface-2);
-  --bg-surface: var(--surface-2);
-  --bg-inset: #080b10;
-  --nav-bg: rgba(7,9,13,.78);
-  --panel-grad-a: var(--surface);
-  --panel-grad-b: var(--surface);
-  --border: var(--line);
-  --border-accent: var(--line-2);
-  --text-main: var(--text);
-  --text-muted: var(--muted);
-  --text-dim: var(--dim);
-  --text-on-accent: #fff;
-  --code-text: #e8edf5;
-  --primary: var(--accent);
-  --primary-strong: var(--accent-2);
-  --primary-glow: rgba(139,148,255,.22);
-  --secondary: var(--blue);
-  --emerald: var(--green);
-  --pink: #d98ac4;
-  --primary-ink: #a8afff;
-  --primary-ink-soft: #9aa3ff;
-  --secondary-ink: #9acaff;
-  --emerald-ink: #8cdfb5;
-  --rose-ink: #f49aac;
-  --amber-ink: #efbf7d;
-  --tint-primary: rgba(139,148,255,.08);
-  --tint-primary-strong: rgba(139,148,255,.2);
-  --tint-emerald: rgba(103,212,159,.08);
-  --tint-emerald-strong: rgba(103,212,159,.2);
-  --tint-rose: rgba(239,120,144,.08);
-  --tint-rose-strong: rgba(239,120,144,.2);
-  --tint-amber: rgba(227,173,99,.08);
-  --tint-amber-strong: rgba(227,173,99,.2);
-  --tint-neutral: rgba(255,255,255,.045);
-  --link: #a8caff;
-  --link-hover: #d3e3ff;
-  --shadow-soft: rgba(0,0,0,.18);
-  --shadow-strong: rgba(0,0,0,.42);
-  --canvas-bg: var(--surface);
-  --canvas-edge: #4e596e;
-  --canvas-label: var(--text);
-
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
-}
-
-:root[data-theme="light"] {
-  color-scheme: light;
-  --bg: #f7f8fb;
-  --bg-2: #f0f3f8;
-  --surface: #ffffff;
-  --surface-2: #f7f9fc;
-  --surface-3: #edf1f7;
-  --line: #dfe4ec;
-  --line-2: #cbd3df;
-  --text: #11141a;
-  --muted: #5f6978;
-  --dim: #8791a0;
-  --accent: #5d67e8;
-  --accent-2: #4651cf;
-  --cyan: #198f84;
-  --green: #26845d;
-  --amber: #9c681d;
-  --rose: #c64d69;
-  --blue: #256bb0;
-  --wash: rgba(93,103,232,.07);
-  --wash-strong: rgba(93,103,232,.15);
-  --glass: rgba(255,255,255,.82);
-  --shadow: rgba(27,35,51,.12);
-
-  --bg-dark: var(--bg);
-  --bg-card: var(--surface);
-  --bg-card-hover: var(--surface-2);
-  --bg-surface: var(--surface-2);
-  --bg-inset: #eef2f7;
-  --nav-bg: rgba(247,248,251,.84);
-  --panel-grad-a: var(--surface);
-  --panel-grad-b: var(--surface);
-  --border: var(--line);
-  --border-accent: var(--line-2);
-  --text-main: var(--text);
-  --text-muted: var(--muted);
-  --text-dim: var(--dim);
-  --text-on-accent: #fff;
-  --code-text: #202733;
-  --primary: var(--accent);
-  --primary-strong: var(--accent-2);
-  --primary-glow: rgba(93,103,232,.16);
-  --secondary: var(--blue);
-  --emerald: var(--green);
-  --pink: #a95293;
-  --primary-ink: #4c56d4;
-  --primary-ink-soft: #5d67e8;
-  --secondary-ink: #256bb0;
-  --emerald-ink: #247653;
-  --rose-ink: #b53c59;
-  --amber-ink: #8b5a15;
-  --tint-primary: rgba(93,103,232,.07);
-  --tint-primary-strong: rgba(93,103,232,.16);
-  --tint-emerald: rgba(38,132,93,.07);
-  --tint-emerald-strong: rgba(38,132,93,.17);
-  --tint-rose: rgba(198,77,105,.07);
-  --tint-rose-strong: rgba(198,77,105,.17);
-  --tint-amber: rgba(156,104,29,.08);
-  --tint-amber-strong: rgba(156,104,29,.18);
-  --tint-neutral: rgba(17,20,26,.045);
-  --link: #356ec5;
-  --link-hover: #214f95;
-  --shadow-soft: rgba(27,35,51,.06);
-  --shadow-strong: rgba(27,35,51,.14);
-  --canvas-bg: var(--surface);
-  --canvas-edge: #9ea8b7;
-  --canvas-label: var(--text);
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: 84px; -webkit-text-size-adjust: 100%; }
-body {
-  min-height: 100vh;
-  overflow-x: hidden;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-a { color: var(--link); text-decoration: none; }
-a:hover { color: var(--link-hover); text-decoration: underline; text-underline-offset: .22em; }
-code, pre, .mono { font-family: var(--font-mono); }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 5px; }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-}
-.container { width: min(1220px, calc(100% - 40px)); margin: 0 auto; }
-.icon { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.skip-link { position: fixed; left: 18px; top: -80px; z-index: 9999; padding: 9px 12px; background: var(--text); color: var(--bg); border-radius: 7px; }
-.skip-link:focus { top: 14px; color: var(--bg); text-decoration: none; }
-
-/* nav */
-.navbar {
-  position: sticky; top: 0; z-index: 1000;
-  min-height: 66px; display: flex; align-items: center; gap: 22px;
-  padding: 0 max(20px, calc((100vw - 1220px)/2));
-  border-bottom: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
-  background: var(--nav-bg);
-  backdrop-filter: blur(18px) saturate(130%);
-  -webkit-backdrop-filter: blur(18px) saturate(130%);
-}
-.nav-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-weight: 750; letter-spacing: -.03em; }
-.nav-brand:hover { color: var(--text); text-decoration: none; }
-.brand-symbol {
-  width: 31px; height: 31px; display: grid; place-items: center;
-  border: 1px solid var(--line-2); border-radius: 8px;
-  background: linear-gradient(180deg, var(--surface-2), var(--surface));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
-  font-family: var(--font-mono); font-size: 10px; color: var(--primary-ink);
-}
-.nav-links { margin-left: auto; display: flex; gap: 3px; list-style: none; }
-.nav-links a { display: block; padding: 7px 9px; border-radius: 7px; color: var(--muted); font-size: 12px; font-weight: 600; }
-.nav-links a:hover, .nav-links a.is-active { color: var(--text); background: var(--tint-neutral); text-decoration: none; }
-.nav-actions { display: flex; gap: 7px; }
-.nav-repo, .theme-toggle {
-  height: 34px; display: inline-flex; align-items: center; justify-content: center;
-  border: 1px solid var(--line); border-radius: 7px; background: var(--surface);
-  color: var(--text); font-size: 12px; font-weight: 650;
-}
-.nav-repo { padding: 0 10px; }
-.nav-repo:hover { color: var(--text); border-color: var(--line-2); text-decoration: none; }
-.theme-toggle { width: 34px; cursor: pointer; }
-
-/* hero */
-.hero {
-  position: relative;
-  overflow: hidden;
-  padding: clamp(74px, 9vw, 124px) 0 62px;
-  border-bottom: 1px solid var(--line);
-}
-.hero::before {
-  content: "";
-  position: absolute; width: 900px; height: 600px; left: 50%; top: -330px;
-  transform: translateX(-50%);
-  background: radial-gradient(circle, rgba(111,121,246,.22), transparent 65%);
-  pointer-events: none;
-}
-.hero::after {
-  content: "";
-  position: absolute; inset: 0; pointer-events: none; opacity: .25;
-  background-image:
-    linear-gradient(to right, color-mix(in srgb, var(--line) 55%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in srgb, var(--line) 55%, transparent) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: linear-gradient(to bottom, black 0, transparent 74%);
-  -webkit-mask-image: linear-gradient(to bottom, black 0, transparent 74%);
-}
-.hero .container { position: relative; z-index: 1; }
-.hero-copy { max-width: 900px; margin: 0 auto; text-align: center; }
-.hero-kicker { display: inline-flex; align-items: center; gap: 8px; padding: 6px 9px; border: 1px solid var(--line); border-radius: 999px; background: var(--glass); color: var(--muted); font-size: 11px; font-weight: 650; }
-.hero-kicker i { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px rgba(103,212,159,.08); }
-.hero h1 {
-  margin-top: 23px;
-  font-size: clamp(54px, 7.2vw, 96px);
-  line-height: .98;
-  font-weight: 690;
-  letter-spacing: -.072em;
-  text-wrap: balance;
-}
-.hero h1 .accent { color: var(--primary-ink); }
-.hero-lede {
-  max-width: 780px; margin: 24px auto 0;
-  color: var(--muted); font-size: clamp(17px,1.7vw,21px); line-height: 1.62; letter-spacing: -.015em;
-}
-.hero-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
-.btn {
-  min-height: 42px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 0 14px; border-radius: 8px; border: 1px solid transparent;
-  font-family: var(--font-sans); font-size: 12px; font-weight: 700; cursor: pointer; text-decoration: none;
-}
-.btn:hover { text-decoration: none; }
-.btn-primary { background: var(--text); color: var(--bg); border-color: var(--text); }
-.btn-primary:hover { background: var(--accent-2); border-color: var(--accent-2); color: #fff; }
-.btn-outline { background: var(--surface); color: var(--text); border-color: var(--line); }
-.btn-outline:hover { background: var(--surface-2); border-color: var(--line-2); color: var(--text); }
-.btn-quiet { background: transparent; color: var(--muted); }
-.btn-quiet:hover { color: var(--text); background: var(--tint-neutral); }
-
-/* hero visual */
-.hero-visual {
-  position: relative;
-  margin-top: clamp(44px,6vw,70px);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  overflow: hidden;
-  background: color-mix(in srgb, var(--surface) 88%, transparent);
-  box-shadow: 0 30px 90px var(--shadow);
-}
-.workspace-bar {
-  height: 46px; display: grid; grid-template-columns: 90px 1fr auto; align-items: center; gap: 12px;
-  padding: 0 14px; border-bottom: 1px solid var(--line);
-  background: color-mix(in srgb, var(--surface-2) 88%, transparent);
-  font-family: var(--font-mono); font-size: 10px; color: var(--dim);
-}
-.window-dots { display: flex; gap: 5px; }
-.window-dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--line-2); }
-.workspace-state { padding: 3px 6px; border: 1px solid var(--line); border-radius: 999px; color: var(--emerald-ink); background: var(--tint-emerald); }
-.workspace {
-  display: grid; grid-template-columns: 250px minmax(0,1fr) 280px;
-  min-height: 420px;
-}
-.workspace-pane { min-width: 0; padding: 20px; }
-.workspace-pane + .workspace-pane { border-left: 1px solid var(--line); }
-.pane-label { color: var(--dim); font-family: var(--font-mono); font-size: 9px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
-.change-card { margin-top: 12px; padding: 13px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface-2); }
-.change-card strong { display: block; font-family: var(--font-mono); font-size: 12px; line-height: 1.45; }
-.change-card span { display: block; margin-top: 7px; color: var(--dim); font-size: 10px; }
-.query-line { margin-top: 14px; color: var(--muted); font-size: 12px; line-height: 1.55; }
-.graph-view { position: relative; min-height: 378px; overflow: hidden; }
-.graph-view::before {
-  content: ""; position: absolute; inset: 0; opacity: .34;
-  background-image: radial-gradient(circle, var(--line-2) 1px, transparent 1px);
-  background-size: 18px 18px;
-}
-.graph-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.graph-svg path { fill: none; stroke: var(--line-2); stroke-width: 1.5; }
-.graph-svg path.hot { stroke: var(--accent); stroke-width: 2; }
-.graph-svg path.test { stroke: var(--green); stroke-dasharray: 5 5; }
-.g-node {
-  position: absolute; transform: translate(-50%,-50%);
-  min-width: 124px; padding: 9px 10px;
-  border: 1px solid var(--line); border-radius: 8px;
-  background: color-mix(in srgb, var(--surface) 94%, transparent);
-  box-shadow: 0 10px 26px rgba(0,0,0,.16);
-}
-.g-node strong { display: block; font-family: var(--font-mono); font-size: 10px; }
-.g-node small { display: block; margin-top: 3px; color: var(--dim); font-size: 9px; }
-.g-node.target { border-color: color-mix(in srgb, var(--accent) 62%, var(--line)); }
-.g-node.test-node { border-color: color-mix(in srgb, var(--green) 58%, var(--line)); }
-.result-stack { margin-top: 12px; display: grid; gap: 9px; }
-.result-card { padding: 11px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); }
-.result-card span { display: block; color: var(--dim); font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .06em; }
-.result-card strong { display: block; margin-top: 4px; font-size: 12px; line-height: 1.4; }
-.hero-meta {
-  display: grid; grid-template-columns: 1.5fr repeat(3,1fr);
-  margin-top: 18px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
-  background: var(--glass);
-}
-.hero-meta > * { min-width: 0; padding: 13px 15px; border-right: 1px solid var(--line); }
-.hero-meta > *:last-child { border-right: 0; }
-.hero-meta span { display: block; color: var(--dim); font-family: var(--font-mono); font-size: 8px; text-transform: uppercase; letter-spacing: .08em; }
-.hero-meta strong { display: block; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); font-size: 11px; }
-
-/* main */
-main { padding: 92px 0 120px; }
-section { scroll-margin-top: 86px; margin-bottom: clamp(92px,10vw,138px); }
-.section-header { max-width: 780px; margin-bottom: 34px; }
-.section-kicker, .section-subtitle {
-  margin-bottom: 10px; color: var(--primary-ink);
-  font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
-}
-.section-title {
-  font-size: clamp(34px,4.3vw,56px);
-  line-height: 1.05; font-weight: 650; letter-spacing: -.052em; text-wrap: balance;
-}
-.section-desc { max-width: 730px; margin-top: 14px; color: var(--muted); font-size: 15px; line-height: 1.75; }
-
-/* gap */
-.gap-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
-.gap-card {
-  position: relative; min-height: 250px; padding: 22px;
-  border: 1px solid var(--line); border-radius: 14px; background: var(--surface);
-}
-.gap-card .num { color: var(--dim); font-family: var(--font-mono); font-size: 9px; }
-.gap-card h3 { margin-top: 56px; font-size: 20px; letter-spacing: -.03em; }
-.gap-card p { margin-top: 9px; color: var(--muted); font-size: 13px; }
-.gap-card code { display: inline-block; margin-top: 18px; padding: 5px 7px; border: 1px solid var(--line); border-radius: 5px; color: var(--dim); background: var(--bg-inset); font-size: 9px; }
-.gap-card.highlight { background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 9%, var(--surface)), var(--surface)); border-color: color-mix(in srgb, var(--accent) 36%, var(--line)); }
-
-/* capabilities */
-.cap-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
-.cap {
-  padding: 18px; border-top: 2px solid var(--line-2); background: transparent;
-}
-.cap:nth-child(1) { border-top-color: var(--blue); }
-.cap:nth-child(2) { border-top-color: var(--accent); }
-.cap:nth-child(3) { border-top-color: var(--cyan); }
-.cap:nth-child(4) { border-top-color: var(--amber); }
-.cap h3 { font-size: 15px; }
-.cap p { margin-top: 8px; color: var(--muted); font-size: 12px; }
-.cap .cap-code { margin-top: 13px; color: var(--dim); font-family: var(--font-mono); font-size: 9px; }
-
-/* how */
-.pipeline {
-  display: grid; grid-template-columns: repeat(5,1fr);
-  border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--surface);
-}
-.pipe-step { position: relative; min-height: 178px; padding: 20px; border-right: 1px solid var(--line); }
-.pipe-step:last-child { border-right: 0; }
-.pipe-step span { color: var(--primary-ink); font-family: var(--font-mono); font-size: 9px; }
-.pipe-step h3 { margin-top: 52px; font-size: 14px; }
-.pipe-step p { margin-top: 7px; color: var(--muted); font-size: 11px; }
-.pipe-step:not(:last-child)::after { content: "→"; position: absolute; right: -7px; top: 24px; z-index: 2; width: 14px; height: 14px; display: grid; place-items: center; background: var(--surface); color: var(--dim); font-size: 10px; }
-
-/* hands-on */
-.hands-shell {
-  overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--surface);
-  box-shadow: 0 24px 80px var(--shadow-soft);
-}
-.hands-toolbar {
-  min-height: 48px; display: flex; align-items: center; justify-content: space-between; gap: 14px;
-  padding: 0 16px; border-bottom: 1px solid var(--line); background: var(--surface-2);
-}
-.hands-toolbar strong { font-family: var(--font-mono); font-size: 10px; }
-.hands-toolbar span { color: var(--dim); font-size: 10px; }
-.hands-grid { display: grid; grid-template-columns: 330px minmax(0,1fr); }
-.hands-controls { padding: 20px; border-right: 1px solid var(--line); }
-.control-group { margin-bottom: 16px; }
-.control-label { display: block; margin-bottom: 6px; color: var(--dim); font-family: var(--font-mono); font-size: 8px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
-select, input[type="text"], input[type="number"] {
-  width: 100%; min-height: 39px; padding: 8px 9px;
-  border: 1px solid var(--line); border-radius: 7px; background: var(--bg-inset);
-  color: var(--text); font: inherit; font-size: 11px;
-}
-input[type="range"] { width: 100%; accent-color: var(--accent); }
-.range-row { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
-.range-row output { color: var(--primary-ink); font-family: var(--font-mono); font-size: 10px; }
-.fixture-note { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--dim); font-size: 10px; line-height: 1.6; }
-.hands-output { min-width: 0; display: grid; grid-template-columns: 1fr 1fr; }
-.output-pane { min-width: 0; padding: 20px; }
-.output-pane + .output-pane { border-left: 1px solid var(--line); }
-.output-pane h3 { font-size: 13px; }
-.output-pane > p { margin-top: 5px; color: var(--dim); font-size: 10px; }
-.output-list { margin-top: 16px; display: grid; gap: 8px; font-family: var(--font-mono); font-size: 11px; }
-.output-list > div { padding: 9px 10px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface-2); }
-.hands-footer {
-  padding: 12px 16px; border-top: 1px solid var(--line);
-  color: var(--dim); background: color-mix(in srgb, var(--surface-2) 72%, transparent); font-size: 10px;
-}
-
-/* evidence */
-.evidence-top {
-  display: grid; grid-template-columns: repeat(4,1fr);
-  border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--surface);
-}
-.stat { padding: 18px; border-right: 1px solid var(--line); }
-.stat:last-child { border-right: 0; }
-.stat strong { display: block; font-size: 30px; letter-spacing: -.045em; }
-.stat span { display: block; margin-top: 5px; color: var(--muted); font-size: 10px; line-height: 1.45; }
-.evidence-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
-.evidence-card { padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
-.evidence-card h3 { font-size: 14px; }
-.evidence-card p { margin-top: 8px; color: var(--muted); font-size: 12px; }
-.evidence-card.good { border-top: 2px solid var(--green); }
-.evidence-card.caution { border-top: 2px solid var(--amber); }
-.evidence-card.null { border-top: 2px solid var(--rose); }
-.evidence-card.method { border-top: 2px solid var(--blue); }
-.agent-strip {
-  display: grid; grid-template-columns: 210px 1fr; margin-top: 14px;
-  border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface);
-}
-.agent-number { padding: 22px; background: color-mix(in srgb, var(--rose) 8%, var(--surface)); }
-.agent-number strong { display: block; font-size: 40px; letter-spacing: -.05em; }
-.agent-number span { color: var(--muted); font-size: 10px; }
-.agent-copy { padding: 22px; border-left: 1px solid var(--line); }
-.agent-copy h3 { font-size: 16px; }
-.agent-copy p { margin-top: 8px; color: var(--muted); font-size: 12px; }
-details.evidence-detail { margin-top: 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
-details.evidence-detail summary { cursor: pointer; padding: 12px 14px; font-size: 11px; font-weight: 700; }
-details.evidence-detail > div { padding: 0 14px 14px; }
-.table-scroll { max-width: 100%; overflow-x: auto; }
-.data-table { width: 100%; border-collapse: collapse; font-size: 10px; }
-.data-table th, .data-table td { padding: 8px 7px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
-.data-table th { color: var(--dim); font-family: var(--font-mono); font-size: 8px; text-transform: uppercase; letter-spacing: .05em; }
-
-/* integration */
-.integration-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.integration-card { min-width: 0; padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
-.integration-card h3 { margin-bottom: 12px; font-size: 14px; }
-pre { overflow-x: auto; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg-inset); color: var(--code-text); font-size: 10px; line-height: 1.65; }
-pre code { color: inherit; }
-.integration-note { margin-top: 11px; color: var(--dim); font-size: 10px; line-height: 1.6; }
-.tool-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 8px; margin-top: 12px; }
-.tool { padding: 12px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface-2); }
-.tool code { color: var(--primary-ink); font-size: 9px; }
-.tool p { margin-top: 5px; color: var(--muted); font-size: 10px; }
-
-/* theory */
-.theory-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
-.theory-card { padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
-.theory-card h3 { font-size: 14px; }
-.theory-card p { margin-top: 8px; color: var(--muted); font-size: 11px; }
-.formula { margin-top: 14px; padding: 10px; border: 1px solid var(--line); border-radius: 7px; background: var(--bg-inset); color: var(--code-text); font-family: var(--font-mono); font-size: 10px; overflow-x: auto; }
-.scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
-.scope-card { padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
-.scope-card h3 { font-size: 13px; }
-.scope-card p { margin-top: 7px; color: var(--muted); font-size: 11px; }
-
-/* citation */
-.citation-row { display: grid; grid-template-columns: .85fr 1.15fr; gap: 12px; }
-.status-list { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
-.status-item { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
-.status-item:last-child { border-bottom: 0; }
-.status-item span { color: var(--dim); font-family: var(--font-mono); font-size: 8px; text-transform: uppercase; letter-spacing: .06em; }
-.status-item strong, .status-item p { font-size: 11px; }
-.status-item p { color: var(--muted); }
-.citation-card { padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
-.citation-card h3 { margin-bottom: 10px; font-size: 13px; }
-
-footer { border-top: 1px solid var(--line); padding: 26px 0 40px; color: var(--dim); }
-.footer-grid { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-size: 10px; }
-.footer-grid strong { color: var(--text); }
-
-@media (max-width: 1040px) {
-  .nav-links { display: none; }
-  .workspace { grid-template-columns: 220px 1fr; }
-  .workspace-pane.output-demo { display: none; }
-  .workspace-pane:nth-child(2) { border-right: 0; }
-  .gap-grid { grid-template-columns: 1fr; }
-  .gap-card { min-height: auto; }
-  .gap-card h3 { margin-top: 28px; }
-  .cap-grid { grid-template-columns: repeat(2,1fr); }
-  .pipeline { grid-template-columns: 1fr; }
-  .pipe-step { min-height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
-  .pipe-step h3 { margin-top: 24px; }
-  .pipe-step:not(:last-child)::after { display: none; }
-  .hands-grid { grid-template-columns: 280px 1fr; }
-  .hands-output { grid-template-columns: 1fr; }
-  .output-pane + .output-pane { border-left: 0; border-top: 1px solid var(--line); }
-  .tool-grid { grid-template-columns: repeat(2,1fr); }
-}
-@media (max-width: 760px) {
-  .container { width: min(100% - 28px, 1220px); }
-  .navbar { padding: 0 14px; }
-  .nav-repo { display: none; }
-  .hero { padding-top: 56px; }
-  .hero h1 { font-size: clamp(48px,14vw,68px); }
-  .hero-lede { font-size: 16px; }
-  .workspace { grid-template-columns: 1fr; min-height: auto; }
-  .workspace-pane + .workspace-pane { border-left: 0; border-top: 1px solid var(--line); }
-  .graph-view { min-height: 330px; }
-  .hero-meta { grid-template-columns: 1fr 1fr; }
-  .hero-meta > *:nth-child(2) { border-right: 0; }
-  .hero-meta > *:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
-  .cap-grid, .evidence-grid, .integration-grid, .theory-grid, .scope-grid, .citation-row { grid-template-columns: 1fr; }
-  .hands-grid { grid-template-columns: 1fr; }
-  .hands-controls { border-right: 0; border-bottom: 1px solid var(--line); }
-  .evidence-top { grid-template-columns: 1fr 1fr; }
-  .stat:nth-child(2) { border-right:0; }
-  .stat:nth-child(-n+2) { border-bottom:1px solid var(--line); }
-  .agent-strip { grid-template-columns: 1fr; }
-  .agent-copy { border-left: 0; border-top: 1px solid var(--line); }
-  .tool-grid { grid-template-columns: 1fr; }
-}
-
-</style>
+  <link rel="stylesheet" href="site.css">
+  <link rel="canonical" href="https://abusuraihsakhri.github.io/mcm/">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="theme-color" content="#f8fafc">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mathematical Context Model">
+  <meta property="og:title" content="MCM — Reason about code before you change it">
+  <meta property="og:description" content="A research prototype for semantic code memory and change-impact analysis. Explore the model, evidence, and interactive fixtures.">
+  <meta property="og:url" content="https://abusuraihsakhri.github.io/mcm/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Mathematical Context Model">
+  <meta name="twitter:description" content="Semantic code memory, evidence, and pre-action change-impact analysis.">
 </head>
 
-
 <body>
-<a class="skip-link" href="#overview">Skip to content</a>
+  <a class="skip-link" href="#start-here">Skip to content</a>
+  
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1Z"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1 1 0 0 1 1.6 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1Z"/></symbol>
+    <symbol id="i-graph" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7 6h10M6.5 8l4.5 8m6.5-8-4.5 8"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  </svg>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
-  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
-  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></symbol>
-  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></symbol>
-  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
-  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
-</svg>
-
-<nav class="navbar">
-  <a class="nav-brand" href="#top"><span class="brand-symbol">MCM</span><span>Mathematical Context Model</span></a>
-  <ul class="nav-links" aria-label="Primary navigation">
-    <li><a href="#overview">Overview</a></li>
-    <li><a href="#how">How it works</a></li>
-    <li><a href="#blast-sim">Try it</a></li>
-    <li><a href="#benchmarks">Evidence</a></li>
-    <li><a href="#use-it">Integrate</a></li>
-  </ul>
-  <div class="nav-actions">
-    <a class="nav-repo" href="https://github.com/abusuraihsakhri/mcm" target="_blank" rel="noopener">GitHub ↗</a>
-    <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Switch theme" title="Switch theme"></button>
-  </div>
-</nav>
-
-<header class="hero" id="top">
-  <div class="container">
-    <div class="hero-copy">
-      <div class="hero-kicker"><i></i><span>Research prototype · v0.1.0 · open source</span></div>
-      <h1>Structure-aware context <span class="accent">before the edit.</span></h1>
-      <p class="hero-lede">MCM models a Python codebase as typed objects, relations, evidence, provenance and time—then uses that structure for retrieval, dependency reasoning, change-impact analysis and bounded agent context.</p>
-      <div class="hero-actions">
-        <a href="#overview" class="btn btn-primary">See the idea <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-        <a href="#blast-sim" class="btn btn-outline">Try impact analysis</a>
-        <a href="#benchmarks" class="btn btn-quiet">Read the evidence</a>
-      </div>
+  <nav class="navbar" aria-label="Primary">
+    <a class="nav-brand" href="#top">
+      <span class="brand-glyph">MCM</span>
+      <span>Mathematical Context Model</span>
+    </a>
+    <ul class="nav-links" aria-label="Primary navigation">
+      <li><a href="#start-here">Idea</a></li>
+      <li><a href="#theory">Model</a></li>
+      <li><a href="#benchmarks">Evidence</a></li>
+      <li><a href="#comparison-sim">Lab</a></li>
+      <li><a href="#use-it">Use it</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a class="nav-repo" href="https://github.com/abusuraihsakhri/mcm" target="_blank" rel="noopener">GitHub ↗</a>
+      <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Switch theme" title="Switch theme"></button>
     </div>
+  </nav>
 
-    <div class="hero-visual" aria-label="Conceptual MCM workspace showing a proposed change, typed graph context, and predicted consequences">
-      <div class="workspace-bar">
-        <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-        <span>mcm / pre-action context</span>
-        <span class="workspace-state">evidence-backed</span>
+  <header class="hero" id="top">
+    <div class="container hero-grid">
+      <div>
+        <div class="kicker"><span class="kicker-dot"></span><span>Open-source research software · v0.1.0</span></div>
+        <h1>Reason about code.<br><em>Before you change it.</em></h1>
+        <p class="hero-lede">A research prototype for coding agents: connect symbols to their dependencies and supporting evidence, retrieve relevant context, and inspect potential consequences before an edit.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#start-here">Understand the model <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <a class="btn btn-outline" href="#benchmarks">Read the evidence</a>
+          <a class="btn btn-quiet" href="#use-it">Connect an agent</a>
+        </div>
+        <p class="hero-note">By Dr. Abu Suraih Sakhri · Agent benefit has not been demonstrated in the current study.</p>
+        <div class="hero-meta">
+          <span>Python ≥3.12</span>
+          <span>Apache-2.0</span>
+          <span>DOI 10.5281/zenodo.22923463</span>
+        </div>
       </div>
-      <div class="workspace">
-        <div class="workspace-pane">
-          <div class="pane-label">01 · proposed change</div>
-          <div class="change-card">
-            <strong>Signer.sign(value, key=None)</strong>
-            <span>change kind · SIGNATURE</span>
+
+      <div class="concept" aria-label="Diagram of a proposed code change flowing through MCM into structural context">
+        <div class="concept-head"><span>PRE-ACTION CONTEXT</span><span>canonical store</span></div>
+        <div class="concept-body">
+          <div class="query-card"><span>Proposed edit</span><code>change Signer.sign(...) signature</code></div>
+          <div class="flow-arrow">↓ resolve</div>
+          <div class="store-box">
+            <div class="store-title"><strong>Mathematical Context Model</strong><code>K = ⟨O,R,E,P,T⟩</code></div>
+            <div class="store-parts"><span>objects</span><span>relations</span><span>evidence</span><span>provenance</span><span>time</span></div>
           </div>
-          <p class="query-line">Before editing, resolve the target and ask which code is structurally downstream.</p>
-        </div>
-
-        <div class="workspace-pane graph-view">
-          <svg class="graph-svg" viewBox="0 0 600 378" preserveAspectRatio="none" aria-hidden="true">
-            <path class="hot" d="M300 72 C250 118 210 135 155 185"/>
-            <path class="hot" d="M300 72 C350 118 390 135 445 185"/>
-            <path d="M155 225 C210 270 250 275 300 322"/>
-            <path class="test" d="M445 225 C390 270 350 275 300 322"/>
-          </svg>
-          <div class="g-node target" style="left:50%;top:18%;"><strong>Signer.sign()</strong><small>target · stable qualname</small></div>
-          <div class="g-node" style="left:26%;top:54%;"><strong>Serializer.dumps()</strong><small>CALLS · hop 1</small></div>
-          <div class="g-node" style="left:74%;top:54%;"><strong>get_signature()</strong><small>related override path</small></div>
-          <div class="g-node test-node" style="left:50%;top:85%;"><strong>test_roundtrip()</strong><small>TESTS · evidence edge</small></div>
-        </div>
-
-        <div class="workspace-pane output-demo">
-          <div class="pane-label">03 · agent context</div>
-          <div class="result-stack">
-            <div class="result-card"><span>affected</span><strong>Serializer.dumps</strong></div>
-            <div class="result-card"><span>test to revisit</span><strong>test_roundtrip.py</strong></div>
-            <div class="result-card"><span>support</span><strong>source bytes + provenance</strong></div>
-            <div class="result-card"><span>confidence</span><strong>attenuated by graph path</strong></div>
+          <div class="flow-arrow">↓ traverse + minimise</div>
+          <div class="output-grid">
+            <div><span>target</span><strong>stable symbol identity</strong></div>
+            <div><span>consequence</span><strong>callers + dependencies</strong></div>
+            <div><span>validation</span><strong>linked tests + evidence</strong></div>
+            <div><span>agent context</span><strong>bounded support set</strong></div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="hero-meta">
-      <a href="https://doi.org/10.5281/zenodo.22923463" target="_blank" rel="noopener"><span>Archived release</span><strong>10.5281/zenodo.22923463</strong></a>
-      <div><span>Runtime</span><strong>Python ≥3.12</strong></div>
-      <div><span>Evaluation</span><strong>10-repository complete sweep</strong></div>
-      <div><span>Agent study</span><strong>23 tasks · null result</strong></div>
+      <div class="hero-facts">
+        <a href="https://doi.org/10.5281/zenodo.22923463" target="_blank" rel="noopener"><span>Archived release</span><strong>10.5281/zenodo.22923463</strong></a>
+        <div><span>Evaluation suite</span><strong>10 repositories</strong></div>
+        <div><span>Largest repo</span><strong>Django · 2,932 files</strong></div>
+        <div><span>Agent study</span><strong>23 tasks · inconclusive</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    
+<section id="start-here">
+  <span id="overview"></span>
+  <div class="rule-title">
+    <div class="n">01 / IDEA</div>
+    <div>
+      <h2>A coding agent needs relevance <em>and</em> consequence.</h2>
+      <p class="section-desc">Search is good at finding code that resembles a request. Editing safely also requires knowing what depends on the code being changed. MCM keeps those two problems distinct and lets them work together.</p>
     </div>
   </div>
-</header>
-
-<main class="container">
-  <section id="overview">
-    <div class="section-header">
-      <div class="section-kicker">The gap</div>
-      <h2 class="section-title">Retrieval finds relevant text. Editing also needs structural consequence.</h2>
-      <p class="section-desc">MCM does not discard semantic search. It places search on top of a canonical representation that knows what symbols are, how they relate, what evidence supports each relation and when that fact was valid.</p>
+  <div class="dual-context">
+    <div class="context-side">
+      <div class="label">Semantic relevance</div>
+      <h3>What code looks related to the task?</h3>
+      <p>Vector and lexical retrieval are useful for locating definitions when names and wording are uncertain. MCM keeps these channels.</p>
+      <div class="question">“Where is token validation implemented?”</div>
     </div>
-    <div class="gap-grid">
-      <article class="gap-card">
-        <div class="num">01 · FIND</div>
-        <h3>Semantic retrieval</h3>
-        <p>Useful when the agent knows what something does but not where it lives or what it is called.</p>
-        <code>“where are tokens validated?”</code>
-      </article>
-      <article class="gap-card">
-        <div class="num">02 · CONNECT</div>
-        <h3>Explicit relations</h3>
-        <p>Calls, tests, imports and inheritance are represented directly instead of being inferred from textual similarity.</p>
-        <code>Signer.sign → Serializer.dumps</code>
-      </article>
-      <article class="gap-card highlight">
-        <div class="num">03 · PREDICT</div>
-        <h3>Pre-action change impact</h3>
-        <p>Once the target is resolved, the graph can be traversed before the edit to surface downstream code and relevant tests.</p>
-        <code>Δ SIGNATURE → callers + tests</code>
-      </article>
+    <div class="context-side">
+      <div class="label">Structural consequence</div>
+      <h3>What code is connected to the thing I may change?</h3>
+      <p>This needs explicit relations: calls, imports, tests, inheritance, evidence and time. MCM stores those relations rather than asking similarity to stand in for them.</p>
+      <div class="question">“If I change this signature, which callers and tests matter?”</div>
     </div>
-  </section>
-
-  <section id="capabilities">
-    <div class="section-header">
-      <div class="section-kicker">One model · four operations</div>
-      <h2 class="section-title">The same store supports the whole context lifecycle.</h2>
+  </div>
+  <p class="position-note"><strong>MCM is not a replacement for retrieval.</strong> It is a canonical context layer underneath retrieval and change analysis: typed objects and relations are primary; vector, lexical and graph indexes are rebuildable projections.</p>
+</section>
+    
+<section id="problem">
+  <span id="how"></span>
+  <div class="rule-title">
+    <div class="n">02 / FLOW</div>
+    <div>
+      <h2>One proposed edit becomes a traceable context package.</h2>
+      <p class="section-desc">The central workflow is pre-action: resolve the target, traverse what the change can reach, attach evidence, then assemble only the context the agent needs.</p>
     </div>
-    <div class="cap-grid">
-      <article class="cap"><h3>Retrieve</h3><p>Combine semantic, lexical, structural, symbolic and provenance signals to locate definitions.</p><div class="cap-code">mcm search</div></article>
-      <article class="cap"><h3>Propagate</h3><p>Walk typed dependency relations from a proposed change and attenuate confidence by path.</p><div class="cap-code">mcm impact</div></article>
-      <article class="cap"><h3>Minimise</h3><p>Assemble a smaller context package while preserving the objects, relations and evidence needed by the task.</p><div class="cap-code">mcm context</div></article>
-      <article class="cap"><h3>Observe</h3><p>Attach source evidence, provenance, temporal validity and optional runtime/test observations to what the model believes.</p><div class="cap-code">evidence · provenance · time</div></article>
+  </div>
+  <div class="change-example">
+    <div class="change-input">
+      <small>Proposed change</small>
+      <code>Signer.sign(value, key=None)
++ algorithm="sha256"</code>
     </div>
-  </section>
-
-  <section id="how">
-    <div class="section-header">
-      <div class="section-kicker">How it works</div>
-      <h2 class="section-title">A proposed edit becomes an evidence-backed context package.</h2>
-      <p class="section-desc">The important difference is that change analysis starts before the agent writes. MCM resolves the symbol, traverses structural relations, preserves evidence and then passes the bounded result to the agent.</p>
-    </div>
-    <div class="pipeline">
-      <div class="pipe-step"><span>01</span><h3>Ingest</h3><p>Parse the repository into stable code objects and typed relations.</p></div>
-      <div class="pipe-step"><span>02</span><h3>Resolve</h3><p>Map the task or proposed edit to a concrete symbol identity.</p></div>
-      <div class="pipe-step"><span>03</span><h3>Traverse</h3><p>Follow relevant dependencies and decay confidence along the path.</p></div>
-      <div class="pipe-step"><span>04</span><h3>Ground</h3><p>Keep the source bytes and provenance that support each surfaced relation.</p></div>
-      <div class="pipe-step"><span>05</span><h3>Package</h3><p>Return only the context required for the next agent action.</p></div>
-    </div>
-  </section>
-
-  <section id="blast-sim">
-    <div class="section-header">
-      <div class="section-kicker">Hands-on · fixed fixture</div>
-      <h2 class="section-title">Try a change before editing the code.</h2>
-      <p class="section-desc">This is the one primary browser demo. Change the symbol, change type or path-decay parameter and inspect what MCM would surface to an agent. It is illustrative; empirical quality is measured separately.</p>
-    </div>
-
-    <div class="hands-shell">
-      <div class="hands-toolbar">
-        <strong>impact.preview</strong>
-        <span>itsdangerous fixture · no repository upload</span>
+    <ol class="process-list">
+      <li><strong>Resolve</strong><p>Map the request to a stable symbol identity rather than a line-number chunk.</p></li>
+      <li><strong>Propagate</strong><p>Walk typed relations from the target and attenuate confidence as paths get longer.</p></li>
+      <li><strong>Ground</strong><p>Keep the source bytes and provenance that justify every relation surfaced to the agent.</p></li>
+      <li><strong>Minimise</strong><p>Build a bounded context set that still reproduces the relevant closure and keeps its evidence.</p></li>
+      <li><strong>Act</strong><p>Expose the result through CLI, REST or MCP before the agent edits the repository.</p></li>
+    </ol>
+  </div>
+</section>
+    <section id="theory">
+  <span id="capabilities"></span>
+      <div class="section-header">
+        <div class="section-subtitle">03 / MODEL</div>
+        <h2 class="section-title">The canonical store keeps meaning, evidence and time together</h2>
+        <p class="section-desc">A repository is represented as objects, relations, evidence, provenance and temporal validity. Retrieval indexes and graph adjacency are derived from this store and can be rebuilt.</p>
       </div>
-      <div class="hands-grid">
-        <div class="hands-controls">
+
+      <div class="math-card">
+        <div class="math-title">Definition 1: Canonical Semantic Store</div>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          A code repository is represented as a 5-tuple store $K$, where all symbols possess deterministic, line-independent qualname identities:
+        </p>
+        <div class="formula-box">
+          $$K = \langle \mathcal{O}, \mathcal{R}, \mathcal{E}, \mathcal{P}, \mathcal{T} \rangle$$
+          $$\text{id}(o) = \texttt{repo://} \parallel \text{relpath}(o) \parallel \texttt{\#} \parallel \tau_o \parallel \texttt{:} \parallel \text{qualname}(o)$$
+        </div>
+      </div>
+
+      <div class="math-card">
+        <div class="math-title">Relation composition and confidence attenuation</div>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          Composing relational paths along the call graph attenuates confidence multiplicatively with path-decay factor $\delta$:
+        </p>
+        <div class="formula-box">
+          $$c(R_1 \circ R_2) = c(R_1) \cdot c(R_2) \cdot \delta(R_1, R_2)$$
+          $$C_{t+1} = \frac{C_t \cdot \alpha + s_{\text{observed}}}{\alpha + 1} \quad (\text{Bayesian Observation Update})$$
+        </div>
+      </div>
+
+      <div class="math-card">
+        <div class="math-title">Context reduction must preserve support</div>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          A minimised context prompt package $C^*$ entails task query $Q$ ($C^* \models Q$) if and only if three independent formal clauses hold:
+        </p>
+        <ul style="margin: 0.75rem 0 0 1.5rem; color: var(--text-muted); font-size: 0.92rem; line-height: 1.8;">
+          <li><strong style="color: var(--emerald);">Replay Clause:</strong> Traversal over the relations in $C$ generates the identical deductive closure and confidence values as the full store $K$.</li>
+          <li><strong style="color: var(--secondary);">Presence Clause:</strong> Every object referenced in the transitive closure exists within $C$'s object set.</li>
+          <li><strong style="color: var(--amber);">Traceability Clause:</strong> Every relation in $C$ retains at least one verifiable evidence record pointing to valid source artifacts.</li>
+        </ul>
+      </div>
+    </section>
+    
+<section id="benchmarks">
+<div class="fixture-note"><strong>Evidence status · September 2026 audit.</strong> These are previously reported results, not a new evaluation. Overall benchmark intervals resample tasks from shared commits independently; commit-clustered reanalysis is needed before interpreting separation as firm evidence. No detected difference does not establish equivalence. <a href="audit-2026-09-24.html">Read the audit</a>.</div>
+  <div class="section-header">
+    <div class="section-subtitle">04 / EVIDENCE</div>
+    <h2 class="section-title">The latest evidence is useful, mixed and narrower than the architecture</h2>
+    <p class="section-desc">The current evaluation separates three questions: how efficiently context is retrieved, how accurately impact is predicted, and whether giving that tool to an agent improves the agent’s work. Those questions do not have the same answer.</p>
+  </div>
+
+  <div class="evidence-stats">
+    <div class="evidence-stat"><strong>10</strong><span>repositories in the complete feature-hashing suite</span></div>
+    <div class="evidence-stat"><strong>4</strong><span>repository size tiers across six ecosystems</span></div>
+    <div class="evidence-stat"><strong>23</strong><span>cross-file agent tasks found from 520 candidate commits</span></div>
+    <div class="evidence-stat"><strong>0.28</strong><span>paired sign-flip p-value in the agent-in-the-loop experiment</span></div>
+  </div>
+
+  <div class="finding-grid">
+    <article class="finding positive">
+      <h3>Context efficiency: signal exists</h3>
+      <p>With the default feature-hashing provider, MCM is ahead of vector RAG on 7/10 repositories and not separated on 3/10; against the hybrid baseline it is ahead on 7/10 and not separated on 3/10. In the trained-embedding sweep it is ahead of vector RAG on 5/8 and not separated on 3/8.</p>
+    </article>
+    <article class="finding caution">
+      <h3>The effect is not uniform</h3>
+      <p><code>requests</code> is a counterexample in both sweeps, and <code>python-dotenv</code> falls behind the best baseline with the trained embedding. Repository size appears relevant, but the current data do not establish size as the causal explanation.</p>
+    </article>
+    <article class="finding neutral">
+      <h3>Impact predictions are selective</h3>
+      <p>The evaluation reports 42 confirmed predictions out of 48 (rounded precision 0.88), among 685 testable observations across five repositories. The 7% firing rate applies to that testable subset; it is not a measure of reliability on arbitrary changes.</p>
+    </article>
+    <article class="finding null">
+      <h3>Agent benefit: not demonstrated</h3>
+      <p>The separate agent study does not establish that access to <code>mcm_impact</code> improves file selection. The apparent gain on four informative tasks disappears under the obvious usage check: most winning trials never called the tool.</p>
+    </article>
+  </div>
+
+  <div class="agent-result">
+    <div class="result-number">
+      <strong>p = 0.28</strong>
+      <span>23 paired task deltas</span>
+    </div>
+    <div class="result-copy">
+      <h3>The agent study does not establish a benefit</h3>
+      <p>Across 23 tasks, three trials per condition produced 138 trials, six of which errored. Treatment was better on 5 tasks, worse on 2 and tied on 16, with mean paired delta +0.072. A two-sided sign-flip permutation test gives p = 0.28. The current experiment therefore cannot show that supplying impact analysis makes the agent perform better.</p>
+      <p>Only 9 of the 23 tasks were downstream consequences of the target—the class of problem propagation is designed to predict. Eleven were upstream co-requirements and three had no recorded edge.</p>
+    </div>
+  </div>
+
+  <details class="evidence-detail">
+    <summary>Complete Sweep A — feature hashing, 10 repositories</summary>
+    <div>
+      <table class="data-table">
+        <thead><tr><th scope="col">Repository</th><th scope="col">Tier</th><th scope="col">Files</th><th scope="col">Tasks</th><th scope="col">MCM efficiency</th><th scope="col">Best baseline</th><th scope="col">Margin</th></tr></thead>
+        <tbody>
+          <tr><td>itsdangerous</td><td>tiny</td><td>15</td><td>34</td><td>0.240</td><td>vector-rag 0.130</td><td>+0.110</td></tr>
+          <tr><td>python-dotenv</td><td>tiny</td><td>20</td><td>34</td><td>0.088</td><td>hybrid 0.082</td><td>+0.006</td></tr>
+          <tr><td>requests</td><td>tiny</td><td>37</td><td>130</td><td>0.029</td><td>vector-rag 0.039</td><td>-0.010</td></tr>
+          <tr><td>flask</td><td>small</td><td>83</td><td>149</td><td>0.069</td><td>vector-rag 0.057</td><td>+0.012</td></tr>
+          <tr><td>click</td><td>small</td><td>90</td><td>306</td><td>0.099</td><td>graph 0.082</td><td>+0.017</td></tr>
+          <tr><td>rich</td><td>medium</td><td>213</td><td>234</td><td>0.079</td><td>graph 0.071</td><td>+0.008</td></tr>
+          <tr><td>pydantic</td><td>medium</td><td>449</td><td>312</td><td>0.064</td><td>graph 0.056</td><td>+0.008</td></tr>
+          <tr><td>scrapy</td><td>medium</td><td>491</td><td>329</td><td>0.129</td><td>graph 0.100</td><td>+0.030</td></tr>
+          <tr><td>sqlalchemy</td><td>large</td><td>673</td><td>314</td><td>0.100</td><td>graph 0.039</td><td>+0.061</td></tr>
+          <tr><td>django</td><td>large</td><td>2,932</td><td>107</td><td>0.173</td><td>hybrid 0.090</td><td>+0.083</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <details class="evidence-detail">
+    <summary>Sweep B — trained MiniLM embedding on GPU, 8 repositories</summary>
+    <div>
+      <table class="data-table">
+        <thead><tr><th scope="col">Repository</th><th scope="col">Tier</th><th scope="col">Files</th><th scope="col">Tasks</th><th scope="col">MCM efficiency</th><th scope="col">Best baseline</th><th scope="col">Margin</th></tr></thead>
+        <tbody>
+          <tr><td>itsdangerous</td><td>tiny</td><td>15</td><td>34</td><td>0.205</td><td>hybrid 0.124</td><td>+0.081</td></tr>
+          <tr><td>python-dotenv</td><td>tiny</td><td>20</td><td>34</td><td>0.093</td><td>vector-rag 0.102</td><td>-0.008</td></tr>
+          <tr><td>requests</td><td>tiny</td><td>37</td><td>130</td><td>0.031</td><td>vector-rag 0.040</td><td>-0.010</td></tr>
+          <tr><td>flask</td><td>small</td><td>83</td><td>149</td><td>0.067</td><td>vector-rag 0.063</td><td>+0.004</td></tr>
+          <tr><td>click</td><td>small</td><td>90</td><td>306</td><td>0.100</td><td>graph 0.082</td><td>+0.018</td></tr>
+          <tr><td>rich</td><td>medium</td><td>213</td><td>234</td><td>0.086</td><td>graph 0.071</td><td>+0.015</td></tr>
+          <tr><td>pydantic</td><td>medium</td><td>449</td><td>312</td><td>0.068</td><td>hybrid 0.057</td><td>+0.011</td></tr>
+          <tr><td>scrapy</td><td>medium</td><td>491</td><td>329</td><td>0.127</td><td>hybrid 0.100</td><td>+0.027</td></tr>
+        </tbody>
+      </table>
+      <p class="integration-note">The large tier was not completed in this sweep because the 16 GB test machine could not hold the trained model plus the largest repositories concurrently. That is a hardware limitation of this run, not evidence about the method.</p>
+    </div>
+  </details>
+
+  <details class="evidence-detail">
+    <summary>Key limitations that still bound the claims</summary>
+    <div class="finding-grid">
+      <article class="finding neutral"><h3>One horizon per repository</h3><p>Within-repository variance is not measured even though the evaluation now spans four size tiers and six ecosystems.</p></article>
+      <article class="finding caution"><h3>Fitted weights overfit</h3><p>MCM’s seven-parameter fitted weights improve the tuning repository but buy nothing on held-out data.</p></article>
+      <article class="finding caution"><h3>Feature hashing is the default</h3><p>The default embedding is not a trained sentence model. The paired provider experiments show that this choice changes the comparison materially.</p></article>
+      <article class="finding neutral"><h3>Python only</h3><p>The parser and extractors remain Python-specific, and dynamic behavior still requires the runtime observation channel.</p></article>
+    </div>
+  </details>
+
+  <p class="integration-note">The full methods, bootstrap rules, tuning protocol, provider ablations and limitations are maintained in <a href="evaluation.md">docs/evaluation.md</a>.</p>
+</section>
+
+<section aria-labelledby="lab-heading">
+  <div class="lab-intro">
+    <div>
+      <div class="section-subtitle">05 / RESEARCH LAB</div>
+      <h2 id="lab-heading">Interact with the mechanisms, not the claims.</h2>
+    </div>
+    <p><strong>These browser exercises are fixed fixtures.</strong> They are here to make MCM’s representation and operations inspectable. They do not generate the empirical results reported later on the page; those come from repository-history benchmarks and the separate agent experiment.</p>
+  </div>
+</section>
+    <section id="comparison-sim" class="lab-section">
+      <div class="section-header">
+        <div class="section-subtitle">Research lab · 01</div>
+        <h2 class="section-title">Compare the retrieval strategies</h2>
+        <p class="section-desc">Choose the same engineering task for each representation. This fixture shows what each approach is able to put in front of an agent; it is an explanatory demo, not benchmark evidence.</p>
+      </div>
+
+      <div class="sim-panel">
+<p class="fixture-note">Illustrative fixture. Values and outcomes below explain the mechanism; they are not measured performance or executed tests.</p>
+        <div class="sim-controls">
+          <div class="control-group" style="flex: 1;">
+            <label class="control-label" for="headToHeadScenario">Select Agent Engineering Scenario</label>
+            <select id="headToHeadScenario" onchange="runHeadToHeadSimulation()">
+              <option value="scenario_refactor">Scenario A: Multi-File Signature Refactor (signer.Signer.sign parameter added)</option>
+              <option value="scenario_tests">Scenario B: Transitive Test Regression Audit (serializer.dumps format changed)</option>
+              <option value="scenario_budget">Scenario C: Context Budget Exhaustion (18,450-token codebase into 4,000-token LLM)</option>
+              <option value="scenario_contradiction">Scenario D: Epistemic Contradiction (Agent speculation vs Static AST assertion)</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" style="margin-top: auto; padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="runHeadToHeadSimulation()">Run Comparison</button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); gap: 1.25rem;">
+          <!-- Vector RAG -->
+          <div class="comparison-column" style="border-color: var(--tint-rose-strong);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <h3 style="color: var(--rose);">1. Vector RAG</h3>
+              <span class="pill" style="color: var(--rose); border-color: var(--tint-rose-strong);">Heuristic</span>
+            </div>
+            <div id="vragMetric" class="metric-badge text-rose">3 Chunks (1,840 toks)</div>
+            <p id="vragDesc" style="font-size: 0.85rem; color: var(--text-muted); min-height: 55px; margin-bottom: 0.75rem;">
+              Retrieves arbitrary text chunks via cosine similarity. Fractures AST hierarchy.
+            </p>
+            <div id="vragStatusBox" style="font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
+              <!-- Dynamic -->
+            </div>
+          </div>
+
+          <!-- Graph Memory -->
+          <div class="comparison-column" style="border-color: var(--tint-amber-strong);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <h3 style="color: var(--amber);">2. Graph memory</h3>
+              <span class="pill" style="color: var(--amber); border-color: var(--tint-amber-strong);">Untyped Graph</span>
+            </div>
+            <div id="graphMetric" class="metric-badge text-amber">4 Nodes (780 toks)</div>
+            <p id="graphDesc" style="font-size: 0.85rem; color: var(--text-muted); min-height: 55px; margin-bottom: 0.75rem;">
+              Traverses syntax nodes without calibrated uncertainty or natural-language grounding.
+            </p>
+            <div id="graphStatusBox" style="font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
+              <!-- Dynamic -->
+            </div>
+          </div>
+
+          <!-- MCM -->
+          <div class="comparison-column" style="border-color: var(--tint-emerald-strong); background: var(--tint-emerald);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <h3 style="color: var(--emerald);">3. MCM</h3>
+              <span class="pill" style="color: var(--emerald); border-color: var(--tint-emerald-strong);">Typed + evidence-backed</span>
+            </div>
+            <div id="mcmMetric" class="metric-badge text-emerald">6 Objects (520 toks)</div>
+            <p id="mcmDesc" style="font-size: 0.85rem; color: var(--text-muted); min-height: 55px; margin-bottom: 0.75rem;">
+              Walks typed relations from the change site, carrying a confidence that decays per hop,
+              and checks the result replays against the full store.
+            </p>
+            <div id="mcmStatusBox" style="font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--tint-emerald-strong);">
+              <!-- Dynamic -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="blast-sim" class="lab-section">
+      <div class="section-header">
+        <div class="section-subtitle">Research lab · 02</div>
+        <h2 class="section-title">Walk a change before writing it</h2>
+        <p class="section-desc">Pick a symbol and a typed change. The model traverses dependency relations, attenuates confidence by path, and surfaces callers and tests that may need attention before the edit is made.</p>
+      </div>
+
+      <div class="sim-panel">
+<p class="fixture-note">Illustrative fixture. Values and outcomes below explain the mechanism; they are not measured performance or executed tests.</p>
+        <div class="sim-controls">
           <div class="control-group">
-            <span class="control-label">Target symbol</span>
+            <label class="control-label" for="blastTarget">Target Symbol ($o_{\text{target}}$)</label>
             <select id="blastTarget" onchange="runBlastSimulation()">
               <option value="Signer.sign">signer.Signer.sign(value, key=None)</option>
               <option value="Serializer.dumps">serializer.Serializer.dumps(obj)</option>
@@ -727,200 +419,376 @@ footer { border-top: 1px solid var(--line); padding: 26px 0 40px; color: var(--d
               <option value="TimestampSigner.unsign">timed.TimestampSigner.unsign(signed_value, max_age)</option>
             </select>
           </div>
+
           <div class="control-group">
-            <span class="control-label">Change kind</span>
+            <label class="control-label" for="blastKind">Change Kind ($\kappa$)</label>
             <select id="blastKind" onchange="runBlastSimulation()">
-              <option value="SIGNATURE">SIGNATURE · parameters change</option>
-              <option value="REMOVE">REMOVE · symbol disappears</option>
-              <option value="RENAME">RENAME · qualname changes</option>
-              <option value="BEHAVIOUR">BEHAVIOUR · semantics may differ</option>
+              <option value="SIGNATURE">SIGNATURE (Alters parameters, forces hop-1 MUST_UPDATE)</option>
+              <option value="REMOVE">REMOVE (Deletes symbol, closes all incident relations)</option>
+              <option value="RENAME">RENAME (Changes qualname, requires caller refactor)</option>
+              <option value="BEHAVIOUR">BEHAVIOUR (Semantic tweak, propagates MAY_DIFFER)</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="decaySlider">Decay Parameter ($\delta$)</label>
+            <input type="range" id="decaySlider" min="0.5" max="0.95" step="0.05" value="0.85" oninput="runBlastSimulation()">
+            <span id="decayVal" style="font-size: 0.75rem; color: var(--secondary); font-family: var(--font-mono);">0.85</span>
+          </div>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="comparison-column">
+            <h3 style="color: var(--primary-ink); margin-bottom: 0.75rem;">Simulated Blast Radius ($K_{t+1}^{\text{pred}}$)</h3>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Calculated dynamically via algebraic backward-propagation:
+            </div>
+            <div id="blastResultsList" style="display: flex; flex-direction: column; gap: 0.6rem; font-family: var(--font-mono); font-size: 0.85rem;">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <div class="comparison-column">
+            <h3 style="color: var(--primary-ink); margin-bottom: 0.75rem;">Cascading Test Regressions</h3>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Tests requiring immediate re-execution before commit:
+            </div>
+            <div id="testBreakList" style="display: flex; flex-direction: column; gap: 0.6rem; font-family: var(--font-mono); font-size: 0.85rem;">
+              <!-- Dynamically populated -->
+            </div>
+            <div style="margin-top: 1.5rem; padding: 0.75rem; background: var(--tint-emerald); border: 1px solid var(--tint-emerald-strong); border-radius: 6px; font-size: 0.82rem; color: var(--emerald-ink);">
+              Illustrative, on a fixed fixture. Prediction quality is evaluated against real co-change
+              history in <code>docs/prediction.md</code>, which also explains why a naive recall score
+              understates it: co-change is symmetric and propagation is not, so an edit <em>upstream</em>
+              of the change can never be reached by any downstream traversal.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="graph-sim" class="lab-section">
+      <div class="section-header">
+        <div class="section-subtitle">Research lab · 03</div>
+        <h2 class="section-title">Inspect the structural memory</h2>
+        <p class="section-desc">This fixed <code>itsdangerous</code> fixture exposes the representation directly: stable symbols, typed edges, evidence-backed links, and confidence carried on the graph.</p>
+      </div>
+
+      <div class="sim-panel">
+<p class="fixture-note">Illustrative fixture. Values and outcomes below explain the mechanism; they are not measured performance or executed tests.</p>
+        <div class="sim-controls">
+          <div class="control-group">
+            <label class="control-label" for="edgeFilter">Filter Edge Relation</label>
+            <select id="edgeFilter" onchange="updateGraphFilter()">
+              <option value="ALL">All Relations (CALLS, INHERITS, TESTS, IMPORTS)</option>
+              <option value="CALLS">Calls Only (Direct &amp; Transitive)</option>
+              <option value="TESTS">Tests Only (Test Coverage)</option>
+              <option value="INHERITS">Inheritance Hierarchy</option>
             </select>
           </div>
           <div class="control-group">
-            <div class="range-row"><span class="control-label" style="margin:0;">Path decay δ</span><output id="decayVal">0.85</output></div>
-            <input type="range" id="decaySlider" min="0.5" max="0.95" step="0.05" value="0.85" oninput="runBlastSimulation()">
+            <label class="control-label" for="moduleFilter">Highlight Module</label>
+            <select id="moduleFilter" onchange="highlightModule()">
+              <option value="ALL">All Modules</option>
+              <option value="serializer">serializer.py</option>
+              <option value="signer">signer.py</option>
+              <option value="timed">timed.py</option>
+              <option value="test">test_serializer.py</option>
+            </select>
           </div>
-          <p class="fixture-note">The browser demo uses a fixed fixture so the mechanism is visible. It is not the benchmark and it does not call the local MCM service.</p>
+          <button class="btn btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem; margin-top: auto;" onclick="resetGraphPhysics()">Reset Layout</button>
         </div>
-        <div class="hands-output">
-          <div class="output-pane">
-            <h3>Affected code</h3>
-            <p>Structural paths surfaced from the target.</p>
-            <div id="blastResultsList" class="output-list"></div>
-          </div>
-          <div class="output-pane">
-            <h3>Tests to revisit</h3>
-            <p>Linked tests that should be considered after the change.</p>
-            <div id="testBreakList" class="output-list"></div>
+
+        <div class="canvas-container">
+          <canvas id="graphCanvas" role="img" aria-label="Illustrative dependency graph; equivalent relationships are listed below."></canvas>
+          <div class="canvas-overlay" id="graphTooltip">
+            Drag nodes to rearrange the illustration. Use the relationship list below for a text equivalent.
           </div>
         </div>
       </div>
-      <div class="hands-footer">Prediction quality is evaluated against real repository history in <code>docs/prediction.md</code>; the demo above is explanatory only.</div>
-    </div>
-  </section>
-
-  <section id="benchmarks">
-    <div class="section-header">
-      <div class="section-kicker">Evidence</div>
-      <h2 class="section-title">The current results are promising in places, mixed overall, and explicit about the null.</h2>
-      <p class="section-desc">The repository now separates retrieval/context efficiency, impact prediction, and downstream agent performance. They are different experiments and should not be collapsed into one headline claim.</p>
-    </div>
-
-    <div class="evidence-top">
-      <div class="stat"><strong>10</strong><span>repositories in the complete feature-hashing suite</span></div>
-      <div class="stat"><strong>6</strong><span>ecosystems across four repository-size tiers</span></div>
-      <div class="stat"><strong>0.88</strong><span>impact precision over five repositories at 7% firing rate</span></div>
-      <div class="stat"><strong>0.28</strong><span>agent-study paired sign-flip p-value</span></div>
-    </div>
-
-    <div class="evidence-grid">
-      <article class="evidence-card good"><h3>Context efficiency has a real signal</h3><p>In the complete feature-hashing sweep MCM is ahead of vector RAG on 7/10 repositories and level on 3/10. Against the hybrid baseline it is ahead on 7/10 and level on 3/10.</p></article>
-      <article class="evidence-card caution"><h3>It is not universal</h3><p><code>requests</code> is a counterexample in both sweeps, and <code>python-dotenv</code> falls behind the best baseline with the trained embedding. The architecture should not be presented as uniformly superior.</p></article>
-      <article class="evidence-card method"><h3>Embedding choice materially changes the comparison</h3><p>The default feature hashing is not a trained sentence model. The trained-embedding sweep improves the vector baseline and weakens the original <code>graph &gt; vector-rag</code> hypothesis.</p></article>
-      <article class="evidence-card null"><h3>The agent benefit is not demonstrated</h3><p>The separate agent experiment cannot show that giving the agent <code>mcm_impact</code> improves file selection. The apparent subgroup improvement does not survive the usage check.</p></article>
-    </div>
-
-    <div class="agent-strip">
-      <div class="agent-number"><strong>p = 0.28</strong><span>23 paired task deltas</span></div>
-      <div class="agent-copy">
-        <h3>Agent-in-the-loop: current result is a null</h3>
-        <p>Across 23 tasks and three trials per condition there were 138 trials, six errored. Treatment was better on 5 tasks, worse on 2 and tied on 16; the mean paired delta was +0.072. A two-sided sign-flip permutation test gives p = 0.28.</p>
-        <p>Only 9/23 tasks were downstream consequences of the target—the problem propagation is intended to predict. Eleven were upstream co-requirements and three had no recorded edge.</p>
+<details class="graph-text"><summary>Read graph relationships</summary><ul id="graphRelationships"></ul></details>
+    </section>
+    <section id="minimisation" class="lab-section">
+      <div class="section-header">
+        <div class="section-subtitle">Research lab · 04</div>
+        <h2 class="section-title">Spend a context budget deliberately</h2>
+        <p class="section-desc">Reduce the context package while preserving the objects, relations and evidence needed for the task. The point is not “fewer tokens” by itself; it is fewer irrelevant tokens without breaking support for the answer.</p>
       </div>
-    </div>
 
+      <div class="sim-panel">
+<p class="fixture-note">Illustrative fixture. Values and outcomes below explain the mechanism; they are not measured performance or executed tests.</p>
+        <div class="sim-controls">
+          <div class="control-group" style="flex: 1;">
+            <label class="control-label" for="budgetRange">LLM Context Budget ($B$ Tokens): <span id="budgetValue" style="color: var(--secondary); font-family: var(--font-mono);">3,500</span></label>
+            <input type="range" id="budgetRange" min="800" max="10000" step="100" value="3500" oninput="updateMinimisationLab()" style="width: 100%;">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="queryDomain">Query Domain</label>
+            <select id="queryDomain" onchange="updateMinimisationLab()">
+              <option value="auth">Signer Secret Key Verification</option>
+              <option value="serializer">JSON Serialization &amp; Compression</option>
+              <option value="timed">Timestamp Expiration Handling</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="comparison-column" style="border-color: var(--tint-rose-strong);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <h3 style="color: var(--rose);">Standard RAG / File Dump</h3>
+              <span class="pill" style="color: var(--rose); border-color: var(--tint-rose-strong);">Wasteful</span>
+            </div>
+            <div class="metric-badge text-rose" id="ragTokenCount">18,450 tokens</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Full file inclusion dumps comments, utility helpers, and unrelated imports. Overflows small context windows and costs 5.2× more per API call.
+            </p>
+            <div style="font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
+              <div>[Included] serializer.py (entire file: 412 lines)</div>
+              <div>[Included] signer.py (entire file: 328 lines)</div>
+              <div>[Included] timed.py (entire file: 215 lines)</div>
+              <div style="color: var(--rose); margin-top: 0.5rem;"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg> Contains 73% non-essential auxiliary tokens.</div>
+            </div>
+          </div>
+
+          <div class="comparison-column" style="border-color: var(--tint-emerald-strong);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <h3 style="color: var(--emerald);">MCM Minimal Package ($C^*$)</h3>
+              <span class="pill" style="color: var(--emerald); border-color: var(--tint-emerald-strong);">Illustrative support check</span>
+            </div>
+            <div class="metric-badge text-emerald" id="mcmTokenCount">3,420 tokens</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Keeps only what the task entails, then checks three conditions on the result. The ratio
+              below is a fixed assumption of this illustration, not a measured result &mdash; the measured
+              context-efficiency numbers are in the benchmark section.
+            </p>
+            <div style="font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
+              <div style="color: var(--emerald);"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Replay: Deduced closure identical to K</div>
+              <div style="color: var(--emerald);"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Presence: 100% of symbols referenced exist</div>
+              <div style="color: var(--emerald);"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Traceability: Active AST evidence attached</div>
+              <div style="color: var(--secondary); margin-top: 0.5rem;" id="savingsReport">Saved 15,030 tokens (81.4% reduction)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="contradiction-sim" class="lab-section">
+      <div class="section-header">
+        <div class="section-subtitle">Advanced lab · evidence</div>
+        <h2 class="section-title">Resolve conflicting claims</h2>
+        <p class="section-desc">Vary temporal overlap and source reliability to see how incompatible assertions are handled. This demonstrates the model’s separation of observation strength, provenance reliability and time.</p>
+      </div>
+
+      <div class="sim-panel">
+<p class="fixture-note">Illustrative fixture. Values and outcomes below explain the mechanism; they are not measured performance or executed tests.</p>
+        <div class="sim-controls">
+          <div class="control-group" style="flex: 1;">
+            <label class="control-label" for="conflictScenario">Conflicting Assertion Scenario</label>
+            <select id="conflictScenario" onchange="runContradictionLab()">
+              <option value="return_type">Signer.sign return type: [AST: str] vs [Agent Speculation: bytes]</option>
+              <option value="caller_link">Serializer.dumps calls: [Diff t=20: Signer.sign] vs [Diff t=10: Signer.raw_sign]</option>
+              <option value="interface_compat">TimestampSigner implements: [AST: ISigner] vs [Outdated Spec: IToken]</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="comparison-column">
+            <h3 style="color: var(--primary-ink); margin-bottom: 0.75rem;">Assertion 1: Earlier / Established Claim</h3>
+            <div class="control-group" style="margin-bottom: 0.75rem;">
+              <label class="control-label" for="t1Slider">Commit Timestamp ($t_1$): <span id="t1Val" style="color: var(--secondary);">100</span></label>
+              <input type="range" id="t1Slider" min="50" max="200" value="100" oninput="runContradictionLab()">
+            </div>
+            <div class="control-group" style="margin-bottom: 0.75rem;">
+              <label class="control-label" for="r1Slider">Provenance Reliability ($r_1$): <span id="r1Val" style="color: var(--secondary);">1.00</span></label>
+              <input type="range" id="r1Slider" min="0.1" max="1.0" step="0.05" value="1.0" oninput="runContradictionLab()">
+            </div>
+            <div id="assertion1Details" style="font-family: var(--font-mono); font-size: 0.8rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
+              <!-- Dynamic -->
+            </div>
+          </div>
+
+          <div class="comparison-column">
+            <h3 style="color: var(--primary-ink); margin-bottom: 0.75rem;">Assertion 2: Incoming / New Claim</h3>
+            <div class="control-group" style="margin-bottom: 0.75rem;">
+              <label class="control-label" for="t2Slider">Commit Timestamp ($t_2$): <span id="t2Val" style="color: var(--secondary);">125</span></label>
+              <input type="range" id="t2Slider" min="50" max="200" value="125" oninput="runContradictionLab()">
+            </div>
+            <div class="control-group" style="margin-bottom: 0.75rem;">
+              <label class="control-label" for="r2Slider">Provenance Reliability ($r_2$): <span id="r2Val" style="color: var(--secondary);">0.65</span></label>
+              <input type="range" id="r2Slider" min="0.1" max="1.0" step="0.05" value="0.65" oninput="runContradictionLab()">
+            </div>
+            <div id="assertion2Details" style="font-family: var(--font-mono); font-size: 0.8rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
+              <!-- Dynamic -->
+            </div>
+          </div>
+        </div>
+
+        <div id="contradictionVerdictBox" style="margin-top: 1.25rem; padding: 1rem; border-radius: 8px; font-family: var(--font-mono); font-size: 0.85rem;">
+          <!-- Dynamic Verdict -->
+        </div>
+      </div>
+    </section>
+    <section id="simplex-sim" class="lab-section">
+      <div class="section-header">
+        <div class="section-subtitle">Advanced lab · ranking</div>
+        <h2 class="section-title">See how retrieval channels trade off</h2>
+        <p class="section-desc">Adjust the five retrieval weights and watch the ranking move. The production tuner searches this simplex; the browser fixture makes the interaction visible.</p>
+      </div>
+
+      <div class="sim-panel">
+<p class="fixture-note">Illustrative fixture. Values and outcomes below explain the mechanism; they are not measured performance or executed tests.</p>
+        <div class="sim-controls">
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button class="btn btn-outline" style="padding: 0.35rem 0.8rem; font-size: 0.8rem;" onclick="setPresetSimplex('mcm')">Preset: MCM Tuned Centroid</button>
+            <button class="btn btn-outline" style="padding: 0.35rem 0.8rem; font-size: 0.8rem;" onclick="setPresetSimplex('dense')">Preset: Vector RAG Only ($w_v=1.0$)</button>
+            <button class="btn btn-outline" style="padding: 0.35rem 0.8rem; font-size: 0.8rem;" onclick="setPresetSimplex('lexical')">Preset: BM25 Only ($w_l=1.0$)</button>
+            <button class="btn btn-outline" style="padding: 0.35rem 0.8rem; font-size: 0.8rem;" onclick="setPresetSimplex('graph')">Preset: Graph Memory Only ($w_g=1.0$)</button>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
+          <div class="control-group">
+            <label class="control-label" for="wvSlider">Vector Weight ($w_v$): <span id="wvVal" style="color: var(--secondary);">0.35</span></label>
+            <input type="range" id="wvSlider" min="0" max="1" step="0.05" value="0.35" oninput="normalizeSimplexWeights('v')">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="wlSlider">Lexical BM25 ($w_l$): <span id="wlVal" style="color: var(--secondary);">0.25</span></label>
+            <input type="range" id="wlSlider" min="0" max="1" step="0.05" value="0.25" oninput="normalizeSimplexWeights('l')">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="wgSlider">Graph Proximity ($w_g$): <span id="wgVal" style="color: var(--secondary);">0.20</span></label>
+            <input type="range" id="wgSlider" min="0" max="1" step="0.05" value="0.20" oninput="normalizeSimplexWeights('g')">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="wsSlider">Exact Symbolic ($w_s$): <span id="wsVal" style="color: var(--secondary);">0.10</span></label>
+            <input type="range" id="wsSlider" min="0" max="1" step="0.05" value="0.10" oninput="normalizeSimplexWeights('s')">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="wpSlider">Provenance ($w_p$): <span id="wpVal" style="color: var(--secondary);">0.10</span></label>
+            <input type="range" id="wpSlider" min="0" max="1" step="0.05" value="0.10" oninput="normalizeSimplexWeights('p')">
+          </div>
+        </div>
+
+        <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+            <h3 style="color: var(--primary-ink); font-size: 0.95rem;">Ranked Code Candidates for Query: <code style="color: var(--secondary-ink);">"Verify cryptographic token signature"</code></h3>
+            <span class="pill" style="color: var(--text-dim);">Illustrative &mdash; fixed fixture, computed in-browser</span>
+          </div>
+          <div id="simplexResultsTable" style="display: flex; flex-direction: column; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.82rem;">
+            <!-- Dynamic -->
+          </div>
+        </div>
+      </div>
+    </section>
     
-<details class="evidence-detail">
-  <summary>Complete feature-hashing sweep · 10 repositories</summary>
-  <div>
-    <table class="data-table">
-      <thead><tr><th>Repository</th><th>Tier</th><th>Files</th><th>Tasks</th><th>MCM</th><th>Best baseline</th><th>Margin</th></tr></thead>
-      <tbody>
-        <tr><td>itsdangerous</td><td>tiny</td><td>15</td><td>34</td><td>0.240</td><td>vector-rag 0.130</td><td>+0.110</td></tr>
-        <tr><td>python-dotenv</td><td>tiny</td><td>20</td><td>34</td><td>0.088</td><td>hybrid 0.082</td><td>+0.006</td></tr>
-        <tr><td>requests</td><td>tiny</td><td>37</td><td>130</td><td>0.029</td><td>vector-rag 0.039</td><td>-0.010</td></tr>
-        <tr><td>flask</td><td>small</td><td>83</td><td>149</td><td>0.069</td><td>vector-rag 0.057</td><td>+0.012</td></tr>
-        <tr><td>click</td><td>small</td><td>90</td><td>306</td><td>0.099</td><td>graph 0.082</td><td>+0.017</td></tr>
-        <tr><td>rich</td><td>medium</td><td>213</td><td>234</td><td>0.079</td><td>graph 0.071</td><td>+0.008</td></tr>
-        <tr><td>pydantic</td><td>medium</td><td>449</td><td>312</td><td>0.064</td><td>graph 0.056</td><td>+0.008</td></tr>
-        <tr><td>scrapy</td><td>medium</td><td>491</td><td>329</td><td>0.129</td><td>graph 0.100</td><td>+0.030</td></tr>
-        <tr><td>sqlalchemy</td><td>large</td><td>673</td><td>314</td><td>0.100</td><td>graph 0.039</td><td>+0.061</td></tr>
-        <tr><td>django</td><td>large</td><td>2,932</td><td>107</td><td>0.173</td><td>hybrid 0.090</td><td>+0.083</td></tr>
-      </tbody>
-    </table>
+<section id="use-it">
+  <div class="section-header">
+    <div class="section-subtitle">06 / USE IT</div>
+    <h2 class="section-title">Index locally, then expose MCM as an agent tool</h2>
+    <p class="section-desc">The default indexer and hashed embedding provider are local. The MCP server runs over stdio, so an agent can query the same store without a separate service.</p>
   </div>
-</details>
-<details class="evidence-detail">
-  <summary>Trained-embedding sweep · 8 repositories</summary>
-  <div>
-    <table class="data-table">
-      <thead><tr><th>Repository</th><th>Tier</th><th>Files</th><th>Tasks</th><th>MCM</th><th>Best baseline</th><th>Margin</th></tr></thead>
-      <tbody>
-        <tr><td>itsdangerous</td><td>tiny</td><td>15</td><td>34</td><td>0.205</td><td>hybrid 0.124</td><td>+0.081</td></tr>
-        <tr><td>python-dotenv</td><td>tiny</td><td>20</td><td>34</td><td>0.093</td><td>vector-rag 0.102</td><td>-0.008</td></tr>
-        <tr><td>requests</td><td>tiny</td><td>37</td><td>130</td><td>0.031</td><td>vector-rag 0.040</td><td>-0.010</td></tr>
-        <tr><td>flask</td><td>small</td><td>83</td><td>149</td><td>0.067</td><td>vector-rag 0.063</td><td>+0.004</td></tr>
-        <tr><td>click</td><td>small</td><td>90</td><td>306</td><td>0.100</td><td>graph 0.082</td><td>+0.018</td></tr>
-        <tr><td>rich</td><td>medium</td><td>213</td><td>234</td><td>0.086</td><td>graph 0.071</td><td>+0.015</td></tr>
-        <tr><td>pydantic</td><td>medium</td><td>449</td><td>312</td><td>0.068</td><td>hybrid 0.057</td><td>+0.011</td></tr>
-        <tr><td>scrapy</td><td>medium</td><td>491</td><td>329</td><td>0.127</td><td>hybrid 0.100</td><td>+0.027</td></tr>
-      </tbody>
-    </table>
-    <p class="integration-note">The large tier was not completed in this sweep because the 16 GB test machine could not hold the trained model plus the largest repositories concurrently.</p>
-  </div>
-</details>
-    <p class="integration-note">Full methodology, bootstrap rules, tuning protocol, provider ablations and limitations: <a href="evaluation.md">docs/evaluation.md</a>.</p>
-  </section>
 
-  <section id="use-it">
-    <div class="section-header">
-      <div class="section-kicker">Integrate</div>
-      <h2 class="section-title">Use the same model from the CLI or directly inside a coding agent.</h2>
-      <p class="section-desc">The default indexer and hashed embedding provider run locally. The MCP server uses stdio, so supported coding agents can query MCM without a separate network service.</p>
-    </div>
-    <div class="integration-grid">
-      <div class="integration-card">
-        <h3>Index a repository</h3>
-        <pre><code>git clone https://github.com/abusuraihsakhri/mcm.git
+  <div class="integration-grid">
+    <div class="integration-card">
+      <h3>1. Create the index</h3>
+      <pre><code>git clone https://github.com/abusuraihsakhri/mcm.git
 cd mcm
 python -m venv .venv
 pip install -e ".[dev,api]"
 
 mcm ingest /path/to/repo --db mcm.db
 mcm index --db mcm.db</code></pre>
-        <p class="integration-note">Current measurements report roughly 66 files/s; Django’s 2,932 Python files index in about 44 seconds on the test laptop.</p>
+      <p class="integration-note">Current repository measurements report roughly 66 files/s; Django’s 2,932 Python files index in about 44 seconds on the test laptop.</p>
+    </div>
+
+    <div class="integration-card">
+      <h3>2. Connect your agent</h3>
+      <div class="control-group">
+        <label class="control-label" for="clientSelect">Client configuration</label>
+        <select id="clientSelect" onchange="updateClientConfig()">
+          <option value="claude">Claude Code</option>
+          <option value="cursor">Cursor</option>
+          <option value="codex">Codex CLI</option>
+          <option value="opencode">OpenCode</option>
+          <option value="antigravity">Antigravity</option>
+        </select>
       </div>
-      <div class="integration-card">
-        <h3>Connect a coding agent</h3>
-        <div class="control-group">
-          <span class="control-label">Client</span>
-          <select id="clientSelect" onchange="updateClientConfig()">
-            <option value="claude">Claude Code</option>
-            <option value="cursor">Cursor</option>
-            <option value="codex">Codex CLI</option>
-            <option value="opencode">OpenCode</option>
-            <option value="antigravity">Antigravity</option>
-          </select>
+      <div id="clientPath" class="integration-note"></div>
+      <pre><code id="clientConfig"></code></pre>
+      <div id="clientNote" class="integration-note"></div>
+    </div>
+  </div>
+
+  <table class="tool-table">
+    <thead><tr><th scope="col">MCP tool</th><th scope="col">What it gives the agent</th></tr></thead>
+    <tbody>
+      <tr><td>mcm_search</td><td>Definitions ranked by semantic, lexical, structural, symbolic and provenance channels.</td></tr>
+      <tr><td>mcm_impact</td><td>Potential downstream consequences of a typed proposed change, before the edit.</td></tr>
+      <tr><td>mcm_context</td><td>A bounded, evidence-backed context package for the current task.</td></tr>
+      <tr><td>mcm_constraints</td><td>Checks against declared architectural constraints.</td></tr>
+      <tr><td>mcm_ingest</td><td>Indexes or refreshes a repository from the agent session.</td></tr>
+    </tbody>
+  </table>
+  <p class="integration-note">Use absolute paths for the MCP executable and database. Repository content stays in the local SQLite index unless you explicitly use external model-provider experiment scripts.</p>
+</section>
+    
+    <section id="agent-api" class="api-section">
+      <div class="section-header">
+        <div class="section-subtitle">Service interface</div>
+        <h2 class="section-title">The REST surface mirrors the same model</h2>
+        <p class="section-desc">
+          The HTTP surface, for calling MCM from a service. If you want to use MCM from a coding
+          agent, you want the MCP server above instead &mdash; these routes are not what an agent speaks.
+          Payloads below match the real request models in <code>mcm/api/app.py</code>.
+        </p>
+      </div>
+
+      <div class="sim-panel">
+<p class="fixture-note">Illustrative fixture. Values and outcomes below explain the mechanism; they are not measured performance or executed tests.</p>
+        <div class="sim-controls">
+          <div class="control-group">
+            <label class="control-label" for="agentActionSelect">Preset Agent Action</label>
+            <select id="agentActionSelect" onchange="updateAgentMockTerminal()">
+              <option value="simulate">POST /impact &mdash; what a change reaches</option>
+              <option value="minimal">POST /query &mdash; impact and dependency modes</option>
+              <option value="constraints">POST /constraints/check &mdash; architectural rules</option>
+              <option value="dynamic">POST /observations/trace &mdash; feed a runtime trace back</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" style="padding: 0.45rem 1.1rem; font-size: 0.85rem; margin-top: auto;" onclick="executeAgentMockCall()">Show example response</button>
         </div>
-        <div id="clientPath" class="integration-note"></div>
-        <pre><code id="clientConfig"></code></pre>
-        <div id="clientNote" class="integration-note"></div>
-      </div>
-    </div>
-    <div class="tool-grid">
-      <div class="tool"><code>mcm_search</code><p>Find definitions by task meaning and structure.</p></div>
-      <div class="tool"><code>mcm_impact</code><p>Trace possible consequences before editing.</p></div>
-      <div class="tool"><code>mcm_context</code><p>Build a bounded evidence-backed context package.</p></div>
-      <div class="tool"><code>mcm_constraints</code><p>Check declared architectural rules.</p></div>
-      <div class="tool"><code>mcm_ingest</code><p>Index or refresh from the agent session.</p></div>
-    </div>
-  </section>
 
-  <section id="theory">
-    <div class="section-header">
-      <div class="section-kicker">Formal core</div>
-      <h2 class="section-title">The mathematics describes what must survive compression and traversal.</h2>
-      <p class="section-desc">The site keeps the formal layer concise: canonical knowledge, confidence on composed relations, and support-preserving context reduction.</p>
-    </div>
-    <div class="theory-grid">
-      <article class="theory-card">
-        <h3>Canonical store</h3>
-        <p>Objects, relations, evidence, provenance and temporal validity are primary; indexes are rebuildable projections.</p>
-        <div class="formula">K = ⟨ O, R, E, P, T ⟩</div>
-      </article>
-      <article class="theory-card">
-        <h3>Path confidence</h3>
-        <p>Longer or weaker relation chains carry less certainty than direct structural observations.</p>
-        <div class="formula">c(R₁ ∘ R₂) = c(R₁)c(R₂)δ(R₁,R₂)</div>
-      </article>
-      <article class="theory-card">
-        <h3>Context entailment</h3>
-        <p>A reduced package is accepted only if it preserves relevant closure, referenced objects and live evidence.</p>
-        <div class="formula">C* = arg min |C|  subject to  C ⊨ Q</div>
-      </article>
-    </div>
-    <div class="scope-grid">
-      <div class="scope-card"><h3>What is implemented now</h3><p>Python parsing, canonical store, hybrid retrieval, dependency reasoning, pre-action impact, context minimisation, MCP/REST surfaces, benchmark tooling and runtime/test observation channels.</p></div>
-      <div class="scope-card"><h3>What still bounds the claim</h3><p>Python-only extraction, one horizon per evaluation repository, feature hashing as the default embedding, fitted-weight overfitting, and no demonstrated agent-performance gain in the current experiment.</p></div>
-    </div>
-  </section>
-
-  <section id="research-summary">
-    <div class="section-header">
-      <div class="section-kicker">Status + citation</div>
-      <h2 class="section-title">A research prototype with a reproducible software release.</h2>
-    </div>
-    <div class="citation-row">
-      <div class="status-list">
-        <div class="status-item"><span>Version</span><strong>0.1.0</strong></div>
-        <div class="status-item"><span>Runtime</span><strong>Python ≥3.12</strong></div>
-        <div class="status-item"><span>License</span><strong>Apache-2.0</strong></div>
-        <div class="status-item"><span>DOI</span><p><a href="https://doi.org/10.5281/zenodo.22923463" target="_blank" rel="noopener">10.5281/zenodo.22923463</a></p></div>
-        <div class="status-item"><span>Scope</span><p>Research software, not a claim of demonstrated production-level agent improvement.</p></div>
+        <pre><code id="agentCodeOutput">{
+  "status": "ready",
+  "endpoint": "http://localhost:8000/impact",
+  "headers": { "Content-Type": "application/json" },
+  "payload": {
+    "target_qualname": "itsdangerous.signer.Signer.sign",
+    "change_kind": "SIGNATURE",
+    "details": { "added_param": "algorithm", "default": "'sha256'" }
+  }
+}</code></pre>
       </div>
-      <div class="citation-card">
-        <h3>Cite the software</h3>
-        <pre><code>@software{sakhri2026mcm,
+    </section>
+    
+<section id="research-summary">
+  <div class="section-header">
+    <div class="section-subtitle">07 / STATUS + CITATION</div>
+    <h2 class="section-title">What the repository currently establishes</h2>
+    <p class="section-desc">MCM is a v0.1.0 research prototype with a reproducible software release and an explicit distinction between architectural capability, benchmark evidence and unanswered questions.</p>
+  </div>
+  <div class="status-grid">
+    <div class="status-list">
+      <div class="status-row"><span>Software</span><strong>v0.1.0 · Python ≥3.12 · Apache-2.0</strong></div>
+      <div class="status-row"><span>Archive</span><p><a href="https://doi.org/10.5281/zenodo.22923463" target="_blank" rel="noopener">10.5281/zenodo.22923463</a></p></div>
+      <div class="status-row"><span>Core claim</span><p>A typed, evidence-backed context representation supports retrieval, dependency traversal, change-impact analysis and context minimisation in one store.</p></div>
+      <div class="status-row"><span>Evidence</span><p>Context-efficiency advantages appear across much of the repository suite, but are not universal; the original <code>graph &gt; vector-rag</code> chain is not supported consistently.</p></div>
+      <div class="status-row"><span>Agent effect</span><p>Not demonstrated in the current 23-task agent experiment (paired sign-flip p = 0.28).</p></div>
+      <div class="status-row"><span>Scope</span><p>Python-specific research software. Browser labs are illustrative fixtures, not evaluation runs.</p></div>
+    </div>
+
+    <div class="citation-card">
+      <h3>Cite the archived software</h3>
+      <pre><code>@software{sakhri2026mcm,
   author  = {Sakhri, Abu Suraih},
   title   = {Mathematical Context Model (MCM)},
   version = {0.1.0},
@@ -928,18 +796,18 @@ mcm index --db mcm.db</code></pre>
   doi     = {10.5281/zenodo.22923463},
   url     = {https://doi.org/10.5281/zenodo.22923463}
 }</code></pre>
-        <p class="integration-note">No preprint identifier is asserted on the page. The Zenodo DOI is the current archival citation.</p>
-      </div>
+      <p class="integration-note">No preprint identifier is asserted here. Use the Zenodo DOI for the current software release.</p>
     </div>
-  </section>
-</main>
-
-<footer>
-  <div class="container footer-grid">
-    <div><strong>Mathematical Context Model</strong><br>Research prototype by Abu Suraih Sakhri</div>
-    <div>v0.1.0 · Apache-2.0 · <a href="https://github.com/abusuraihsakhri/mcm">GitHub</a> · <a href="https://doi.org/10.5281/zenodo.22923463">Zenodo</a></div>
   </div>
-</footer>
+</section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div><strong>Mathematical Context Model</strong><br>Research prototype by Abu Suraih Sakhri</div>
+      <div>v0.1.0 · Apache-2.0 · <a href="https://github.com/abusuraihsakhri/mcm">GitHub</a> · <a href="https://doi.org/10.5281/zenodo.22923463">Zenodo DOI</a></div>
+    </div>
+  </footer>
 
   <!-- Simulation Logic (Vanilla ES6 JavaScript) -->
   <script>
@@ -1000,6 +868,7 @@ mcm index --db mcm.db</code></pre>
     }
 
     // --- Safe Math Rendering ---
+    let mathAttempts = 0;
     function renderMathSafely() {
       if (window.renderMathInElement && document.body) {
         try {
@@ -1015,7 +884,7 @@ mcm index --db mcm.db</code></pre>
           console.warn("KaTeX notice:", e);
         }
       } else {
-        setTimeout(renderMathSafely, 150);
+        if (++mathAttempts < 20) setTimeout(renderMathSafely, 150);
       }
     }
 
@@ -1075,6 +944,7 @@ mcm index --db mcm.db</code></pre>
       canvas = document.getElementById("graphCanvas");
       if (!canvas) return;
       ctx = canvas.getContext("2d");
+      if (!ctx) return;
 
       function resize() {
         dpr = window.devicePixelRatio || 1;
@@ -1156,7 +1026,7 @@ mcm index --db mcm.db</code></pre>
                             `<span style="color: var(--secondary);">Qualname:</span> repo://itsdangerous#${hovered.id}<br>` +
                             `<span style="color: var(--emerald);">Confidence:</span> 1.000 (AST Verified)`;
           } else {
-            tip.innerHTML = "Hover over a node or drag to inspect qualname identity and relational confidence.";
+            tip.innerHTML = "Drag nodes to rearrange the illustration. Use the relationship list below for a text equivalent.";
           }
         }
       }
@@ -1180,37 +1050,6 @@ mcm index --db mcm.db</code></pre>
       ctx.save();
       ctx.scale(dpr, dpr);
       ctx.clearRect(0, 0, logicalW, logicalH);
-
-      // Node repulsion physics
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const n1 = nodes[i];
-          const n2 = nodes[j];
-          const dx = n2.x - n1.x;
-          const dy = n2.y - n1.y;
-          const dist = Math.max(Math.sqrt(dx*dx + dy*dy), 1);
-          if (dist < 120) {
-            const f = (120 - dist) * 0.003;
-            if (n1 !== draggedNode) { n1.x -= dx * f; n1.y -= dy * f; }
-            if (n2 !== draggedNode) { n2.x += dx * f; n2.y += dy * f; }
-          }
-        }
-      }
-
-      // Edge spring attraction
-      for (const e of edges) {
-        const n1 = nodes.find(n => n.id === e.source);
-        const n2 = nodes.find(n => n.id === e.target);
-        if (n1 && n2) {
-          const dx = n2.x - n1.x;
-          const dy = n2.y - n1.y;
-          const dist = Math.max(Math.sqrt(dx*dx + dy*dy), 1);
-          const targetDist = 90;
-          const f = (dist - targetDist) * 0.0015;
-          if (n1 !== draggedNode) { n1.x += dx * f; n1.y += dy * f; }
-          if (n2 !== draggedNode) { n2.x -= dx * f; n2.y -= dy * f; }
-        }
-      }
 
       // Keep within bounds
       for (const n of nodes) {
@@ -1244,7 +1083,7 @@ mcm index --db mcm.db</code></pre>
         ctx.arc(n.x, n.y, n.r + (isHighlighted ? 4 : 0), 0, Math.PI * 2);
         ctx.fillStyle = isHighlighted ? tone("--rose") : tone(n.color);
         ctx.shadowColor = isHighlighted ? tone("--rose") : tone(n.color);
-        ctx.shadowBlur = isHighlighted ? 18 : 6;
+        ctx.shadowBlur = 0;
         ctx.fill();
         ctx.shadowBlur = 0;
 
@@ -1259,7 +1098,6 @@ mcm index --db mcm.db</code></pre>
       }
 
       ctx.restore();
-      requestAnimationFrame(animateGraph);
     }
 
     function updateGraphFilter() {
@@ -1306,7 +1144,7 @@ mcm index --db mcm.db</code></pre>
         vMetric.innerText = "3 Chunks (1,840 toks)";
         vDesc.innerText = "Retrieves sign() docstring and Signer class header, but misses indirect caller Serializer.dumps() in another file.";
         vBox.innerHTML = "<div style='color: var(--rose); font-weight: 700;'><svg class='icon' aria-hidden='true'><use href='#i-alert'/></svg> Missing Caller: Serializer.dumps()</div>" +
-                         "<div style='color: var(--rose);'><svg class='icon' aria-hidden='true'><use href='#i-alert'/></svg> 0% Pre-Action Safety</div>" +
+                         "<div style='color: var(--rose);'><svg class='icon' aria-hidden='true'><use href='#i-alert'/></svg> No impact output in this fixture</div>" +
                          "<div style='color: var(--text-dim); margin-top: 0.35rem;'>Result: Agent refactors sign(), breaks serializer.py on runtime.</div>";
 
         gMetric.innerText = "4 Nodes (780 toks)";
@@ -1317,8 +1155,8 @@ mcm index --db mcm.db</code></pre>
 
         mMetric.innerText = "6 Objects (520 toks)";
         mDesc.innerText = "Formal pre-action causal simulation calculates hop-1 MUST_UPDATE and hop-2 MAY_DIFFER with qualname grounding.";
-        mBox.innerHTML = "<div style='color: var(--emerald); font-weight: 700;'><svg class='icon' aria-hidden='true'><use href='#i-check'/></svg> Exact Blast Radius: Serializer.dumps (c=1.0)</div>" +
-                         "<div style='color: var(--emerald);'><svg class='icon' aria-hidden='true'><use href='#i-check'/></svg> Identified 2 Failing Test Suites</div>" +
+        mBox.innerHTML = "<div style='color: var(--emerald); font-weight: 700;'><svg class='icon' aria-hidden='true'><use href='#i-check'/></svg> Illustrative affected set: Serializer.dumps (c=1.0)</div>" +
+                         "<div style='color: var(--emerald);'><svg class='icon' aria-hidden='true'><use href='#i-check'/></svg> 2 illustrative test candidates</div>" +
                          "<div style='color: var(--secondary); margin-top: 0.35rem;'>Result: Agent receives typed deltas and fixes callers proactively.</div>";
       } else if (scenario === "scenario_tests") {
         vMetric.innerText = "2 Chunks (1,200 toks)";
@@ -1644,7 +1482,7 @@ mcm index --db mcm.db</code></pre>
     function executeAgentMockCall() {
       const action = document.getElementById("agentActionSelect").value;
       const out = document.getElementById("agentCodeOutput");
-      out.innerText = "Executing request against MCM Semantic Core...\n";
+      out.innerText = "Preparing illustrative response (no request is sent)...\n";
 
       setTimeout(() => {
         if (action === "simulate") {
@@ -1689,9 +1527,9 @@ mcm index --db mcm.db</code></pre>
           out.innerText = JSON.stringify({
             "status": "INGESTED",
             "relation_id": "rel-99824",
-            "updated_confidence": 0.982,
+            "updated_confidence": 0.96,
             "channel": "sys.settrace",
-            "bayesian_update": "Ct+1 = (0.95 * 4 + 1.0) / 5 = 0.98"
+            "bayesian_update": "Ct+1 = (0.95 * 4 + 1.0) / 5 = 0.96"
           }, null, 2);
         }
       }, 250);
@@ -1820,11 +1658,34 @@ startup_timeout_sec = 20`,
 
     // --- DOMContentLoaded Initialization ---
     window.addEventListener("DOMContentLoaded", () => {
+      // Theme first: the graph reads resolved colours at paint time, so it has
+      // to know which palette is live before its first frame.
       applyTheme(activeTheme());
       prepareResponsiveTables();
       initSectionSpy();
       renderMathSafely();
+      initGraph();
+      const repaintGraph = () => { if (ctx) requestAnimationFrame(animateGraph); };
+      document.addEventListener("input", repaintGraph);
+      document.addEventListener("change", repaintGraph);
+      document.addEventListener("click", repaintGraph);
+      window.addEventListener("resize", repaintGraph);
+      canvas.addEventListener("mousemove", repaintGraph);
+      canvas.addEventListener("touchmove", repaintGraph, {passive: true});
+      const graphList = document.getElementById("graphRelationships");
+      for (const edge of edges) {
+        const item = document.createElement("li");
+        const from = nodes.find(node => node.id === edge.source);
+        const to = nodes.find(node => node.id === edge.target);
+        item.textContent = `${from.label} — ${edge.type} → ${to.label}`;
+        graphList.appendChild(item);
+      }
+      runHeadToHeadSimulation();
       runBlastSimulation();
+      updateMinimisationLab();
+      runContradictionLab();
+      updateSimplexTable();
+      updateAgentMockTerminal();
       updateClientConfig();
     });
   </script>

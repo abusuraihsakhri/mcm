@@ -83,6 +83,22 @@ class TestProtocol:
 
 
 class TestServeLoop:
+    @pytest.mark.parametrize("payload", [None, [], 42, "text", True,
+        {"jsonrpc": "1.0", "id": 2, "method": "ping"},
+        {"jsonrpc": "2.0", "id": 2, "method": "initialize", "params": []},
+        {"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": []}}])
+    def test_invalid_request_does_not_drop_stream(self, payload):
+        out = io.StringIO()
+        incoming = json.dumps(payload) + '\n' + json.dumps(
+            {"jsonrpc": "2.0", "id": 3, "method": "ping"}) + '\n'
+        serve(":memory:", stdin=io.StringIO(incoming), stdout=out)
+        first, second = map(json.loads, out.getvalue().splitlines())
+        assert first["error"]["code"] in {-32600, -32602}
+        assert second == {"jsonrpc": "2.0", "id": 3, "result": {}}
+
+    def test_initialize_notification_is_silent(self):
+        assert handle({"jsonrpc": "2.0", "method": "initialize"}, ":memory:") is None
+
     def test_malformed_json_is_reported_without_dropping_the_stream(self):
         out = io.StringIO()
         serve(":memory:", stdin=io.StringIO('not json\n{"jsonrpc":"2.0","id":1,"method":"ping"}\n'),

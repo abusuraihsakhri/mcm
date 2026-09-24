@@ -1,3 +1,5 @@
+> **Audit note (24 September 2026):** Results below are historical reports, not re-estimated values. Overall intervals resample tasks independently even when task families share a commit; commit-clustered reanalysis is needed. “Approximately equal” means the existing rule did not establish separation, not demonstrated equivalence. Oracle repair labels are cumulative and order-dependent, rather than independent single-file interventions. A shared token estimator need not have equal bias across representations. See [the audit](audit-2026-09-24.md) before interpreting these claims.
+
 # Evaluation
 
 Spec sections 45 to 51, development step 20. This is the component that tests the
@@ -975,4 +977,4 @@ an unfamiliar tool at all.
    that it does.
 9. **Memory quality metrics from section 47 are unmeasured.** Fact retention,
    contradiction rate and stale-fact rate need the contradiction detection of
-   section 31 and the memory update of section 32, neither of which is built.
+   section 31 and the memory update of section 32, both of which are implemented; these longitudinal quality outcomes have not been evaluated.

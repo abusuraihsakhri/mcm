@@ -14,6 +14,8 @@ A research prototype for semantic code memory, retrieval, dependency analysis, a
 [![Portal](https://img.shields.io/badge/portal-interactive-4f46e5.svg)](https://abusuraihsakhri.github.io/mcm/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
+> **Audit (24 September 2026):** [Implementation and methodology findings](docs/audit-2026-09-24.md) identify unresolved semantic-equivalence, temporal-history and benchmark-validity limitations.
+>
 > **Status: research prototype.** This is an implementation of a specification,
 > with a benchmark attached that tries to falsify its central claim. The results
 > are mixed and are reported that way. Read
@@ -355,12 +357,12 @@ semicolon-separated list of directories that the API may index.
 
 Python only; the parser and every extractor are Python-specific. Static analysis
 by default, so dynamic dispatch, `getattr` and registry lookups are invisible
-until the runtime tracing channel is actually run. Two evaluation repositories,
-one horizon each, both from the same maintainer. The default embedding provider
-is feature hashing rather than a trained model. The token estimator is not a BPE
-tokenizer, so absolute efficiency runs optimistic for every system equally. And
-the agent-in-the-loop questions — task completion, test pass rate, tool call
-count — are unmeasured.
+until the runtime tracing channel is actually run. There is one horizon per
+repository; the initial two-repository evaluation was followed by a broader suite.
+The default embedding provider is feature hashing rather than a trained model.
+The token estimator is not a BPE tokenizer, and its error need not affect different
+representations equally. The agent study measured file selection; improved repair
+success and regression prevention remain unestablished.
 
 The full list is at the end of [docs/evaluation.md](docs/evaluation.md).
 

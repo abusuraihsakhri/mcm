@@ -288,16 +288,25 @@ def _tool_descriptors() -> list[dict]:
             for name, (_, description, schema) in TOOLS.items()]
 
 
-def handle(message: dict, db: str) -> dict | None:
+def handle(message: Any, db: str) -> dict | None:
     """Answer one JSON-RPC message, or return None when none is owed.
 
     A notification (a message with no ``id``) is acknowledged by silence; the
     spec forbids replying to one, and replying anyway is another way to desync a
     client that is strict about it.
     """
+    if not isinstance(message, dict):
+        return _err(None, -32600, "Request must be a JSON object")
+    if message.get("jsonrpc") != "2.0" or not isinstance(message.get("method"), str):
+        return _err(None, -32600, "Expected JSON-RPC 2.0 and a method name")
     method = message.get("method")
     request_id = message.get("id")
     is_notification = request_id is None
+
+    if is_notification:
+        return None
+    if not isinstance(message.get("params", {}), dict):
+        return _err(request_id, -32602, "params must be an object")
 
     if method == "initialize":
         asked = (message.get("params") or {}).get("protocolVersion")
@@ -317,6 +326,8 @@ def handle(message: dict, db: str) -> dict | None:
     if method == "tools/call":
         params = message.get("params") or {}
         name = params.get("name")
+        if not isinstance(name, str) or not isinstance(params.get("arguments", {}), dict):
+            return _err(request_id, -32602, "Expected a tool name and an arguments object")
         entry = TOOLS.get(name)
         if entry is None:
             return _err(request_id, -32602, f"Unknown tool: {name}")
@@ -367,7 +378,8 @@ def serve(db: str, stdin=None, stdout=None) -> None:
             response = handle(message, db)
         except Exception as exc:  # noqa: BLE001 - a crash here kills the session
             log(f"dispatch failed:\n{traceback.format_exc()}")
-            response = _err(message.get("id"), -32603, f"Internal error: {exc}")
+            response = _err(message.get("id") if isinstance(message, dict) else None,
+                            -32603, "Internal server error")
         if response is not None:
             _write(stdout, response)
 
