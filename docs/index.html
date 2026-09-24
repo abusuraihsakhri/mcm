@@ -30,434 +30,18 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
-  <style>
-
-:root {
-  color-scheme: light;
-  --paper: #f3f1eb;
-  --paper-2: #ebe8df;
-  --panel: #fbfaf6;
-  --panel-2: #ffffff;
-  --ink: #151515;
-  --muted: #66645f;
-  --faint: #8c8980;
-  --line: #d8d4c8;
-  --line-strong: #bdb8aa;
-  --accent: #c54a33;
-  --accent-2: #8d3324;
-  --accent-wash: rgba(197, 74, 51, .08);
-  --blue: #315b8a;
-  --green: #39745a;
-  --amber: #9b6a1d;
-  --rose: #a43c51;
-
-  --bg-dark: var(--paper);
-  --bg-card: var(--panel);
-  --bg-card-hover: #f6f3eb;
-  --bg-surface: var(--paper-2);
-  --bg-inset: #ece9e0;
-  --nav-bg: rgba(243, 241, 235, .92);
-  --panel-grad-a: var(--panel);
-  --panel-grad-b: var(--panel);
-  --border: var(--line);
-  --border-accent: var(--line-strong);
-  --text-main: var(--ink);
-  --text-muted: var(--muted);
-  --text-dim: var(--faint);
-  --text-on-accent: #fff;
-  --code-text: #22211e;
-  --primary: var(--accent);
-  --primary-strong: var(--accent-2);
-  --primary-glow: rgba(197, 74, 51, .16);
-  --secondary: var(--blue);
-  --emerald: var(--green);
-  --pink: #8e5578;
-  --primary-ink: var(--accent-2);
-  --primary-ink-soft: var(--accent);
-  --secondary-ink: var(--blue);
-  --emerald-ink: var(--green);
-  --rose-ink: var(--rose);
-  --amber-ink: var(--amber);
-  --tint-primary: rgba(197, 74, 51, .07);
-  --tint-primary-strong: rgba(197, 74, 51, .17);
-  --tint-emerald: rgba(57, 116, 90, .08);
-  --tint-emerald-strong: rgba(57, 116, 90, .18);
-  --tint-rose: rgba(164, 60, 81, .08);
-  --tint-rose-strong: rgba(164, 60, 81, .18);
-  --tint-amber: rgba(155, 106, 29, .08);
-  --tint-amber-strong: rgba(155, 106, 29, .18);
-  --tint-neutral: rgba(21,21,21,.05);
-  --link: #315b8a;
-  --link-hover: #244668;
-  --shadow-soft: rgba(30, 27, 20, .07);
-  --shadow-strong: rgba(30, 27, 20, .13);
-  --canvas-bg: #fbfaf6;
-  --canvas-edge: #aaa59a;
-  --canvas-label: #151515;
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
-}
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --paper: #111210;
-  --paper-2: #171815;
-  --panel: #1a1b18;
-  --panel-2: #20211e;
-  --ink: #f0eee7;
-  --muted: #aaa79f;
-  --faint: #817f78;
-  --line: #30312d;
-  --line-strong: #474842;
-  --accent: #ef765f;
-  --accent-2: #ff927d;
-  --accent-wash: rgba(239,118,95,.08);
-  --blue: #8bb1db;
-  --green: #7fc09d;
-  --amber: #d4a357;
-  --rose: #e58da0;
-  --bg-dark: var(--paper);
-  --bg-card: var(--panel);
-  --bg-card-hover: #23241f;
-  --bg-surface: var(--paper-2);
-  --bg-inset: #0d0e0c;
-  --nav-bg: rgba(17,18,16,.9);
-  --panel-grad-a: var(--panel);
-  --panel-grad-b: var(--panel);
-  --border: var(--line);
-  --border-accent: var(--line-strong);
-  --text-main: var(--ink);
-  --text-muted: var(--muted);
-  --text-dim: var(--faint);
-  --text-on-accent: #111;
-  --code-text: #ece9df;
-  --primary: var(--accent);
-  --primary-strong: var(--accent-2);
-  --primary-glow: rgba(239,118,95,.18);
-  --secondary: var(--blue);
-  --emerald: var(--green);
-  --pink: #d292bc;
-  --primary-ink: var(--accent-2);
-  --primary-ink-soft: var(--accent);
-  --secondary-ink: var(--blue);
-  --emerald-ink: var(--green);
-  --rose-ink: var(--rose);
-  --amber-ink: var(--amber);
-  --tint-primary: rgba(239,118,95,.08);
-  --tint-primary-strong: rgba(239,118,95,.18);
-  --tint-emerald: rgba(127,192,157,.08);
-  --tint-emerald-strong: rgba(127,192,157,.18);
-  --tint-rose: rgba(229,141,160,.08);
-  --tint-rose-strong: rgba(229,141,160,.18);
-  --tint-amber: rgba(212,163,87,.08);
-  --tint-amber-strong: rgba(212,163,87,.18);
-  --tint-neutral: rgba(255,255,255,.05);
-  --link: #9ec0e6;
-  --link-hover: #c7daf0;
-  --shadow-soft: rgba(0,0,0,.18);
-  --shadow-strong: rgba(0,0,0,.34);
-  --canvas-bg: #161714;
-  --canvas-edge: #5c5d56;
-  --canvas-label: #f0eee7;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: 86px; -webkit-text-size-adjust: 100%; }
-body {
-  min-height: 100vh;
-  overflow-x: hidden;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-a { color: var(--link); text-decoration: none; }
-a:hover { color: var(--link-hover); text-decoration: underline; text-underline-offset: .2em; }
-code, pre, .mono { font-family: var(--font-mono); }
-code { font-size: .92em; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-}
-.container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
-.icon { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.skip-link {
-  position: fixed; top: -80px; left: 16px; z-index: 9999;
-  background: var(--ink); color: var(--paper); padding: 9px 12px; border-radius: 6px;
-}
-.skip-link:focus { top: 12px; color: var(--paper); text-decoration: none; }
-
-/* header */
-.navbar {
-  position: sticky; top: 0; z-index: 1000;
-  min-height: 68px; display: flex; align-items: center; gap: 24px;
-  padding: 0 max(20px, calc((100vw - 1180px)/2));
-  background: var(--nav-bg);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line);
-}
-.nav-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 750; letter-spacing: -.03em; }
-.nav-brand:hover { color: var(--ink); text-decoration: none; }
-.brand-glyph {
-  width: 30px; height: 30px; display: grid; place-items: center;
-  border: 1px solid var(--ink); border-radius: 50%;
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: -.08em;
-}
-.nav-links { margin-left: auto; display: flex; gap: 4px; list-style: none; }
-.nav-links a { display: block; padding: 7px 9px; border-radius: 5px; color: var(--muted); font-size: 13px; font-weight: 600; }
-.nav-links a:hover, .nav-links a.active { background: var(--tint-neutral); color: var(--ink); text-decoration: none; }
-.nav-actions { display: flex; align-items: center; gap: 7px; }
-.nav-repo, .theme-toggle {
-  height: 34px; display: inline-flex; align-items: center; justify-content: center;
-  border: 1px solid var(--line); border-radius: 6px; background: var(--panel);
-  color: var(--ink); font-size: 12px; font-weight: 650;
-}
-.nav-repo { padding: 0 10px; }
-.nav-repo:hover { border-color: var(--line-strong); color: var(--ink); text-decoration: none; }
-.theme-toggle { width: 34px; cursor: pointer; }
-
-/* hero */
-.hero { padding: clamp(64px, 8vw, 116px) 0 36px; border-bottom: 1px solid var(--line); }
-.hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(380px,.95fr); gap: clamp(42px,7vw,92px); align-items: start; }
-.kicker { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: 12px; font-weight: 650; letter-spacing: .02em; }
-.kicker-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-.hero h1 {
-  margin-top: 20px; max-width: 720px;
-  font-size: clamp(48px, 6vw, 82px); line-height: .98; font-weight: 680;
-  letter-spacing: -.068em; text-wrap: balance;
-}
-.hero h1 em { color: var(--accent); font-style: normal; }
-.hero-lede { max-width: 690px; margin-top: 26px; color: var(--muted); font-size: clamp(17px,1.6vw,21px); line-height: 1.62; letter-spacing: -.015em; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
-.btn {
-  min-height: 42px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 0 14px; border: 1px solid transparent; border-radius: 6px; cursor: pointer;
-  font-family: var(--font-sans); font-size: 13px; font-weight: 700; text-decoration: none;
-}
-.btn:hover { text-decoration: none; }
-.btn-primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-.btn-primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
-.btn-outline { background: var(--panel); color: var(--ink); border-color: var(--line); }
-.btn-outline:hover { border-color: var(--line-strong); color: var(--ink); background: var(--panel-2); }
-.btn-quiet { background: transparent; color: var(--muted); }
-.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 24px; color: var(--faint); font-family: var(--font-mono); font-size: 11px; }
-
-/* concept map */
-.concept {
-  border-top: 4px solid var(--ink);
-  background: var(--panel);
-  box-shadow: 0 12px 38px var(--shadow-soft);
-}
-.concept-head { display: flex; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
-.concept-body { padding: 18px; }
-.query-card { padding: 14px; background: var(--ink); color: var(--paper); border-radius: 5px; }
-.query-card span { display: block; margin-bottom: 5px; color: #cfcac0; font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .08em; }
-.query-card code { color: inherit; font-size: 12px; }
-.flow-arrow { height: 34px; display: grid; place-items: center; color: var(--faint); font-family: var(--font-mono); }
-.store-box { border: 1px solid var(--line-strong); background: var(--panel-2); padding: 14px; }
-.store-title { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-.store-title strong { font-size: 14px; }
-.store-title code { color: var(--accent); font-size: 12px; }
-.store-parts { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; margin-top: 12px; }
-.store-parts span { min-width: 0; padding: 8px 4px; border-top: 2px solid var(--line-strong); color: var(--muted); text-align: center; font-family: var(--font-mono); font-size: 9px; }
-.output-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 7px; }
-.output-grid div { min-height: 64px; padding: 10px; border: 1px solid var(--line); background: var(--panel-2); }
-.output-grid span { display: block; color: var(--faint); font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .07em; }
-.output-grid strong { display: block; margin-top: 4px; font-size: 12px; line-height: 1.35; }
-.hero-facts { grid-column: 1/-1; display: grid; grid-template-columns: 1.5fr repeat(3,1fr); margin-top: 46px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.hero-facts > * { padding: 14px 16px; border-right: 1px solid var(--line); }
-.hero-facts > *:last-child { border-right: 0; }
-.hero-facts span { display: block; color: var(--faint); font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .08em; }
-.hero-facts strong { display: block; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; color: var(--ink); }
-
-/* sections */
-main { padding: 84px 0 120px; }
-section { scroll-margin-top: 90px; margin-bottom: clamp(86px,10vw,132px); }
-.section-header { max-width: 790px; margin-bottom: 34px; }
-.section-subtitle { margin-bottom: 11px; color: var(--accent); font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-.section-title { font-size: clamp(32px,4vw,52px); line-height: 1.05; letter-spacing: -.048em; font-weight: 650; text-wrap: balance; }
-.section-desc { max-width: 720px; margin-top: 14px; color: var(--muted); font-size: 16px; line-height: 1.75; }
-.rule-title { display: grid; grid-template-columns: 60px 1fr; gap: 20px; align-items: start; margin-bottom: 28px; }
-.rule-title .n { color: var(--accent); font-family: var(--font-mono); font-size: 11px; padding-top: 7px; }
-.rule-title h2 { font-size: clamp(30px,4vw,50px); line-height: 1.06; letter-spacing: -.045em; font-weight: 650; }
-
-/* idea */
-.dual-context { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong); }
-.context-side { padding: 30px 28px 34px 0; }
-.context-side + .context-side { padding-left: 28px; padding-right: 0; border-left: 1px solid var(--line); }
-.context-side .label { color: var(--faint); font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
-.context-side h3 { margin-top: 9px; font-size: 24px; line-height: 1.15; letter-spacing: -.035em; }
-.context-side p { margin-top: 12px; color: var(--muted); font-size: 14px; }
-.context-side .question { margin-top: 18px; padding: 12px 0 0; border-top: 1px solid var(--line); color: var(--ink); font-family: var(--font-mono); font-size: 12px; }
-.position-note { margin-top: 26px; max-width: 840px; padding-left: 18px; border-left: 3px solid var(--accent); color: var(--muted); }
-.position-note strong { color: var(--ink); }
-
-/* concrete flow */
-.change-example { display: grid; grid-template-columns: 280px 1fr; gap: 38px; border-top: 1px solid var(--line-strong); padding-top: 26px; }
-.change-input { align-self: start; padding: 16px; background: var(--ink); color: var(--paper); border-radius: 5px; }
-.change-input small { display: block; color: #c9c5bb; font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing:.08em; }
-.change-input code { display: block; margin-top: 8px; color: inherit; font-size: 12px; white-space: pre-wrap; }
-.process-list { list-style: none; counter-reset: process; }
-.process-list li { position: relative; display: grid; grid-template-columns: 40px 180px 1fr; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--line); }
-.process-list li::before { counter-increment: process; content: "0" counter(process); color: var(--accent); font-family: var(--font-mono); font-size: 10px; padding-top: 3px; }
-.process-list strong { font-size: 14px; }
-.process-list p { color: var(--muted); font-size: 13px; }
-
-/* theory */
-.math-card { padding: 24px 0; margin: 0; border-top: 1px solid var(--line); background: transparent; }
-.math-card:last-child { border-bottom: 1px solid var(--line); }
-.math-title { color: var(--ink); font-size: 15px; font-weight: 700; }
-.formula-box { margin-top: 14px; padding: 14px 16px; overflow-x: auto; border-left: 3px solid var(--accent); background: var(--panel); }
-.math-card ul { padding-left: 20px; }
-
-/* lab intro */
-.lab-intro {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: end;
-  padding: 26px 0; border-top: 3px solid var(--ink); border-bottom: 1px solid var(--line);
-}
-.lab-intro h2 { font-size: clamp(34px,5vw,58px); line-height: 1; letter-spacing: -.055em; font-weight: 650; }
-.lab-intro p { color: var(--muted); }
-.lab-intro strong { color: var(--ink); }
-
-/* labs */
-.lab-section { display: grid; grid-template-columns: 260px minmax(0,1fr); gap: 42px; align-items: start; }
-.lab-section > .section-header { position: sticky; top: 94px; margin: 0; }
-.lab-section .section-title { font-size: 28px; line-height: 1.08; }
-.lab-section .section-desc { font-size: 13px; line-height: 1.7; }
-.sim-panel {
-  min-width: 0; padding: 20px; overflow: hidden;
-  border: 1px solid var(--line); border-top: 3px solid var(--ink);
-  border-radius: 0; background: var(--panel);
-  box-shadow: 0 10px 28px var(--shadow-soft);
-}
-.sim-controls { display: flex; align-items: end; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
-.control-group { min-width: 170px; flex: 1; }
-.control-label { display: block; margin-bottom: 6px; color: var(--faint); font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
-select, input[type="text"], input[type="number"] {
-  width: 100%; min-height: 38px; padding: 7px 10px; color: var(--ink); background: var(--panel-2);
-  border: 1px solid var(--line); border-radius: 4px; font: inherit; font-size: 12px;
-}
-input[type="range"] { width: 100%; accent-color: var(--accent); }
-.comparison-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0; border: 1px solid var(--line); }
-.comparison-column { min-width: 0; padding: 16px; border: 0 !important; border-right: 1px solid var(--line) !important; background: transparent !important; }
-.comparison-column:last-child { border-right: 0 !important; }
-.metric-badge { display: inline-flex; margin: 6px 0 10px; padding: 3px 6px; background: var(--bg-inset); border: 1px solid var(--line); border-radius: 3px; font-family: var(--font-mono); font-size: 10px; }
-.text-rose { color: var(--rose); } .text-amber { color: var(--amber); } .text-emerald { color: var(--green); }
-.canvas-container { position: relative; width: 100%; min-height: 430px; border: 1px solid var(--line); background: var(--canvas-bg); overflow: hidden; }
-.canvas-container canvas { width: 100%; height: 430px; display: block; }
-.canvas-overlay { position: absolute; left: 12px; bottom: 12px; max-width: calc(100% - 24px); padding: 8px 10px; background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--line); color: var(--muted); font-family: var(--font-mono); font-size: 10px; pointer-events: none; }
-
-/* generic cards / callouts */
-.card-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,240px),1fr)); gap: 10px; }
-.card { padding: 18px; border: 1px solid var(--line); background: var(--panel); }
-.card-title { display: flex; gap: 8px; align-items: center; font-size: 15px; font-weight: 700; }
-.card p { margin-top: 8px; color: var(--muted); font-size: 13px; }
-.pill { display: inline-flex; align-items: center; padding: 3px 6px; border: 1px solid var(--line); border-radius: 999px; font-family: var(--font-mono); font-size: 9px; background: var(--panel); }
-.analogy-box, .honesty-box { padding: 16px 18px; border: 1px solid var(--line); background: var(--panel); }
-.analogy-box { border-left: 3px solid var(--blue); }
-.honesty-box { border-left: 3px solid var(--amber); }
-.analogy-box h4, .honesty-box h4 { margin-bottom: 6px; font-size: 13px; }
-.analogy-box p, .honesty-box p { color: var(--muted); font-size: 13px; }
-
-/* integration */
-.integration-grid { display: grid; grid-template-columns: .92fr 1.08fr; gap: 18px; }
-.integration-card { border-top: 3px solid var(--ink); background: var(--panel); padding: 20px; border-left: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.integration-card h3 { font-size: 16px; margin-bottom: 10px; }
-pre { overflow-x: auto; padding: 14px; background: #171713; color: #ece9df; border-radius: 4px; font-size: 11px; line-height: 1.65; }
-pre code { color: inherit; }
-.tool-table { width: 100%; margin-top: 18px; border-collapse: collapse; font-size: 12px; }
-.tool-table th, .tool-table td { padding: 10px 8px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
-.tool-table th { color: var(--faint); font-family: var(--font-mono); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; }
-.tool-table td:first-child { font-family: var(--font-mono); color: var(--ink); white-space: nowrap; }
-.integration-note { margin-top: 16px; color: var(--muted); font-size: 12px; }
-
-/* evidence */
-.evidence-stats { display: grid; grid-template-columns: repeat(4,1fr); border-top: 3px solid var(--ink); border-bottom: 1px solid var(--line); }
-.evidence-stat { padding: 18px 16px; border-right: 1px solid var(--line); }
-.evidence-stat:last-child { border-right: 0; }
-.evidence-stat strong { display: block; font-size: 28px; line-height: 1; letter-spacing: -.04em; }
-.evidence-stat span { display: block; margin-top: 7px; color: var(--muted); font-size: 11px; line-height: 1.4; }
-.finding-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
-.finding { padding: 20px; border: 1px solid var(--line); background: var(--panel); }
-.finding h3 { font-size: 15px; }
-.finding p { margin-top: 9px; color: var(--muted); font-size: 13px; }
-.finding.positive { border-top: 3px solid var(--green); }
-.finding.caution { border-top: 3px solid var(--amber); }
-.finding.null { border-top: 3px solid var(--rose); }
-.finding.neutral { border-top: 3px solid var(--blue); }
-.agent-result { margin-top: 28px; display: grid; grid-template-columns: 250px 1fr; border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong); }
-.agent-result .result-number { padding: 24px 22px 24px 0; }
-.agent-result .result-number strong { display: block; font-size: 54px; letter-spacing: -.06em; line-height: .95; }
-.agent-result .result-number span { color: var(--muted); font-size: 11px; }
-.agent-result .result-copy { padding: 24px 0 24px 28px; border-left: 1px solid var(--line); }
-.agent-result .result-copy h3 { font-size: 19px; }
-.agent-result .result-copy p { margin-top: 8px; color: var(--muted); font-size: 13px; }
-details.evidence-detail { margin-top: 16px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: transparent; }
-details.evidence-detail summary { cursor: pointer; padding: 13px 0; font-weight: 700; font-size: 13px; }
-details.evidence-detail > div { padding: 0 0 16px; }
-.table-scroll { max-width: 100%; overflow-x: auto; }
-.data-table { width: 100%; border-collapse: collapse; font-size: 11px; }
-.data-table th, .data-table td { padding: 9px 8px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
-.data-table th { color: var(--faint); background: transparent; font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .04em; }
-.highlight-row { background: var(--tint-primary); }
-
-/* api */
-.api-section { display: grid; grid-template-columns: 260px minmax(0,1fr); gap: 42px; }
-.api-section > .section-header { margin: 0; }
-.api-section .section-title { font-size: 28px; }
-.api-section .section-desc { font-size: 13px; }
-
-/* status/citation */
-.status-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 34px; }
-.status-list { border-top: 1px solid var(--line-strong); }
-.status-row { display: grid; grid-template-columns: 130px 1fr; gap: 18px; padding: 14px 0; border-bottom: 1px solid var(--line); }
-.status-row span { color: var(--faint); font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
-.status-row strong, .status-row p { font-size: 13px; }
-.status-row p { color: var(--muted); }
-.citation-card { padding: 20px; border-top: 3px solid var(--ink); background: var(--panel); border-left:1px solid var(--line); border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
-.citation-card h3 { margin-bottom: 10px; font-size: 15px; }
-
-footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); }
-.footer-grid { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; font-size: 11px; }
-.footer-grid strong { color: var(--ink); }
-
-@media (max-width: 980px) {
-  .nav-links { display: none; }
-  .hero-grid { grid-template-columns: 1fr; }
-  .hero-facts { grid-template-columns: repeat(2,1fr); }
-  .hero-facts > *:nth-child(2) { border-right:0; }
-  .hero-facts > *:nth-child(-n+2) { border-bottom:1px solid var(--line); }
-  .lab-section, .api-section { grid-template-columns: 1fr; gap: 22px; }
-  .lab-section > .section-header { position: static; }
-  .comparison-grid { grid-template-columns: 1fr; }
-  .comparison-column { border-right: 0 !important; border-bottom: 1px solid var(--line) !important; }
-  .comparison-column:last-child { border-bottom:0 !important; }
-}
-@media (max-width: 760px) {
-  .container { width: min(100% - 28px, 1180px); }
-  .navbar { padding: 0 14px; }
-  .nav-repo { display: none; }
-  .hero { padding-top: 54px; }
-  .hero h1 { font-size: clamp(44px,14vw,64px); }
-  .store-parts { grid-template-columns: repeat(2,1fr); }
-  .store-parts span:last-child { grid-column: 1/-1; }
-  .dual-context, .lab-intro, .integration-grid, .finding-grid, .status-grid, .change-example { grid-template-columns: 1fr; }
-  .context-side, .context-side + .context-side { padding: 22px 0; border-left:0; border-bottom:1px solid var(--line); }
-  .process-list li { grid-template-columns: 36px 1fr; }
-  .process-list li p { grid-column: 2; }
-  .evidence-stats { grid-template-columns: repeat(2,1fr); }
-  .evidence-stat:nth-child(2) { border-right:0; }
-  .evidence-stat:nth-child(-n+2) { border-bottom:1px solid var(--line); }
-  .agent-result { grid-template-columns: 1fr; }
-  .agent-result .result-copy { padding-left:0; border-left:0; border-top:1px solid var(--line); }
-  .hero-facts { grid-template-columns:1fr; }
-  .hero-facts > * { border-right:0; border-bottom:1px solid var(--line); }
-  .hero-facts > *:last-child { border-bottom:0; }
-}
-
-</style>
+  <link rel="stylesheet" href="site.css">
+  <link rel="canonical" href="https://abusuraihsakhri.github.io/mcm/">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="theme-color" content="#f8fafc">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mathematical Context Model">
+  <meta property="og:title" content="MCM — Reason about code before you change it">
+  <meta property="og:description" content="A research prototype for semantic code memory and change-impact analysis. Explore the model, evidence, and interactive fixtures.">
+  <meta property="og:url" content="https://abusuraihsakhri.github.io/mcm/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Mathematical Context Model">
+  <meta name="twitter:description" content="Semantic code memory, evidence, and pre-action change-impact analysis.">
 </head>
 
 <body>
@@ -476,7 +60,7 @@ footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--m
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
   </svg>
 
-  <nav class="navbar">
+  <nav class="navbar" aria-label="Primary">
     <a class="nav-brand" href="#top">
       <span class="brand-glyph">MCM</span>
       <span>Mathematical Context Model</span>
@@ -484,8 +68,8 @@ footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--m
     <ul class="nav-links" aria-label="Primary navigation">
       <li><a href="#start-here">Idea</a></li>
       <li><a href="#theory">Model</a></li>
-      <li><a href="#comparison-sim">Lab</a></li>
       <li><a href="#benchmarks">Evidence</a></li>
+      <li><a href="#comparison-sim">Lab</a></li>
       <li><a href="#use-it">Use it</a></li>
     </ul>
     <div class="nav-actions">
@@ -498,13 +82,14 @@ footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--m
     <div class="container hero-grid">
       <div>
         <div class="kicker"><span class="kicker-dot"></span><span>Open-source research software · v0.1.0</span></div>
-        <h1>Code is more than <em>text.</em></h1>
-        <p class="hero-lede">MCM gives coding agents a typed model of what code elements are, how they depend on one another, what evidence supports those links, and when those facts were true—so context can be retrieved and change impact reasoned about before an edit.</p>
+        <h1>Reason about code.<br><em>Before you change it.</em></h1>
+        <p class="hero-lede">A research prototype for coding agents: connect symbols to their dependencies and supporting evidence, retrieve relevant context, and inspect potential consequences before an edit.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#start-here">Understand the model <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           <a class="btn btn-outline" href="#benchmarks">Read the evidence</a>
           <a class="btn btn-quiet" href="#use-it">Connect an agent</a>
         </div>
+        <p class="hero-note">By Dr. Abu Suraih Sakhri · Agent benefit has not been demonstrated in the current study.</p>
         <div class="hero-meta">
           <span>Python ≥3.12</span>
           <span>Apache-2.0</span>
@@ -535,7 +120,7 @@ footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--m
         <a href="https://doi.org/10.5281/zenodo.22923463" target="_blank" rel="noopener"><span>Archived release</span><strong>10.5281/zenodo.22923463</strong></a>
         <div><span>Evaluation suite</span><strong>10 repositories</strong></div>
         <div><span>Largest repo</span><strong>Django · 2,932 files</strong></div>
-        <div><span>Agent study</span><strong>23 tasks · null result</strong></div>
+        <div><span>Agent study</span><strong>23 tasks · inconclusive</strong></div>
       </div>
     </div>
   </header>
@@ -632,413 +217,10 @@ footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--m
       </div>
     </section>
     
-<section aria-labelledby="lab-heading">
-  <div class="lab-intro">
-    <div>
-      <div class="section-subtitle">04 / RESEARCH LAB</div>
-      <h2 id="lab-heading">Interact with the mechanisms, not the claims.</h2>
-    </div>
-    <p><strong>These browser exercises are fixed fixtures.</strong> They are here to make MCM’s representation and operations inspectable. They do not generate the empirical results reported later on the page; those come from repository-history benchmarks and the separate agent experiment.</p>
-  </div>
-</section>
-    <section id="comparison-sim" class="lab-section">
-      <div class="section-header">
-        <div class="section-subtitle">Research lab · 01</div>
-        <h2 class="section-title">Compare the retrieval strategies</h2>
-        <p class="section-desc">Choose the same engineering task for each representation. This fixture shows what each approach is able to put in front of an agent; it is an explanatory demo, not benchmark evidence.</p>
-      </div>
-
-      <div class="sim-panel">
-        <div class="sim-controls">
-          <div class="control-group" style="flex: 1;">
-            <span class="control-label">Select Agent Engineering Scenario</span>
-            <select id="headToHeadScenario" onchange="runHeadToHeadSimulation()">
-              <option value="scenario_refactor">Scenario A: Multi-File Signature Refactor (signer.Signer.sign parameter added)</option>
-              <option value="scenario_tests">Scenario B: Transitive Test Regression Audit (serializer.dumps format changed)</option>
-              <option value="scenario_budget">Scenario C: Context Budget Exhaustion (18,450-token codebase into 4,000-token LLM)</option>
-              <option value="scenario_contradiction">Scenario D: Epistemic Contradiction (Agent speculation vs Static AST assertion)</option>
-            </select>
-          </div>
-          <button class="btn btn-primary" style="margin-top: auto; padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="runHeadToHeadSimulation()">Run Comparison</button>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); gap: 1.25rem;">
-          <!-- Vector RAG -->
-          <div class="comparison-column" style="border-color: var(--tint-rose-strong);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <h4 style="color: var(--rose);">1. Vector RAG</h4>
-              <span class="pill" style="color: var(--rose); border-color: var(--tint-rose-strong);">Heuristic</span>
-            </div>
-            <div id="vragMetric" class="metric-badge text-rose">3 Chunks (1,840 toks)</div>
-            <p id="vragDesc" style="font-size: 0.85rem; color: var(--text-muted); min-height: 55px; margin-bottom: 0.75rem;">
-              Retrieves arbitrary text chunks via cosine similarity. Fractures AST hierarchy.
-            </p>
-            <div id="vragStatusBox" style="font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
-              <!-- Dynamic -->
-            </div>
-          </div>
-
-          <!-- Graph Memory -->
-          <div class="comparison-column" style="border-color: var(--tint-amber-strong);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <h4 style="color: var(--amber);">2. Graph memory</h4>
-              <span class="pill" style="color: var(--amber); border-color: var(--tint-amber-strong);">Untyped Graph</span>
-            </div>
-            <div id="graphMetric" class="metric-badge text-amber">4 Nodes (780 toks)</div>
-            <p id="graphDesc" style="font-size: 0.85rem; color: var(--text-muted); min-height: 55px; margin-bottom: 0.75rem;">
-              Traverses syntax nodes without calibrated uncertainty or natural-language grounding.
-            </p>
-            <div id="graphStatusBox" style="font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
-              <!-- Dynamic -->
-            </div>
-          </div>
-
-          <!-- MCM -->
-          <div class="comparison-column" style="border-color: var(--tint-emerald-strong); background: var(--tint-emerald);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <h4 style="color: var(--emerald);">3. MCM</h4>
-              <span class="pill" style="color: var(--emerald); border-color: var(--tint-emerald-strong);">Typed + evidence-backed</span>
-            </div>
-            <div id="mcmMetric" class="metric-badge text-emerald">6 Objects (520 toks)</div>
-            <p id="mcmDesc" style="font-size: 0.85rem; color: var(--text-muted); min-height: 55px; margin-bottom: 0.75rem;">
-              Walks typed relations from the change site, carrying a confidence that decays per hop,
-              and checks the result replays against the full store.
-            </p>
-            <div id="mcmStatusBox" style="font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--tint-emerald-strong);">
-              <!-- Dynamic -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="blast-sim" class="lab-section">
-      <div class="section-header">
-        <div class="section-subtitle">Research lab · 02</div>
-        <h2 class="section-title">Walk a change before writing it</h2>
-        <p class="section-desc">Pick a symbol and a typed change. The model traverses dependency relations, attenuates confidence by path, and surfaces callers and tests that may need attention before the edit is made.</p>
-      </div>
-
-      <div class="sim-panel">
-        <div class="sim-controls">
-          <div class="control-group">
-            <span class="control-label">Target Symbol ($o_{\text{target}}$)</span>
-            <select id="blastTarget" onchange="runBlastSimulation()">
-              <option value="Signer.sign">signer.Signer.sign(value, key=None)</option>
-              <option value="Serializer.dumps">serializer.Serializer.dumps(obj)</option>
-              <option value="Signer.unsign">signer.Signer.unsign(signed_value)</option>
-              <option value="TimestampSigner.unsign">timed.TimestampSigner.unsign(signed_value, max_age)</option>
-            </select>
-          </div>
-
-          <div class="control-group">
-            <span class="control-label">Change Kind ($\kappa$)</span>
-            <select id="blastKind" onchange="runBlastSimulation()">
-              <option value="SIGNATURE">SIGNATURE (Alters parameters, forces hop-1 MUST_UPDATE)</option>
-              <option value="REMOVE">REMOVE (Deletes symbol, closes all incident relations)</option>
-              <option value="RENAME">RENAME (Changes qualname, requires caller refactor)</option>
-              <option value="BEHAVIOUR">BEHAVIOUR (Semantic tweak, propagates MAY_DIFFER)</option>
-            </select>
-          </div>
-
-          <div class="control-group">
-            <span class="control-label">Decay Parameter ($\delta$)</span>
-            <input type="range" id="decaySlider" min="0.5" max="0.95" step="0.05" value="0.85" oninput="runBlastSimulation()">
-            <span id="decayVal" style="font-size: 0.75rem; color: var(--secondary); font-family: var(--font-mono);">0.85</span>
-          </div>
-        </div>
-
-        <div class="comparison-grid">
-          <div class="comparison-column">
-            <h4 style="color: var(--primary-ink); margin-bottom: 0.75rem;">Simulated Blast Radius ($K_{t+1}^{\text{pred}}$)</h4>
-            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              Calculated dynamically via algebraic backward-propagation:
-            </div>
-            <div id="blastResultsList" style="display: flex; flex-direction: column; gap: 0.6rem; font-family: var(--font-mono); font-size: 0.85rem;">
-              <!-- Dynamically populated -->
-            </div>
-          </div>
-
-          <div class="comparison-column">
-            <h4 style="color: var(--primary-ink); margin-bottom: 0.75rem;">Cascading Test Regressions</h4>
-            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              Tests requiring immediate re-execution before commit:
-            </div>
-            <div id="testBreakList" style="display: flex; flex-direction: column; gap: 0.6rem; font-family: var(--font-mono); font-size: 0.85rem;">
-              <!-- Dynamically populated -->
-            </div>
-            <div style="margin-top: 1.5rem; padding: 0.75rem; background: var(--tint-emerald); border: 1px solid var(--tint-emerald-strong); border-radius: 6px; font-size: 0.82rem; color: var(--emerald-ink);">
-              Illustrative, on a fixed fixture. Prediction quality is evaluated against real co-change
-              history in <code>docs/prediction.md</code>, which also explains why a naive recall score
-              understates it: co-change is symmetric and propagation is not, so an edit <em>upstream</em>
-              of the change can never be reached by any downstream traversal.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="graph-sim" class="lab-section">
-      <div class="section-header">
-        <div class="section-subtitle">Research lab · 03</div>
-        <h2 class="section-title">Inspect the structural memory</h2>
-        <p class="section-desc">This fixed <code>itsdangerous</code> fixture exposes the representation directly: stable symbols, typed edges, evidence-backed links, and confidence carried on the graph.</p>
-      </div>
-
-      <div class="sim-panel">
-        <div class="sim-controls">
-          <div class="control-group">
-            <span class="control-label">Filter Edge Relation</span>
-            <select id="edgeFilter" onchange="updateGraphFilter()">
-              <option value="ALL">All Relations (CALLS, INHERITS, TESTS, IMPORTS)</option>
-              <option value="CALLS">Calls Only (Direct &amp; Transitive)</option>
-              <option value="TESTS">Tests Only (Test Coverage)</option>
-              <option value="INHERITS">Inheritance Hierarchy</option>
-            </select>
-          </div>
-          <div class="control-group">
-            <span class="control-label">Highlight Module</span>
-            <select id="moduleFilter" onchange="highlightModule()">
-              <option value="ALL">All Modules</option>
-              <option value="serializer">serializer.py</option>
-              <option value="signer">signer.py</option>
-              <option value="timed">timed.py</option>
-              <option value="test">test_serializer.py</option>
-            </select>
-          </div>
-          <button class="btn btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem; margin-top: auto;" onclick="resetGraphPhysics()">Reset Layout</button>
-        </div>
-
-        <div class="canvas-container">
-          <canvas id="graphCanvas"></canvas>
-          <div class="canvas-overlay" id="graphTooltip">
-            Hover over a node or drag to inspect qualname identity and relational confidence.
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="minimisation" class="lab-section">
-      <div class="section-header">
-        <div class="section-subtitle">Research lab · 04</div>
-        <h2 class="section-title">Spend a context budget deliberately</h2>
-        <p class="section-desc">Reduce the context package while preserving the objects, relations and evidence needed for the task. The point is not “fewer tokens” by itself; it is fewer irrelevant tokens without breaking support for the answer.</p>
-      </div>
-
-      <div class="sim-panel">
-        <div class="sim-controls">
-          <div class="control-group" style="flex: 1;">
-            <span class="control-label">LLM Context Budget ($B$ Tokens): <span id="budgetValue" style="color: var(--secondary); font-family: var(--font-mono);">3,500</span></span>
-            <input type="range" id="budgetRange" min="800" max="10000" step="100" value="3500" oninput="updateMinimisationLab()" style="width: 100%;">
-          </div>
-          <div class="control-group">
-            <span class="control-label">Query Domain</span>
-            <select id="queryDomain" onchange="updateMinimisationLab()">
-              <option value="auth">Signer Secret Key Verification</option>
-              <option value="serializer">JSON Serialization &amp; Compression</option>
-              <option value="timed">Timestamp Expiration Handling</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="comparison-grid">
-          <div class="comparison-column" style="border-color: var(--tint-rose-strong);">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <h4 style="color: var(--rose);">Standard RAG / File Dump</h4>
-              <span class="pill" style="color: var(--rose); border-color: var(--tint-rose-strong);">Wasteful</span>
-            </div>
-            <div class="metric-badge text-rose" id="ragTokenCount">18,450 tokens</div>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              Full file inclusion dumps comments, utility helpers, and unrelated imports. Overflows small context windows and costs 5.2× more per API call.
-            </p>
-            <div style="font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
-              <div>[Included] serializer.py (entire file: 412 lines)</div>
-              <div>[Included] signer.py (entire file: 328 lines)</div>
-              <div>[Included] timed.py (entire file: 215 lines)</div>
-              <div style="color: var(--rose); margin-top: 0.5rem;"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg> Contains 73% non-essential auxiliary tokens.</div>
-            </div>
-          </div>
-
-          <div class="comparison-column" style="border-color: var(--tint-emerald-strong);">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <h4 style="color: var(--emerald);">MCM Minimal Package ($C^*$)</h4>
-              <span class="pill" style="color: var(--emerald); border-color: var(--tint-emerald-strong);">Entailment Verified</span>
-            </div>
-            <div class="metric-badge text-emerald" id="mcmTokenCount">3,420 tokens</div>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              Keeps only what the task entails, then checks three conditions on the result. The ratio
-              below is a fixed assumption of this illustration, not a measured result &mdash; the measured
-              context-efficiency numbers are in the benchmark section.
-            </p>
-            <div style="font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
-              <div style="color: var(--emerald);"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Replay: Deduced closure identical to K</div>
-              <div style="color: var(--emerald);"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Presence: 100% of symbols referenced exist</div>
-              <div style="color: var(--emerald);"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Traceability: Active AST evidence attached</div>
-              <div style="color: var(--secondary); margin-top: 0.5rem;" id="savingsReport">Saved 15,030 tokens (81.4% reduction)</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="contradiction-sim" class="lab-section">
-      <div class="section-header">
-        <div class="section-subtitle">Advanced lab · evidence</div>
-        <h2 class="section-title">Resolve conflicting claims</h2>
-        <p class="section-desc">Vary temporal overlap and source reliability to see how incompatible assertions are handled. This demonstrates the model’s separation of observation strength, provenance reliability and time.</p>
-      </div>
-
-      <div class="sim-panel">
-        <div class="sim-controls">
-          <div class="control-group" style="flex: 1;">
-            <span class="control-label">Conflicting Assertion Scenario</span>
-            <select id="conflictScenario" onchange="runContradictionLab()">
-              <option value="return_type">Signer.sign return type: [AST: str] vs [Agent Speculation: bytes]</option>
-              <option value="caller_link">Serializer.dumps calls: [Diff t=20: Signer.sign] vs [Diff t=10: Signer.raw_sign]</option>
-              <option value="interface_compat">TimestampSigner implements: [AST: ISigner] vs [Outdated Spec: IToken]</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="comparison-grid">
-          <div class="comparison-column">
-            <h4 style="color: var(--primary-ink); margin-bottom: 0.75rem;">Assertion 1: Earlier / Established Claim</h4>
-            <div class="control-group" style="margin-bottom: 0.75rem;">
-              <span class="control-label">Commit Timestamp ($t_1$): <span id="t1Val" style="color: var(--secondary);">100</span></span>
-              <input type="range" id="t1Slider" min="50" max="200" value="100" oninput="runContradictionLab()">
-            </div>
-            <div class="control-group" style="margin-bottom: 0.75rem;">
-              <span class="control-label">Provenance Reliability ($r_1$): <span id="r1Val" style="color: var(--secondary);">1.00</span></span>
-              <input type="range" id="r1Slider" min="0.1" max="1.0" step="0.05" value="1.0" oninput="runContradictionLab()">
-            </div>
-            <div id="assertion1Details" style="font-family: var(--font-mono); font-size: 0.8rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
-              <!-- Dynamic -->
-            </div>
-          </div>
-
-          <div class="comparison-column">
-            <h4 style="color: var(--primary-ink); margin-bottom: 0.75rem;">Assertion 2: Incoming / New Claim</h4>
-            <div class="control-group" style="margin-bottom: 0.75rem;">
-              <span class="control-label">Commit Timestamp ($t_2$): <span id="t2Val" style="color: var(--secondary);">125</span></span>
-              <input type="range" id="t2Slider" min="50" max="200" value="125" oninput="runContradictionLab()">
-            </div>
-            <div class="control-group" style="margin-bottom: 0.75rem;">
-              <span class="control-label">Provenance Reliability ($r_2$): <span id="r2Val" style="color: var(--secondary);">0.65</span></span>
-              <input type="range" id="r2Slider" min="0.1" max="1.0" step="0.05" value="0.65" oninput="runContradictionLab()">
-            </div>
-            <div id="assertion2Details" style="font-family: var(--font-mono); font-size: 0.8rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
-              <!-- Dynamic -->
-            </div>
-          </div>
-        </div>
-
-        <div id="contradictionVerdictBox" style="margin-top: 1.25rem; padding: 1rem; border-radius: 8px; font-family: var(--font-mono); font-size: 0.85rem;">
-          <!-- Dynamic Verdict -->
-        </div>
-      </div>
-    </section>
-    <section id="simplex-sim" class="lab-section">
-      <div class="section-header">
-        <div class="section-subtitle">Advanced lab · ranking</div>
-        <h2 class="section-title">See how retrieval channels trade off</h2>
-        <p class="section-desc">Adjust the five retrieval weights and watch the ranking move. The production tuner searches this simplex; the browser fixture makes the interaction visible.</p>
-      </div>
-
-      <div class="sim-panel">
-        <div class="sim-controls">
-          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <button class="btn btn-outline" style="padding: 0.35rem 0.8rem; font-size: 0.8rem;" onclick="setPresetSimplex('mcm')">Preset: MCM Tuned Centroid</button>
-            <button class="btn btn-outline" style="padding: 0.35rem 0.8rem; font-size: 0.8rem;" onclick="setPresetSimplex('dense')">Preset: Vector RAG Only ($w_v=1.0$)</button>
-            <button class="btn btn-outline" style="padding: 0.35rem 0.8rem; font-size: 0.8rem;" onclick="setPresetSimplex('lexical')">Preset: BM25 Only ($w_l=1.0$)</button>
-            <button class="btn btn-outline" style="padding: 0.35rem 0.8rem; font-size: 0.8rem;" onclick="setPresetSimplex('graph')">Preset: Graph Memory Only ($w_g=1.0$)</button>
-          </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
-          <div class="control-group">
-            <span class="control-label">Vector Weight ($w_v$): <span id="wvVal" style="color: var(--secondary);">0.35</span></span>
-            <input type="range" id="wvSlider" min="0" max="1" step="0.05" value="0.35" oninput="normalizeSimplexWeights('v')">
-          </div>
-          <div class="control-group">
-            <span class="control-label">Lexical BM25 ($w_l$): <span id="wlVal" style="color: var(--secondary);">0.25</span></span>
-            <input type="range" id="wlSlider" min="0" max="1" step="0.05" value="0.25" oninput="normalizeSimplexWeights('l')">
-          </div>
-          <div class="control-group">
-            <span class="control-label">Graph Proximity ($w_g$): <span id="wgVal" style="color: var(--secondary);">0.20</span></span>
-            <input type="range" id="wgSlider" min="0" max="1" step="0.05" value="0.20" oninput="normalizeSimplexWeights('g')">
-          </div>
-          <div class="control-group">
-            <span class="control-label">Exact Symbolic ($w_s$): <span id="wsVal" style="color: var(--secondary);">0.10</span></span>
-            <input type="range" id="wsSlider" min="0" max="1" step="0.05" value="0.10" oninput="normalizeSimplexWeights('s')">
-          </div>
-          <div class="control-group">
-            <span class="control-label">Provenance ($w_p$): <span id="wpVal" style="color: var(--secondary);">0.10</span></span>
-            <input type="range" id="wpSlider" min="0" max="1" step="0.05" value="0.10" oninput="normalizeSimplexWeights('p')">
-          </div>
-        </div>
-
-        <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-            <h4 style="color: var(--primary-ink); font-size: 0.95rem;">Ranked Code Candidates for Query: <code style="color: var(--secondary-ink);">"Verify cryptographic token signature"</code></h4>
-            <span class="pill" style="color: var(--text-dim);">Illustrative &mdash; fixed fixture, computed in-browser</span>
-          </div>
-          <div id="simplexResultsTable" style="display: flex; flex-direction: column; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.82rem;">
-            <!-- Dynamic -->
-          </div>
-        </div>
-      </div>
-    </section>
-    
-<section id="use-it">
-  <div class="section-header">
-    <div class="section-subtitle">05 / USE IT</div>
-    <h2 class="section-title">Index locally, then expose MCM as an agent tool</h2>
-    <p class="section-desc">The default indexer and hashed embedding provider are local. The MCP server runs over stdio, so an agent can query the same store without a separate service.</p>
-  </div>
-
-  <div class="integration-grid">
-    <div class="integration-card">
-      <h3>1. Create the index</h3>
-      <pre><code>git clone https://github.com/abusuraihsakhri/mcm.git
-cd mcm
-python -m venv .venv
-pip install -e ".[dev,api]"
-
-mcm ingest /path/to/repo --db mcm.db
-mcm index --db mcm.db</code></pre>
-      <p class="integration-note">Current repository measurements report roughly 66 files/s; Django’s 2,932 Python files index in about 44 seconds on the test laptop.</p>
-    </div>
-
-    <div class="integration-card">
-      <h3>2. Connect your agent</h3>
-      <div class="control-group">
-        <span class="control-label">Client configuration</span>
-        <select id="clientSelect" onchange="updateClientConfig()">
-          <option value="claude">Claude Code</option>
-          <option value="cursor">Cursor</option>
-          <option value="codex">Codex CLI</option>
-          <option value="opencode">OpenCode</option>
-          <option value="antigravity">Antigravity</option>
-        </select>
-      </div>
-      <div id="clientPath" class="integration-note"></div>
-      <pre><code id="clientConfig"></code></pre>
-      <div id="clientNote" class="integration-note"></div>
-    </div>
-  </div>
-
-  <table class="tool-table">
-    <thead><tr><th>MCP tool</th><th>What it gives the agent</th></tr></thead>
-    <tbody>
-      <tr><td>mcm_search</td><td>Definitions ranked by semantic, lexical, structural, symbolic and provenance channels.</td></tr>
-      <tr><td>mcm_impact</td><td>Potential downstream consequences of a typed proposed change, before the edit.</td></tr>
-      <tr><td>mcm_context</td><td>A bounded, evidence-backed context package for the current task.</td></tr>
-      <tr><td>mcm_constraints</td><td>Checks against declared architectural constraints.</td></tr>
-      <tr><td>mcm_ingest</td><td>Indexes or refreshes a repository from the agent session.</td></tr>
-    </tbody>
-  </table>
-  <p class="integration-note">Use absolute paths for the MCP executable and database. Repository content stays in the local SQLite index unless you explicitly use external model-provider experiment scripts.</p>
-</section>
-    
 <section id="benchmarks">
+<div class="fixture-note"><strong>Evidence status · September 2026 audit.</strong> These are previously reported results, not a new evaluation. Overall benchmark intervals resample tasks from shared commits independently; commit-clustered reanalysis is needed before interpreting separation as firm evidence. No detected difference does not establish equivalence. <a href="audit-2026-09-24.html">Read the audit</a>.</div>
   <div class="section-header">
-    <div class="section-subtitle">06 / EVIDENCE</div>
+    <div class="section-subtitle">04 / EVIDENCE</div>
     <h2 class="section-title">The latest evidence is useful, mixed and narrower than the architecture</h2>
     <p class="section-desc">The current evaluation separates three questions: how efficiently context is retrieved, how accurately impact is predicted, and whether giving that tool to an agent improves the agent’s work. Those questions do not have the same answer.</p>
   </div>
@@ -1053,7 +235,7 @@ mcm index --db mcm.db</code></pre>
   <div class="finding-grid">
     <article class="finding positive">
       <h3>Context efficiency: signal exists</h3>
-      <p>With the default feature-hashing provider, MCM is ahead of vector RAG on 7/10 repositories and level on 3/10; against the hybrid baseline it is ahead on 7/10 and level on 3/10. In the trained-embedding sweep it is ahead of vector RAG on 5/8 and level on 3/8.</p>
+      <p>With the default feature-hashing provider, MCM is ahead of vector RAG on 7/10 repositories and not separated on 3/10; against the hybrid baseline it is ahead on 7/10 and not separated on 3/10. In the trained-embedding sweep it is ahead of vector RAG on 5/8 and not separated on 3/8.</p>
     </article>
     <article class="finding caution">
       <h3>The effect is not uniform</h3>
@@ -1061,7 +243,7 @@ mcm index --db mcm.db</code></pre>
     </article>
     <article class="finding neutral">
       <h3>Impact predictions are selective</h3>
-      <p>The evaluation reports 0.88 precision for impact prediction over five repositories at a 7% firing rate. When the system makes a prediction it is often trustworthy, but it does not fire on most candidate changes.</p>
+      <p>The evaluation reports 42 confirmed predictions out of 48 (rounded precision 0.88), among 685 testable observations across five repositories. The 7% firing rate applies to that testable subset; it is not a measure of reliability on arbitrary changes.</p>
     </article>
     <article class="finding null">
       <h3>Agent benefit: not demonstrated</h3>
@@ -1075,7 +257,7 @@ mcm index --db mcm.db</code></pre>
       <span>23 paired task deltas</span>
     </div>
     <div class="result-copy">
-      <h3>The agent-in-the-loop result is a null</h3>
+      <h3>The agent study does not establish a benefit</h3>
       <p>Across 23 tasks, three trials per condition produced 138 trials, six of which errored. Treatment was better on 5 tasks, worse on 2 and tied on 16, with mean paired delta +0.072. A two-sided sign-flip permutation test gives p = 0.28. The current experiment therefore cannot show that supplying impact analysis makes the agent perform better.</p>
       <p>Only 9 of the 23 tasks were downstream consequences of the target—the class of problem propagation is designed to predict. Eleven were upstream co-requirements and three had no recorded edge.</p>
     </div>
@@ -1085,7 +267,7 @@ mcm index --db mcm.db</code></pre>
     <summary>Complete Sweep A — feature hashing, 10 repositories</summary>
     <div>
       <table class="data-table">
-        <thead><tr><th>Repository</th><th>Tier</th><th>Files</th><th>Tasks</th><th>MCM efficiency</th><th>Best baseline</th><th>Margin</th></tr></thead>
+        <thead><tr><th scope="col">Repository</th><th scope="col">Tier</th><th scope="col">Files</th><th scope="col">Tasks</th><th scope="col">MCM efficiency</th><th scope="col">Best baseline</th><th scope="col">Margin</th></tr></thead>
         <tbody>
           <tr><td>itsdangerous</td><td>tiny</td><td>15</td><td>34</td><td>0.240</td><td>vector-rag 0.130</td><td>+0.110</td></tr>
           <tr><td>python-dotenv</td><td>tiny</td><td>20</td><td>34</td><td>0.088</td><td>hybrid 0.082</td><td>+0.006</td></tr>
@@ -1106,7 +288,7 @@ mcm index --db mcm.db</code></pre>
     <summary>Sweep B — trained MiniLM embedding on GPU, 8 repositories</summary>
     <div>
       <table class="data-table">
-        <thead><tr><th>Repository</th><th>Tier</th><th>Files</th><th>Tasks</th><th>MCM efficiency</th><th>Best baseline</th><th>Margin</th></tr></thead>
+        <thead><tr><th scope="col">Repository</th><th scope="col">Tier</th><th scope="col">Files</th><th scope="col">Tasks</th><th scope="col">MCM efficiency</th><th scope="col">Best baseline</th><th scope="col">Margin</th></tr></thead>
         <tbody>
           <tr><td>itsdangerous</td><td>tiny</td><td>15</td><td>34</td><td>0.205</td><td>hybrid 0.124</td><td>+0.081</td></tr>
           <tr><td>python-dotenv</td><td>tiny</td><td>20</td><td>34</td><td>0.093</td><td>vector-rag 0.102</td><td>-0.008</td></tr>
@@ -1134,6 +316,418 @@ mcm index --db mcm.db</code></pre>
 
   <p class="integration-note">The full methods, bootstrap rules, tuning protocol, provider ablations and limitations are maintained in <a href="evaluation.md">docs/evaluation.md</a>.</p>
 </section>
+
+<section aria-labelledby="lab-heading">
+  <div class="lab-intro">
+    <div>
+      <div class="section-subtitle">05 / RESEARCH LAB</div>
+      <h2 id="lab-heading">Interact with the mechanisms, not the claims.</h2>
+    </div>
+    <p><strong>These browser exercises are fixed fixtures.</strong> They are here to make MCM’s representation and operations inspectable. They do not generate the empirical results reported later on the page; those come from repository-history benchmarks and the separate agent experiment.</p>
+  </div>
+</section>
+    <section id="comparison-sim" class="lab-section">
+      <div class="section-header">
+        <div class="section-subtitle">Research lab · 01</div>
+        <h2 class="section-title">Compare the retrieval strategies</h2>
+        <p class="section-desc">Choose the same engineering task for each representation. This fixture shows what each approach is able to put in front of an agent; it is an explanatory demo, not benchmark evidence.</p>
+      </div>
+
+      <div class="sim-panel">
+<p class="fixture-note">Illustrative fixture. Values and outcomes below explain the mechanism; they are not measured performance or executed tests.</p>
+        <div class="sim-controls">
+          <div class="control-group" style="flex: 1;">
+            <label class="control-label" for="headToHeadScenario">Select Agent Engineering Scenario</label>
+            <select id="headToHeadScenario" onchange="runHeadToHeadSimulation()">
+              <option value="scenario_refactor">Scenario A: Multi-File Signature Refactor (signer.Signer.sign parameter added)</option>
+              <option value="scenario_tests">Scenario B: Transitive Test Regression Audit (serializer.dumps format changed)</option>
+              <option value="scenario_budget">Scenario C: Context Budget Exhaustion (18,450-token codebase into 4,000-token LLM)</option>
+              <option value="scenario_contradiction">Scenario D: Epistemic Contradiction (Agent speculation vs Static AST assertion)</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" style="margin-top: auto; padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="runHeadToHeadSimulation()">Run Comparison</button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); gap: 1.25rem;">
+          <!-- Vector RAG -->
+          <div class="comparison-column" style="border-color: var(--tint-rose-strong);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <h3 style="color: var(--rose);">1. Vector RAG</h3>
+              <span class="pill" style="color: var(--rose); border-color: var(--tint-rose-strong);">Heuristic</span>
+            </div>
+            <div id="vragMetric" class="metric-badge text-rose">3 Chunks (1,840 toks)</div>
+            <p id="vragDesc" style="font-size: 0.85rem; color: var(--text-muted); min-height: 55px; margin-bottom: 0.75rem;">
+              Retrieves arbitrary text chunks via cosine similarity. Fractures AST hierarchy.
+            </p>
+            <div id="vragStatusBox" style="font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
+              <!-- Dynamic -->
+            </div>
+          </div>
+
+          <!-- Graph Memory -->
+          <div class="comparison-column" style="border-color: var(--tint-amber-strong);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <h3 style="color: var(--amber);">2. Graph memory</h3>
+              <span class="pill" style="color: var(--amber); border-color: var(--tint-amber-strong);">Untyped Graph</span>
+            </div>
+            <div id="graphMetric" class="metric-badge text-amber">4 Nodes (780 toks)</div>
+            <p id="graphDesc" style="font-size: 0.85rem; color: var(--text-muted); min-height: 55px; margin-bottom: 0.75rem;">
+              Traverses syntax nodes without calibrated uncertainty or natural-language grounding.
+            </p>
+            <div id="graphStatusBox" style="font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
+              <!-- Dynamic -->
+            </div>
+          </div>
+
+          <!-- MCM -->
+          <div class="comparison-column" style="border-color: var(--tint-emerald-strong); background: var(--tint-emerald);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <h3 style="color: var(--emerald);">3. MCM</h3>
+              <span class="pill" style="color: var(--emerald); border-color: var(--tint-emerald-strong);">Typed + evidence-backed</span>
+            </div>
+            <div id="mcmMetric" class="metric-badge text-emerald">6 Objects (520 toks)</div>
+            <p id="mcmDesc" style="font-size: 0.85rem; color: var(--text-muted); min-height: 55px; margin-bottom: 0.75rem;">
+              Walks typed relations from the change site, carrying a confidence that decays per hop,
+              and checks the result replays against the full store.
+            </p>
+            <div id="mcmStatusBox" style="font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--tint-emerald-strong);">
+              <!-- Dynamic -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="blast-sim" class="lab-section">
+      <div class="section-header">
+        <div class="section-subtitle">Research lab · 02</div>
+        <h2 class="section-title">Walk a change before writing it</h2>
+        <p class="section-desc">Pick a symbol and a typed change. The model traverses dependency relations, attenuates confidence by path, and surfaces callers and tests that may need attention before the edit is made.</p>
+      </div>
+
+      <div class="sim-panel">
+<p class="fixture-note">Illustrative fixture. Values and outcomes below explain the mechanism; they are not measured performance or executed tests.</p>
+        <div class="sim-controls">
+          <div class="control-group">
+            <label class="control-label" for="blastTarget">Target Symbol ($o_{\text{target}}$)</label>
+            <select id="blastTarget" onchange="runBlastSimulation()">
+              <option value="Signer.sign">signer.Signer.sign(value, key=None)</option>
+              <option value="Serializer.dumps">serializer.Serializer.dumps(obj)</option>
+              <option value="Signer.unsign">signer.Signer.unsign(signed_value)</option>
+              <option value="TimestampSigner.unsign">timed.TimestampSigner.unsign(signed_value, max_age)</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="blastKind">Change Kind ($\kappa$)</label>
+            <select id="blastKind" onchange="runBlastSimulation()">
+              <option value="SIGNATURE">SIGNATURE (Alters parameters, forces hop-1 MUST_UPDATE)</option>
+              <option value="REMOVE">REMOVE (Deletes symbol, closes all incident relations)</option>
+              <option value="RENAME">RENAME (Changes qualname, requires caller refactor)</option>
+              <option value="BEHAVIOUR">BEHAVIOUR (Semantic tweak, propagates MAY_DIFFER)</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="decaySlider">Decay Parameter ($\delta$)</label>
+            <input type="range" id="decaySlider" min="0.5" max="0.95" step="0.05" value="0.85" oninput="runBlastSimulation()">
+            <span id="decayVal" style="font-size: 0.75rem; color: var(--secondary); font-family: var(--font-mono);">0.85</span>
+          </div>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="comparison-column">
+            <h3 style="color: var(--primary-ink); margin-bottom: 0.75rem;">Simulated Blast Radius ($K_{t+1}^{\text{pred}}$)</h3>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Calculated dynamically via algebraic backward-propagation:
+            </div>
+            <div id="blastResultsList" style="display: flex; flex-direction: column; gap: 0.6rem; font-family: var(--font-mono); font-size: 0.85rem;">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <div class="comparison-column">
+            <h3 style="color: var(--primary-ink); margin-bottom: 0.75rem;">Cascading Test Regressions</h3>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Tests requiring immediate re-execution before commit:
+            </div>
+            <div id="testBreakList" style="display: flex; flex-direction: column; gap: 0.6rem; font-family: var(--font-mono); font-size: 0.85rem;">
+              <!-- Dynamically populated -->
+            </div>
+            <div style="margin-top: 1.5rem; padding: 0.75rem; background: var(--tint-emerald); border: 1px solid var(--tint-emerald-strong); border-radius: 6px; font-size: 0.82rem; color: var(--emerald-ink);">
+              Illustrative, on a fixed fixture. Prediction quality is evaluated against real co-change
+              history in <code>docs/prediction.md</code>, which also explains why a naive recall score
+              understates it: co-change is symmetric and propagation is not, so an edit <em>upstream</em>
+              of the change can never be reached by any downstream traversal.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="graph-sim" class="lab-section">
+      <div class="section-header">
+        <div class="section-subtitle">Research lab · 03</div>
+        <h2 class="section-title">Inspect the structural memory</h2>
+        <p class="section-desc">This fixed <code>itsdangerous</code> fixture exposes the representation directly: stable symbols, typed edges, evidence-backed links, and confidence carried on the graph.</p>
+      </div>
+
+      <div class="sim-panel">
+<p class="fixture-note">Illustrative fixture. Values and outcomes below explain the mechanism; they are not measured performance or executed tests.</p>
+        <div class="sim-controls">
+          <div class="control-group">
+            <label class="control-label" for="edgeFilter">Filter Edge Relation</label>
+            <select id="edgeFilter" onchange="updateGraphFilter()">
+              <option value="ALL">All Relations (CALLS, INHERITS, TESTS, IMPORTS)</option>
+              <option value="CALLS">Calls Only (Direct &amp; Transitive)</option>
+              <option value="TESTS">Tests Only (Test Coverage)</option>
+              <option value="INHERITS">Inheritance Hierarchy</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="moduleFilter">Highlight Module</label>
+            <select id="moduleFilter" onchange="highlightModule()">
+              <option value="ALL">All Modules</option>
+              <option value="serializer">serializer.py</option>
+              <option value="signer">signer.py</option>
+              <option value="timed">timed.py</option>
+              <option value="test">test_serializer.py</option>
+            </select>
+          </div>
+          <button class="btn btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem; margin-top: auto;" onclick="resetGraphPhysics()">Reset Layout</button>
+        </div>
+
+        <div class="canvas-container">
+          <canvas id="graphCanvas" role="img" aria-label="Illustrative dependency graph; equivalent relationships are listed below."></canvas>
+          <div class="canvas-overlay" id="graphTooltip">
+            Drag nodes to rearrange the illustration. Use the relationship list below for a text equivalent.
+          </div>
+        </div>
+      </div>
+<details class="graph-text"><summary>Read graph relationships</summary><ul id="graphRelationships"></ul></details>
+    </section>
+    <section id="minimisation" class="lab-section">
+      <div class="section-header">
+        <div class="section-subtitle">Research lab · 04</div>
+        <h2 class="section-title">Spend a context budget deliberately</h2>
+        <p class="section-desc">Reduce the context package while preserving the objects, relations and evidence needed for the task. The point is not “fewer tokens” by itself; it is fewer irrelevant tokens without breaking support for the answer.</p>
+      </div>
+
+      <div class="sim-panel">
+<p class="fixture-note">Illustrative fixture. Values and outcomes below explain the mechanism; they are not measured performance or executed tests.</p>
+        <div class="sim-controls">
+          <div class="control-group" style="flex: 1;">
+            <label class="control-label" for="budgetRange">LLM Context Budget ($B$ Tokens): <span id="budgetValue" style="color: var(--secondary); font-family: var(--font-mono);">3,500</span></label>
+            <input type="range" id="budgetRange" min="800" max="10000" step="100" value="3500" oninput="updateMinimisationLab()" style="width: 100%;">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="queryDomain">Query Domain</label>
+            <select id="queryDomain" onchange="updateMinimisationLab()">
+              <option value="auth">Signer Secret Key Verification</option>
+              <option value="serializer">JSON Serialization &amp; Compression</option>
+              <option value="timed">Timestamp Expiration Handling</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="comparison-column" style="border-color: var(--tint-rose-strong);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <h3 style="color: var(--rose);">Standard RAG / File Dump</h3>
+              <span class="pill" style="color: var(--rose); border-color: var(--tint-rose-strong);">Wasteful</span>
+            </div>
+            <div class="metric-badge text-rose" id="ragTokenCount">18,450 tokens</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Full file inclusion dumps comments, utility helpers, and unrelated imports. Overflows small context windows and costs 5.2× more per API call.
+            </p>
+            <div style="font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
+              <div>[Included] serializer.py (entire file: 412 lines)</div>
+              <div>[Included] signer.py (entire file: 328 lines)</div>
+              <div>[Included] timed.py (entire file: 215 lines)</div>
+              <div style="color: var(--rose); margin-top: 0.5rem;"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg> Contains 73% non-essential auxiliary tokens.</div>
+            </div>
+          </div>
+
+          <div class="comparison-column" style="border-color: var(--tint-emerald-strong);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <h3 style="color: var(--emerald);">MCM Minimal Package ($C^*$)</h3>
+              <span class="pill" style="color: var(--emerald); border-color: var(--tint-emerald-strong);">Illustrative support check</span>
+            </div>
+            <div class="metric-badge text-emerald" id="mcmTokenCount">3,420 tokens</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Keeps only what the task entails, then checks three conditions on the result. The ratio
+              below is a fixed assumption of this illustration, not a measured result &mdash; the measured
+              context-efficiency numbers are in the benchmark section.
+            </p>
+            <div style="font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
+              <div style="color: var(--emerald);"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Replay: Deduced closure identical to K</div>
+              <div style="color: var(--emerald);"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Presence: 100% of symbols referenced exist</div>
+              <div style="color: var(--emerald);"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Traceability: Active AST evidence attached</div>
+              <div style="color: var(--secondary); margin-top: 0.5rem;" id="savingsReport">Saved 15,030 tokens (81.4% reduction)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="contradiction-sim" class="lab-section">
+      <div class="section-header">
+        <div class="section-subtitle">Advanced lab · evidence</div>
+        <h2 class="section-title">Resolve conflicting claims</h2>
+        <p class="section-desc">Vary temporal overlap and source reliability to see how incompatible assertions are handled. This demonstrates the model’s separation of observation strength, provenance reliability and time.</p>
+      </div>
+
+      <div class="sim-panel">
+<p class="fixture-note">Illustrative fixture. Values and outcomes below explain the mechanism; they are not measured performance or executed tests.</p>
+        <div class="sim-controls">
+          <div class="control-group" style="flex: 1;">
+            <label class="control-label" for="conflictScenario">Conflicting Assertion Scenario</label>
+            <select id="conflictScenario" onchange="runContradictionLab()">
+              <option value="return_type">Signer.sign return type: [AST: str] vs [Agent Speculation: bytes]</option>
+              <option value="caller_link">Serializer.dumps calls: [Diff t=20: Signer.sign] vs [Diff t=10: Signer.raw_sign]</option>
+              <option value="interface_compat">TimestampSigner implements: [AST: ISigner] vs [Outdated Spec: IToken]</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="comparison-column">
+            <h3 style="color: var(--primary-ink); margin-bottom: 0.75rem;">Assertion 1: Earlier / Established Claim</h3>
+            <div class="control-group" style="margin-bottom: 0.75rem;">
+              <label class="control-label" for="t1Slider">Commit Timestamp ($t_1$): <span id="t1Val" style="color: var(--secondary);">100</span></label>
+              <input type="range" id="t1Slider" min="50" max="200" value="100" oninput="runContradictionLab()">
+            </div>
+            <div class="control-group" style="margin-bottom: 0.75rem;">
+              <label class="control-label" for="r1Slider">Provenance Reliability ($r_1$): <span id="r1Val" style="color: var(--secondary);">1.00</span></label>
+              <input type="range" id="r1Slider" min="0.1" max="1.0" step="0.05" value="1.0" oninput="runContradictionLab()">
+            </div>
+            <div id="assertion1Details" style="font-family: var(--font-mono); font-size: 0.8rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
+              <!-- Dynamic -->
+            </div>
+          </div>
+
+          <div class="comparison-column">
+            <h3 style="color: var(--primary-ink); margin-bottom: 0.75rem;">Assertion 2: Incoming / New Claim</h3>
+            <div class="control-group" style="margin-bottom: 0.75rem;">
+              <label class="control-label" for="t2Slider">Commit Timestamp ($t_2$): <span id="t2Val" style="color: var(--secondary);">125</span></label>
+              <input type="range" id="t2Slider" min="50" max="200" value="125" oninput="runContradictionLab()">
+            </div>
+            <div class="control-group" style="margin-bottom: 0.75rem;">
+              <label class="control-label" for="r2Slider">Provenance Reliability ($r_2$): <span id="r2Val" style="color: var(--secondary);">0.65</span></label>
+              <input type="range" id="r2Slider" min="0.1" max="1.0" step="0.05" value="0.65" oninput="runContradictionLab()">
+            </div>
+            <div id="assertion2Details" style="font-family: var(--font-mono); font-size: 0.8rem; background: var(--bg-inset); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
+              <!-- Dynamic -->
+            </div>
+          </div>
+        </div>
+
+        <div id="contradictionVerdictBox" style="margin-top: 1.25rem; padding: 1rem; border-radius: 8px; font-family: var(--font-mono); font-size: 0.85rem;">
+          <!-- Dynamic Verdict -->
+        </div>
+      </div>
+    </section>
+    <section id="simplex-sim" class="lab-section">
+      <div class="section-header">
+        <div class="section-subtitle">Advanced lab · ranking</div>
+        <h2 class="section-title">See how retrieval channels trade off</h2>
+        <p class="section-desc">Adjust the five retrieval weights and watch the ranking move. The production tuner searches this simplex; the browser fixture makes the interaction visible.</p>
+      </div>
+
+      <div class="sim-panel">
+<p class="fixture-note">Illustrative fixture. Values and outcomes below explain the mechanism; they are not measured performance or executed tests.</p>
+        <div class="sim-controls">
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button class="btn btn-outline" style="padding: 0.35rem 0.8rem; font-size: 0.8rem;" onclick="setPresetSimplex('mcm')">Preset: MCM Tuned Centroid</button>
+            <button class="btn btn-outline" style="padding: 0.35rem 0.8rem; font-size: 0.8rem;" onclick="setPresetSimplex('dense')">Preset: Vector RAG Only ($w_v=1.0$)</button>
+            <button class="btn btn-outline" style="padding: 0.35rem 0.8rem; font-size: 0.8rem;" onclick="setPresetSimplex('lexical')">Preset: BM25 Only ($w_l=1.0$)</button>
+            <button class="btn btn-outline" style="padding: 0.35rem 0.8rem; font-size: 0.8rem;" onclick="setPresetSimplex('graph')">Preset: Graph Memory Only ($w_g=1.0$)</button>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
+          <div class="control-group">
+            <label class="control-label" for="wvSlider">Vector Weight ($w_v$): <span id="wvVal" style="color: var(--secondary);">0.35</span></label>
+            <input type="range" id="wvSlider" min="0" max="1" step="0.05" value="0.35" oninput="normalizeSimplexWeights('v')">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="wlSlider">Lexical BM25 ($w_l$): <span id="wlVal" style="color: var(--secondary);">0.25</span></label>
+            <input type="range" id="wlSlider" min="0" max="1" step="0.05" value="0.25" oninput="normalizeSimplexWeights('l')">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="wgSlider">Graph Proximity ($w_g$): <span id="wgVal" style="color: var(--secondary);">0.20</span></label>
+            <input type="range" id="wgSlider" min="0" max="1" step="0.05" value="0.20" oninput="normalizeSimplexWeights('g')">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="wsSlider">Exact Symbolic ($w_s$): <span id="wsVal" style="color: var(--secondary);">0.10</span></label>
+            <input type="range" id="wsSlider" min="0" max="1" step="0.05" value="0.10" oninput="normalizeSimplexWeights('s')">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="wpSlider">Provenance ($w_p$): <span id="wpVal" style="color: var(--secondary);">0.10</span></label>
+            <input type="range" id="wpSlider" min="0" max="1" step="0.05" value="0.10" oninput="normalizeSimplexWeights('p')">
+          </div>
+        </div>
+
+        <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+            <h3 style="color: var(--primary-ink); font-size: 0.95rem;">Ranked Code Candidates for Query: <code style="color: var(--secondary-ink);">"Verify cryptographic token signature"</code></h3>
+            <span class="pill" style="color: var(--text-dim);">Illustrative &mdash; fixed fixture, computed in-browser</span>
+          </div>
+          <div id="simplexResultsTable" style="display: flex; flex-direction: column; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.82rem;">
+            <!-- Dynamic -->
+          </div>
+        </div>
+      </div>
+    </section>
+    
+<section id="use-it">
+  <div class="section-header">
+    <div class="section-subtitle">06 / USE IT</div>
+    <h2 class="section-title">Index locally, then expose MCM as an agent tool</h2>
+    <p class="section-desc">The default indexer and hashed embedding provider are local. The MCP server runs over stdio, so an agent can query the same store without a separate service.</p>
+  </div>
+
+  <div class="integration-grid">
+    <div class="integration-card">
+      <h3>1. Create the index</h3>
+      <pre><code>git clone https://github.com/abusuraihsakhri/mcm.git
+cd mcm
+python -m venv .venv
+pip install -e ".[dev,api]"
+
+mcm ingest /path/to/repo --db mcm.db
+mcm index --db mcm.db</code></pre>
+      <p class="integration-note">Current repository measurements report roughly 66 files/s; Django’s 2,932 Python files index in about 44 seconds on the test laptop.</p>
+    </div>
+
+    <div class="integration-card">
+      <h3>2. Connect your agent</h3>
+      <div class="control-group">
+        <label class="control-label" for="clientSelect">Client configuration</label>
+        <select id="clientSelect" onchange="updateClientConfig()">
+          <option value="claude">Claude Code</option>
+          <option value="cursor">Cursor</option>
+          <option value="codex">Codex CLI</option>
+          <option value="opencode">OpenCode</option>
+          <option value="antigravity">Antigravity</option>
+        </select>
+      </div>
+      <div id="clientPath" class="integration-note"></div>
+      <pre><code id="clientConfig"></code></pre>
+      <div id="clientNote" class="integration-note"></div>
+    </div>
+  </div>
+
+  <table class="tool-table">
+    <thead><tr><th scope="col">MCP tool</th><th scope="col">What it gives the agent</th></tr></thead>
+    <tbody>
+      <tr><td>mcm_search</td><td>Definitions ranked by semantic, lexical, structural, symbolic and provenance channels.</td></tr>
+      <tr><td>mcm_impact</td><td>Potential downstream consequences of a typed proposed change, before the edit.</td></tr>
+      <tr><td>mcm_context</td><td>A bounded, evidence-backed context package for the current task.</td></tr>
+      <tr><td>mcm_constraints</td><td>Checks against declared architectural constraints.</td></tr>
+      <tr><td>mcm_ingest</td><td>Indexes or refreshes a repository from the agent session.</td></tr>
+    </tbody>
+  </table>
+  <p class="integration-note">Use absolute paths for the MCP executable and database. Repository content stays in the local SQLite index unless you explicitly use external model-provider experiment scripts.</p>
+</section>
+    
     <section id="agent-api" class="api-section">
       <div class="section-header">
         <div class="section-subtitle">Service interface</div>
@@ -1146,9 +740,10 @@ mcm index --db mcm.db</code></pre>
       </div>
 
       <div class="sim-panel">
+<p class="fixture-note">Illustrative fixture. Values and outcomes below explain the mechanism; they are not measured performance or executed tests.</p>
         <div class="sim-controls">
           <div class="control-group">
-            <span class="control-label">Preset Agent Action</span>
+            <label class="control-label" for="agentActionSelect">Preset Agent Action</label>
             <select id="agentActionSelect" onchange="updateAgentMockTerminal()">
               <option value="simulate">POST /impact &mdash; what a change reaches</option>
               <option value="minimal">POST /query &mdash; impact and dependency modes</option>
@@ -1156,7 +751,7 @@ mcm index --db mcm.db</code></pre>
               <option value="dynamic">POST /observations/trace &mdash; feed a runtime trace back</option>
             </select>
           </div>
-          <button class="btn btn-primary" style="padding: 0.45rem 1.1rem; font-size: 0.85rem; margin-top: auto;" onclick="executeAgentMockCall()">Execute Request</button>
+          <button class="btn btn-primary" style="padding: 0.45rem 1.1rem; font-size: 0.85rem; margin-top: auto;" onclick="executeAgentMockCall()">Show example response</button>
         </div>
 
         <pre><code id="agentCodeOutput">{
@@ -1270,6 +865,7 @@ mcm index --db mcm.db</code></pre>
     }
 
     // --- Safe Math Rendering ---
+    let mathAttempts = 0;
     function renderMathSafely() {
       if (window.renderMathInElement && document.body) {
         try {
@@ -1285,7 +881,7 @@ mcm index --db mcm.db</code></pre>
           console.warn("KaTeX notice:", e);
         }
       } else {
-        setTimeout(renderMathSafely, 150);
+        if (++mathAttempts < 20) setTimeout(renderMathSafely, 150);
       }
     }
 
@@ -1345,6 +941,7 @@ mcm index --db mcm.db</code></pre>
       canvas = document.getElementById("graphCanvas");
       if (!canvas) return;
       ctx = canvas.getContext("2d");
+      if (!ctx) return;
 
       function resize() {
         dpr = window.devicePixelRatio || 1;
@@ -1426,7 +1023,7 @@ mcm index --db mcm.db</code></pre>
                             `<span style="color: var(--secondary);">Qualname:</span> repo://itsdangerous#${hovered.id}<br>` +
                             `<span style="color: var(--emerald);">Confidence:</span> 1.000 (AST Verified)`;
           } else {
-            tip.innerHTML = "Hover over a node or drag to inspect qualname identity and relational confidence.";
+            tip.innerHTML = "Drag nodes to rearrange the illustration. Use the relationship list below for a text equivalent.";
           }
         }
       }
@@ -1450,37 +1047,6 @@ mcm index --db mcm.db</code></pre>
       ctx.save();
       ctx.scale(dpr, dpr);
       ctx.clearRect(0, 0, logicalW, logicalH);
-
-      // Node repulsion physics
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const n1 = nodes[i];
-          const n2 = nodes[j];
-          const dx = n2.x - n1.x;
-          const dy = n2.y - n1.y;
-          const dist = Math.max(Math.sqrt(dx*dx + dy*dy), 1);
-          if (dist < 120) {
-            const f = (120 - dist) * 0.003;
-            if (n1 !== draggedNode) { n1.x -= dx * f; n1.y -= dy * f; }
-            if (n2 !== draggedNode) { n2.x += dx * f; n2.y += dy * f; }
-          }
-        }
-      }
-
-      // Edge spring attraction
-      for (const e of edges) {
-        const n1 = nodes.find(n => n.id === e.source);
-        const n2 = nodes.find(n => n.id === e.target);
-        if (n1 && n2) {
-          const dx = n2.x - n1.x;
-          const dy = n2.y - n1.y;
-          const dist = Math.max(Math.sqrt(dx*dx + dy*dy), 1);
-          const targetDist = 90;
-          const f = (dist - targetDist) * 0.0015;
-          if (n1 !== draggedNode) { n1.x += dx * f; n1.y += dy * f; }
-          if (n2 !== draggedNode) { n2.x -= dx * f; n2.y -= dy * f; }
-        }
-      }
 
       // Keep within bounds
       for (const n of nodes) {
@@ -1514,7 +1080,7 @@ mcm index --db mcm.db</code></pre>
         ctx.arc(n.x, n.y, n.r + (isHighlighted ? 4 : 0), 0, Math.PI * 2);
         ctx.fillStyle = isHighlighted ? tone("--rose") : tone(n.color);
         ctx.shadowColor = isHighlighted ? tone("--rose") : tone(n.color);
-        ctx.shadowBlur = isHighlighted ? 18 : 6;
+        ctx.shadowBlur = 0;
         ctx.fill();
         ctx.shadowBlur = 0;
 
@@ -1529,7 +1095,6 @@ mcm index --db mcm.db</code></pre>
       }
 
       ctx.restore();
-      requestAnimationFrame(animateGraph);
     }
 
     function updateGraphFilter() {
@@ -1576,7 +1141,7 @@ mcm index --db mcm.db</code></pre>
         vMetric.innerText = "3 Chunks (1,840 toks)";
         vDesc.innerText = "Retrieves sign() docstring and Signer class header, but misses indirect caller Serializer.dumps() in another file.";
         vBox.innerHTML = "<div style='color: var(--rose); font-weight: 700;'><svg class='icon' aria-hidden='true'><use href='#i-alert'/></svg> Missing Caller: Serializer.dumps()</div>" +
-                         "<div style='color: var(--rose);'><svg class='icon' aria-hidden='true'><use href='#i-alert'/></svg> 0% Pre-Action Safety</div>" +
+                         "<div style='color: var(--rose);'><svg class='icon' aria-hidden='true'><use href='#i-alert'/></svg> No impact output in this fixture</div>" +
                          "<div style='color: var(--text-dim); margin-top: 0.35rem;'>Result: Agent refactors sign(), breaks serializer.py on runtime.</div>";
 
         gMetric.innerText = "4 Nodes (780 toks)";
@@ -1587,8 +1152,8 @@ mcm index --db mcm.db</code></pre>
 
         mMetric.innerText = "6 Objects (520 toks)";
         mDesc.innerText = "Formal pre-action causal simulation calculates hop-1 MUST_UPDATE and hop-2 MAY_DIFFER with qualname grounding.";
-        mBox.innerHTML = "<div style='color: var(--emerald); font-weight: 700;'><svg class='icon' aria-hidden='true'><use href='#i-check'/></svg> Exact Blast Radius: Serializer.dumps (c=1.0)</div>" +
-                         "<div style='color: var(--emerald);'><svg class='icon' aria-hidden='true'><use href='#i-check'/></svg> Identified 2 Failing Test Suites</div>" +
+        mBox.innerHTML = "<div style='color: var(--emerald); font-weight: 700;'><svg class='icon' aria-hidden='true'><use href='#i-check'/></svg> Illustrative affected set: Serializer.dumps (c=1.0)</div>" +
+                         "<div style='color: var(--emerald);'><svg class='icon' aria-hidden='true'><use href='#i-check'/></svg> 2 illustrative test candidates</div>" +
                          "<div style='color: var(--secondary); margin-top: 0.35rem;'>Result: Agent receives typed deltas and fixes callers proactively.</div>";
       } else if (scenario === "scenario_tests") {
         vMetric.innerText = "2 Chunks (1,200 toks)";
@@ -1914,7 +1479,7 @@ mcm index --db mcm.db</code></pre>
     function executeAgentMockCall() {
       const action = document.getElementById("agentActionSelect").value;
       const out = document.getElementById("agentCodeOutput");
-      out.innerText = "Executing request against MCM Semantic Core...\n";
+      out.innerText = "Preparing illustrative response (no request is sent)...\n";
 
       setTimeout(() => {
         if (action === "simulate") {
@@ -1959,9 +1524,9 @@ mcm index --db mcm.db</code></pre>
           out.innerText = JSON.stringify({
             "status": "INGESTED",
             "relation_id": "rel-99824",
-            "updated_confidence": 0.982,
+            "updated_confidence": 0.96,
             "channel": "sys.settrace",
-            "bayesian_update": "Ct+1 = (0.95 * 4 + 1.0) / 5 = 0.98"
+            "bayesian_update": "Ct+1 = (0.95 * 4 + 1.0) / 5 = 0.96"
           }, null, 2);
         }
       }, 250);
@@ -2097,6 +1662,21 @@ startup_timeout_sec = 20`,
       initSectionSpy();
       renderMathSafely();
       initGraph();
+      const repaintGraph = () => { if (ctx) requestAnimationFrame(animateGraph); };
+      document.addEventListener("input", repaintGraph);
+      document.addEventListener("change", repaintGraph);
+      document.addEventListener("click", repaintGraph);
+      window.addEventListener("resize", repaintGraph);
+      canvas.addEventListener("mousemove", repaintGraph);
+      canvas.addEventListener("touchmove", repaintGraph, {passive: true});
+      const graphList = document.getElementById("graphRelationships");
+      for (const edge of edges) {
+        const item = document.createElement("li");
+        const from = nodes.find(node => node.id === edge.source);
+        const to = nodes.find(node => node.id === edge.target);
+        item.textContent = `${from.label} — ${edge.type} → ${to.label}`;
+        graphList.appendChild(item);
+      }
       runHeadToHeadSimulation();
       runBlastSimulation();
       updateMinimisationLab();
