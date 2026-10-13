@@ -148,10 +148,9 @@ else in the system changes. None is bundled: it cannot be exercised offline, and
 untested backend in the default install would be a worse claim than no backend. This
 follows the same decision made for embedding providers in step 14.
 
-A configured backend is consulted whenever parseable source text differs, even
-when normal forms match. Identical source needs no backend. Cheap
-answers first - identical normal forms settle the question without paying for
-saturation - and there is a test asserting the backend is not called in that case.
+A configured backend is consulted whenever source text differs, even when
+normal forms match. Identical parseable source under the same execution
+environment needs no backend, and a regression test covers this shortcut.
 
 ## Relations are built, not written
 
