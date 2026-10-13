@@ -7,8 +7,8 @@ Two digests per definition, both computed from its source text:
     differ only in comments and whitespace.
 ``normal_form``
     The same tree with the definition's own name and its parameters renamed to
-    positional placeholders. Two definitions sharing this digest are grouped by a limited name-
-    normalization heuristic. This is not proof of semantic equivalence.
+    positional placeholders. Equal digests indicate a limited structural
+    normalization, not proof of semantic equivalence.
 
 **Every node is included, named and anonymous.** Skipping anonymous tokens is the
 usual shortcut for AST comparison and it is wrong here: tree-sitter records the
@@ -17,9 +17,8 @@ and ``a - b`` identical. Keeping them means a purely cosmetic difference that
 tree-sitter tokenises - an added trailing comma, for instance - reads as a
 difference too.
 
-That error is one-directional, which is the point. These digests can say two texts
-differ when they are cosmetically the same; they do not by themselves prove that two definitions behave identically. Given the domain hierarchy in ``engine.py`` - where a negative result
-is never allowed to propagate to a stronger domain - that is the safe direction.
+These digests can also distinguish cosmetically equivalent texts. Neither
+matching nor differing digests alone establish semantic equivalence.
 
 Docstrings are kept in the digest. Dropping them would let a docstring rewrite be
 reported as a cosmetic edit, and a docstring is a string literal the module really
