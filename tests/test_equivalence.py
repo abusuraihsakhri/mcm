@@ -101,6 +101,23 @@ class TestNormalisation:
         assert base.ast != other.ast
         assert base.normal_form != other.normal_form
 
+    def test_attribute_names_are_not_normalized_as_parameter_bindings(self):
+        left = "def f(x):\\n    return obj.x\\n".replace("\\n", "\n")
+        right = "def f(y):\\n    return obj.y\\n".replace("\\n", "\n")
+        assert forms_of(left).normal_form != forms_of(right).normal_form
+        result = EquivalenceEngine().compare_sources(left, right, domain=Domain.SEMANTIC)
+        assert result.verdict is Verdict.UNKNOWN
+
+    def test_keyword_labels_are_not_parameter_bindings(self):
+        left = "def f(x):\\n    return call(x=x)\\n".replace("\\n", "\n")
+        right = "def f(y):\\n    return call(x=y)\\n".replace("\\n", "\n")
+        assert forms_of(left).normal_form == forms_of(right).normal_form
+
+    def test_free_identifier_cannot_collide_with_normalized_placeholder(self):
+        left = "def f(x):\\n    return x + v0\\n".replace("\\n", "\n")
+        right = "def f(v0):\\n    return v0 + v0\\n".replace("\\n", "\n")
+        assert forms_of(left).normal_form != forms_of(right).normal_form
+
     def test_free_identifiers_are_never_renamed(self):
         """Renaming a callee would erase the reference the rest of the semantic
         model is built on. Two functions calling different things are not
@@ -144,12 +161,21 @@ class TestDomains:
 class TestTheHierarchy:
     """Equality propagates rightwards; inequality must not."""
 
-    def test_matching_normal_forms_settle_the_semantic_question(self, engine):
-        """Two definitions differing only in the names they bind compute the same
-        thing, so semantics follow from the weaker domain."""
+    def test_matching_normal_forms_do_not_prove_semantics(self, engine):
+        """Parameter renames can change Python keyword-call compatibility."""
         result = engine.compare_sources(BASE, RENAMED_PARAMS, domain=Domain.SEMANTIC)
+        assert result.verdict is Verdict.UNKNOWN
+        assert result.witness is None
+
+    def test_identical_parseable_source_settles_semantics(self, engine):
+        result = engine.compare_sources(BASE, BASE, domain=Domain.SEMANTIC)
         assert result.verdict is Verdict.EQUIVALENT
-        assert result.witness is Domain.NORMAL_FORM
+        assert result.witness is Domain.SYNTACTIC
+
+    def test_invalid_identical_source_does_not_prove_semantics(self, engine):
+        result = engine.compare_sources("def broken(:", "def broken(:",
+                                        domain=Domain.SEMANTIC)
+        assert result.verdict is Verdict.UNKNOWN
 
     def test_differing_normal_forms_leave_semantics_undecided(self, engine):
         """The load-bearing test. These two really do compute the same thing, and
@@ -201,9 +227,8 @@ class TestSaturationBackend:
         assert result.verdict is Verdict.EQUIVALENT
         assert "oracle" in result.reason
 
-    def test_a_backend_is_not_consulted_when_the_forms_already_match(self):
-        """Cheap answers first: identical normal forms settle it without paying
-        for saturation."""
+    def test_a_backend_is_not_consulted_for_identical_source(self):
+        """Parseable, identical text requires no external solver."""
 
         class Explode:
             name = "explode"
@@ -212,7 +237,7 @@ class TestSaturationBackend:
                 raise AssertionError("should not be consulted")
 
         assert EquivalenceEngine(backend=Explode()).compare_sources(
-            BASE, RENAMED_PARAMS, domain=Domain.SEMANTIC).equivalent
+            BASE, BASE, domain=Domain.SEMANTIC).equivalent
 
 
 class TestIngestedDigests:
@@ -282,7 +307,7 @@ class TestRelationConstruction:
         assert relation.properties["domain"] == "normal_form"
 
     def test_a_semantic_result_uses_the_semantic_relation_type(self):
-        result = EquivalenceEngine().compare_sources(BASE, RENAMED_PARAMS,
+        result = EquivalenceEngine().compare_sources(BASE, BASE,
                                                      domain=Domain.SEMANTIC)
         relation = equivalence_relation("a://x", "a://y", result)
         assert relation.relation_type is RT.SEMANTICALLY_EQUIVALENT_TO

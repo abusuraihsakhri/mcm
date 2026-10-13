@@ -7,8 +7,8 @@ Two digests per definition, both computed from its source text:
     differ only in comments and whitespace.
 ``normal_form``
     The same tree with the definition's own name and its parameters renamed to
-    positional placeholders. Two definitions sharing this digest differ only in
-    what they call themselves and their arguments.
+    positional placeholders. Equal digests indicate a limited structural
+    normalization, not proof of semantic equivalence.
 
 **Every node is included, named and anonymous.** Skipping anonymous tokens is the
 usual shortcut for AST comparison and it is wrong here: tree-sitter records the
@@ -17,10 +17,8 @@ and ``a - b`` identical. Keeping them means a purely cosmetic difference that
 tree-sitter tokenises - an added trailing comma, for instance - reads as a
 difference too.
 
-That error is one-directional, which is the point. These digests can say two texts
-differ when they are cosmetically the same; they can never say two texts match when
-they do not. Given the domain hierarchy in ``engine.py`` - where a negative result
-is never allowed to propagate to a stronger domain - that is the safe direction.
+These digests can also distinguish cosmetically equivalent texts. Neither
+matching nor differing digests alone establish semantic equivalence.
 
 Docstrings are kept in the digest. Dropping them would let a docstring rewrite be
 reported as a cosmetic edit, and a docstring is a string literal the module really
@@ -161,8 +159,16 @@ def _collect(node: Node, renames: dict[str, str], out: list[str]) -> None:
         return
     if node.child_count == 0:
         text = _text(node)
-        if node.type == "identifier" and text in renames:
-            out.append(f"identifier:{renames[text]}")
+        # Attribute names and keyword argument labels are externally visible.
+        parent = node.parent
+        external_name = parent is not None and (
+            (parent.type == "attribute" and parent.child_by_field_name("attribute") == node)
+            or (parent.type == "keyword_argument"
+                and parent.child_by_field_name("name") == node)
+        )
+        if node.type == "identifier" and text in renames and not external_name:
+            # Distinct token kind avoids colliding with free identifiers like v0.
+            out.append(f"bound_identifier:{renames[text]}")
         else:
             out.append(f"{node.type}:{text}")
         return
