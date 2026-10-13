@@ -82,7 +82,8 @@ The normalizer must also keep attribute selectors and keyword argument labels
 unchanged and distinguish placeholders from free identifiers. Even with these
 safeguards, normal-form equality is structural, not proof of semantic equality.
 
-**Only bound names are renamed** - the definition's own name and its parameters.
+**Only selected names are renamed** - the definition's own name and parameters.
+This is a heuristic, not complete lexical binding analysis.
 Every other identifier is a free name, a call to another function or an imported
 symbol, and renaming those would erase the references the rest of the semantic model
 is built on. Two functions that call different things are not equivalent under any
