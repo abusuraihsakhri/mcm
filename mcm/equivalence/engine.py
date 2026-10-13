@@ -15,16 +15,12 @@ reimplementation and not a stub. Nothing here tries to be egg.
 
     syntactic  ⟹  AST  ⟹  normal-form  ⟹  semantic
 
-Equality at any domain implies equality at every weaker-discriminating domain to
-its right. The consequence that matters is the one running the other way:
-
-**A negative result must never propagate rightwards.** Two functions with different
-normal forms may compute exactly the same thing - that is the ordinary case, not a
-corner case. So ``SEMANTIC`` can return ``EQUIVALENT`` on the strength of matching
-normal forms, and must never return ``NOT_EQUIVALENT`` without a backend able to
-*prove* inequivalence. Getting this backwards is the one genuinely damaging thing
-this module could do: it would let a refactoring agent conclude that two
-implementations differ because they were spelled differently.
+Digest equality establishes membership in the corresponding syntactic, AST or
+normal-form class, but alpha-renaming is not generally semantics-preserving for
+Python's keyword calls, reflection or attribute lookup. The semantic domain may
+accept identical, parseable source text in an otherwise identical environment,
+or a decision from an explicitly configured backend. All other comparisons
+without proof remain UNKNOWN. Different digests never prove semantic inequality.
 
 Verdicts are three-way for the same reason the constraint engine's are (spec
 section 13): a question that was not decided must not answer as though it were.
@@ -117,9 +113,8 @@ class EquivalenceResult:
     domain: Domain
     verdict: Verdict
     reason: str
-    #: The domain that actually settled it. For a semantic EQUIVALENT this is
-    #: NORMAL_FORM, because that is what was checked and what a reader should be
-    #: able to audit.
+    #: The domain that actually settled it. For an intrinsic semantic
+    #: EQUIVALENT this is SYNTACTIC, not the heuristic normal form.
     witness: Domain | None = None
 
     @property
@@ -165,8 +160,8 @@ class EquivalenceEngine:
                 sources: tuple[str, str] | None = None) -> EquivalenceResult:
         """Compare two fingerprints under ``domain``.
 
-        ``sources`` is needed only for ``SEMANTIC`` with a backend configured, and
-        only when the normal forms already differ.
+        ``sources`` is needed for ``SEMANTIC`` with a backend configured
+        when identical parseable source text has not settled the question.
         """
         if domain is Domain.SEMANTIC:
             return self._semantic(left, right, sources)
@@ -210,22 +205,19 @@ class EquivalenceEngine:
 
     def _semantic(self, left: Fingerprint, right: Fingerprint,
                   sources: tuple[str, str] | None) -> EquivalenceResult:
-        """Semantic equivalence, answered only where it can be.
+        """Avoid promoting heuristic normal-form matches to semantic proofs.
 
-        The positive direction comes free from the hierarchy: two definitions with
-        the same normal form differ only in the names of their own parameters, so
-        their semantics coincide.
-
-        The negative direction does not come free and is never inferred. Different
-        normal forms are the normal state of two implementations of the same thing.
+        Renaming a parameter can change keyword-call behavior, inspection
+        signatures and attribute access. Identical valid text is the only
+        source-only equivalence this adapter accepts, conditional on equivalent
+        execution environments.
         """
-        normal = self._by_digest(left, right, Domain.NORMAL_FORM)
-        if normal.verdict is Verdict.EQUIVALENT:
+        if (left.text is not None and left.text == right.text
+                and left.normal_form is not None and right.normal_form is not None):
             return EquivalenceResult(
                 Domain.SEMANTIC, Verdict.EQUIVALENT,
-                "normal forms coincide, so the definitions differ only in the "
-                "names they bind; semantics follow",
-                Domain.NORMAL_FORM)
+                "identical parseable source under the same execution environment",
+                Domain.SYNTACTIC)
 
         if sources is not None and not isinstance(self.backend, NoBackend):
             verdict, reason = self.backend.compare(*sources)
@@ -235,8 +227,9 @@ class EquivalenceEngine:
 
         return EquivalenceResult(
             Domain.SEMANTIC, Verdict.UNKNOWN,
-            "normal forms differ, which says nothing about semantics; deciding "
-            f"this needs {SEMANTIC_REQUIREMENT}")
+            "source or normal-form similarity alone cannot establish Python "
+            "semantic equivalence (keyword arguments, reflection and scope can "
+            f"matter); deciding this needs {SEMANTIC_REQUIREMENT}")
 
 
 # --- fingerprints ---------------------------------------------------------
