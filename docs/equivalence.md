@@ -35,11 +35,12 @@ gone.
 ## The hierarchy, and the direction that matters
 
 ```
-syntactic  ⟹  AST  ⟹  normal-form  ⟹  semantic
+syntactic  ⟹  AST  ⟹  normal-form
 ```
 
-Equality propagates rightwards. Two definitions with identical text have identical
-trees, and so on up to semantics.
+These arrows describe progressively less discriminating structural fingerprints,
+not proof of semantics. Alpha-renaming may change keyword-call behavior and
+reflection in Python. Semantic comparison needs stronger evidence.
 
 **Inequality never propagates rightwards, and this is the load-bearing rule.** Two
 functions with different normal forms may compute exactly the same thing - that is
@@ -53,9 +54,10 @@ def area(w, h):            def area(w, h):
                                return total
 ```
 
-So `SEMANTIC` may return `EQUIVALENT` on the strength of matching normal forms, and
-must **never** return `NOT_EQUIVALENT` without a backend able to prove
-inequivalence. Without one the answer is `UNKNOWN`, naming what would settle it.
+`SEMANTIC` returns `EQUIVALENT` for identical parseable source under the same
+execution environment, or if a configured backend proves it. Distinct source
+strings return `UNKNOWN` without a backend, even when normal forms match. It
+does not infer inequivalence from different digests.
 
 Getting this backwards is the one genuinely damaging mistake available here: it
 would let a refactoring agent conclude two implementations differ because they were
@@ -73,13 +75,12 @@ Normal forms come from tree-sitter, the parser ingestion already uses.
 usual shortcut for AST comparison and it is wrong here: tree-sitter records the
 operator in `a + b` as an anonymous child, so dropping those would make `a + b` and
 `a - b` identical. That would be a false *positive* - claiming equivalence that does
-not hold - which the hierarchy then propagates all the way to a semantic
-`EQUIVALENT`.
+not hold - which must not be promoted to a semantic `EQUIVALENT`.
 
-Keeping them means the opposite error is possible: an added trailing comma reads as
-a difference. That error is one-directional and safe. These digests can say two
-texts differ when they are cosmetically the same; they can never say two texts match
-when they do not.
+Keeping them can make cosmetically similar definitions receive different digests.
+The normalizer must also keep attribute selectors and keyword argument labels
+unchanged and distinguish placeholders from free identifiers. Even with these
+safeguards, normal-form equality is structural, not proof of semantic equality.
 
 **Only bound names are renamed** - the definition's own name and its parameters.
 Every other identifier is a free name, a call to another function or an imported
@@ -147,7 +148,8 @@ else in the system changes. None is bundled: it cannot be exercised offline, and
 untested backend in the default install would be a worse claim than no backend. This
 follows the same decision made for embedding providers in step 14.
 
-A configured backend is consulted only when the normal forms already differ. Cheap
+A configured backend is consulted whenever parseable source text differs, even
+when normal forms match. Identical source needs no backend. Cheap
 answers first - identical normal forms settle the question without paying for
 saturation - and there is a test asserting the backend is not called in that case.
 
