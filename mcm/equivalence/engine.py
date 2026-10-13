@@ -13,7 +13,7 @@ reimplementation and not a stub. Nothing here tries to be egg.
 
 ## The hierarchy is the load-bearing part
 
-    syntactic  ⟹  AST  ⟹  normal-form  ⟹  semantic
+    syntactic  ⟹  AST  ⟹  normal-form
 
 Digest equality establishes membership in the corresponding syntactic, AST or
 normal-form class, but alpha-renaming is not generally semantics-preserving for
